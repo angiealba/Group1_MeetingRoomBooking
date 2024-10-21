@@ -1,0 +1,51 @@
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Services.deps.json
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Services.dll
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Services.pdb
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Data.dll
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Resources.dll
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Data.pdb
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Resources.pdb
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.csproj.AssemblyReference.cache
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.AssemblyInfoInputs.cache
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.AssemblyInfo.cs
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.csproj.CoreCompileInputs.cache
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.csproj.CopyComplete
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.dll
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Services\obj\Debug\net6.0\refint\ASI.Basecode.Services.dll
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.pdb
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Services\obj\Debug\net6.0\ref\ASI.Basecode.Services.dll
+C:\Repository\ASIBaseCode\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Services.deps.json
+C:\Repository\ASIBaseCode\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Services.dll
+C:\Repository\ASIBaseCode\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Services.pdb
+C:\Repository\ASIBaseCode\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Data.dll
+C:\Repository\ASIBaseCode\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Resources.dll
+C:\Repository\ASIBaseCode\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Data.pdb
+C:\Repository\ASIBaseCode\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Resources.pdb
+C:\Repository\ASIBaseCode\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.csproj.AssemblyReference.cache
+C:\Repository\ASIBaseCode\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Repository\ASIBaseCode\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.AssemblyInfoInputs.cache
+C:\Repository\ASIBaseCode\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.AssemblyInfo.cs
+C:\Repository\ASIBaseCode\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.csproj.CoreCompileInputs.cache
+C:\Repository\ASIBaseCode\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.csproj.CopyComplete
+C:\Repository\ASIBaseCode\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.dll
+C:\Repository\ASIBaseCode\ASI.Basecode.Services\obj\Debug\net6.0\refint\ASI.Basecode.Services.dll
+C:\Repository\ASIBaseCode\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.pdb
+C:\Repository\ASIBaseCode\ASI.Basecode.Services\obj\Debug\net6.0\ref\ASI.Basecode.Services.dll
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Services.deps.json
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Services.dll
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Services.pdb
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Data.dll
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Resources.dll
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Data.pdb
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Resources.pdb
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.csproj.AssemblyReference.cache
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.AssemblyInfoInputs.cache
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.AssemblyInfo.cs
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.csproj.CoreCompileInputs.cache
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.csproj.CopyComplete
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.dll
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Services\obj\Debug\net6.0\refint\ASI.Basecode.Services.dll
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.pdb
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Services\obj\Debug\net6.0\ref\ASI.Basecode.Services.dll

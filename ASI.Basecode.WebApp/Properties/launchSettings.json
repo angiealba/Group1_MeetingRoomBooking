@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "ASI.Basecode.WebApp": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:51969;http://localhost:51970"
+    }
+  }
+}

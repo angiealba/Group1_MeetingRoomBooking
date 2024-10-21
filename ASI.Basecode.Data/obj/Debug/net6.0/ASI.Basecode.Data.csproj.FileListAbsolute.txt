@@ -1,0 +1,42 @@
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Data\bin\Debug\net6.0\ASI.Basecode.Data.deps.json
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Data\bin\Debug\net6.0\ASI.Basecode.Data.runtimeconfig.json
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Data\bin\Debug\net6.0\ASI.Basecode.Data.dll
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Data\bin\Debug\net6.0\ASI.Basecode.Data.pdb
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.csproj.AssemblyReference.cache
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.AssemblyInfoInputs.cache
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.AssemblyInfo.cs
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.csproj.CoreCompileInputs.cache
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.dll
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Data\obj\Debug\net6.0\refint\ASI.Basecode.Data.dll
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.pdb
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.genruntimeconfig.cache
+C:\Users\Predator Neo\Documents\Jumpstart\ASIBasecode\emerge_2024\ASI.Basecode.Data\obj\Debug\net6.0\ref\ASI.Basecode.Data.dll
+C:\Repository\ASIBaseCode\ASI.Basecode.Data\bin\Debug\net6.0\ASI.Basecode.Data.deps.json
+C:\Repository\ASIBaseCode\ASI.Basecode.Data\bin\Debug\net6.0\ASI.Basecode.Data.runtimeconfig.json
+C:\Repository\ASIBaseCode\ASI.Basecode.Data\bin\Debug\net6.0\ASI.Basecode.Data.dll
+C:\Repository\ASIBaseCode\ASI.Basecode.Data\bin\Debug\net6.0\ASI.Basecode.Data.pdb
+C:\Repository\ASIBaseCode\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.csproj.AssemblyReference.cache
+C:\Repository\ASIBaseCode\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Repository\ASIBaseCode\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.AssemblyInfoInputs.cache
+C:\Repository\ASIBaseCode\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.AssemblyInfo.cs
+C:\Repository\ASIBaseCode\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.csproj.CoreCompileInputs.cache
+C:\Repository\ASIBaseCode\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.dll
+C:\Repository\ASIBaseCode\ASI.Basecode.Data\obj\Debug\net6.0\refint\ASI.Basecode.Data.dll
+C:\Repository\ASIBaseCode\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.pdb
+C:\Repository\ASIBaseCode\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.genruntimeconfig.cache
+C:\Repository\ASIBaseCode\ASI.Basecode.Data\obj\Debug\net6.0\ref\ASI.Basecode.Data.dll
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Data\bin\Debug\net6.0\ASI.Basecode.Data.deps.json
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Data\bin\Debug\net6.0\ASI.Basecode.Data.runtimeconfig.json
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Data\bin\Debug\net6.0\ASI.Basecode.Data.dll
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Data\bin\Debug\net6.0\ASI.Basecode.Data.pdb
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.csproj.AssemblyReference.cache
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.AssemblyInfoInputs.cache
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.AssemblyInfo.cs
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.csproj.CoreCompileInputs.cache
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.dll
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Data\obj\Debug\net6.0\refint\ASI.Basecode.Data.dll
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.pdb
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.genruntimeconfig.cache
+C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Data\obj\Debug\net6.0\ref\ASI.Basecode.Data.dll
