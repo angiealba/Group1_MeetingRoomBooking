@@ -11,10 +11,10 @@ namespace ASI.Basecode.WebApp.Models
         /// <summary>ユーザーID</summary>
         [JsonPropertyName("userId")]
         [Required(ErrorMessage = "UserId is required.")]
-        public string UserId { get; set; }
+        public string userID { get; set; }
         /// <summary>パスワード</summary>
         [JsonPropertyName("password")]
         [Required(ErrorMessage = "Password is required.")]
-        public string Password { get; set; }
+        public string password { get; set; }
     }
 }

@@ -3034,19 +3034,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Predator Neo\\.nuget\\packages\\": {}
+    "C:\\Users\\Rey Aaron Buaya\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Predator Neo\\Desktop\\ASIBasecode\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj",
+      "projectUniqueName": "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj",
       "projectName": "ASI.Basecode.Data",
-      "projectPath": "C:\\Users\\Predator Neo\\Desktop\\ASIBasecode\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj",
-      "packagesPath": "C:\\Users\\Predator Neo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Predator Neo\\Desktop\\ASIBasecode\\ASI.Basecode.Data\\obj\\",
+      "projectPath": "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj",
+      "packagesPath": "C:\\Users\\Rey Aaron Buaya\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Predator Neo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Rey Aaron Buaya\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3131,7 +3131,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -83,21 +83,22 @@ namespace ASI.Basecode.WebApp.Controllers
         {
             this._session.SetString("HasSession", "Exist");
 
-            //User user = null;
+            User user = null;
 
-            User user = new() { Id = 0, UserId = "0", Name = "Name", Password = "Password" };
-            
-            await this._signInManager.SignInAsync(user);
-            this._session.SetString("UserName", model.UserId);
+            //User user = new() { Id = 0, UserId = "0", Name = "Name", Password = "Password" };
 
-            return RedirectToAction("Index", "Home");
+            //await this._signInManager.SignInAsync(user);
+            //this._session.SetString("UserName", model.UserId);
 
-            /*var loginResult = _userService.AuthenticateUser(model.UserId, model.Password, ref user);
+            //return RedirectToAction("Index", "Home");
+
+            var loginResult = _userService.AuthenticateUser(model.userID, model.password, ref user);
             if (loginResult == LoginResult.Success)
             {
                 // 認証OK
                 await this._signInManager.SignInAsync(user);
-                this._session.SetString("UserName", user.Name);
+                this._session.SetString("UserName", user.name);
+                this._session.SetString("Role", user.role);
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -106,7 +107,7 @@ namespace ASI.Basecode.WebApp.Controllers
                 TempData["ErrorMessage"] = "Incorrect UserId or Password";
                 return View();
             }
-            return View();*/
+            return View();
         }
 
         [HttpGet]
@@ -125,11 +126,11 @@ namespace ASI.Basecode.WebApp.Controllers
                 _userService.AddUser(model);
                 return RedirectToAction("Login", "Account");
             }
-            catch(InvalidDataException ex)
+            catch (InvalidDataException ex)
             {
                 TempData["ErrorMessage"] = ex.Message;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TempData["ErrorMessage"] = Resources.Messages.Errors.ServerError;
             }

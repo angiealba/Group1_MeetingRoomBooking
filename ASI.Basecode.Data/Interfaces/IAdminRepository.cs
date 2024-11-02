@@ -1,0 +1,18 @@
+﻿using ASI.Basecode.Data.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ASI.Basecode.Data.Interfaces
+{
+    public interface IAdminRepository
+    {
+        IQueryable<User> GetUsers();
+        bool UserExists(string userID);
+        void AddUser(User user);
+        void UpdateUser(User user);
+        void DeleteUser(User user);
+    }
+}
