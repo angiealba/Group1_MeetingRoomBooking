@@ -6,13 +6,17 @@ using ASI.Basecode.WebApp.Authentication;
 using ASI.Basecode.WebApp.Models;
 using ASI.Basecode.WebApp.Mvc;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using static ASI.Basecode.Resources.Constants.Enums;
 
@@ -82,32 +86,40 @@ namespace ASI.Basecode.WebApp.Controllers
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
             this._session.SetString("HasSession", "Exist");
-
             User user = null;
-
-            //User user = new() { Id = 0, UserId = "0", Name = "Name", Password = "Password" };
-
-            //await this._signInManager.SignInAsync(user);
-            //this._session.SetString("UserName", model.UserId);
-
-            //return RedirectToAction("Index", "Home");
 
             var loginResult = _userService.AuthenticateUser(model.userID, model.password, ref user);
             if (loginResult == LoginResult.Success)
             {
-                // 認証OK
+                // Create claims for the user
+                var claims = new List<System.Security.Claims.Claim>
+            {
+                new System.Security.Claims.Claim(ClaimTypes.Name, user.name),
+                new System.Security.Claims.Claim(ClaimTypes.Role, user.role)
+            };
+
+                var claimsIdentity = new ClaimsIdentity(claims);
+                var principal = new ClaimsPrincipal(claimsIdentity);
+
+                // Sign in the user
                 await this._signInManager.SignInAsync(user);
+
+                // Store necessary info in session
                 this._session.SetString("UserName", user.name);
                 this._session.SetString("Role", user.role);
+                this._session.SetString("UserId", user.userID);
+
+                if (user.role == "Superadmin")
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-                // 認証NG
                 TempData["ErrorMessage"] = "Incorrect UserId or Password";
                 return View();
             }
-            return View();
         }
 
         [HttpGet]
@@ -145,6 +157,10 @@ namespace ASI.Basecode.WebApp.Controllers
         public async Task<IActionResult> SignOutUser()
         {
             await this._signInManager.SignOutAsync();
+
+            // Clear session
+            this._session.Clear();
+
             return RedirectToAction("Login", "Account");
         }
     }

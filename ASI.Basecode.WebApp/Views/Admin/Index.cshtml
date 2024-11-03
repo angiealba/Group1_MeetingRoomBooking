@@ -73,7 +73,7 @@
                 <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
             </div>
             <div class="modal-body">
-                <form asp-action="CreateUser" method="post">
+                <form asp-action="Register" method="post">
                     @Html.AntiForgeryToken()
 
                     <!-- Show validation error messages -->
@@ -89,31 +89,31 @@
                         </div>
                     }
                     <div class="mb-3">
-                        <label for="UserIdCreate" class="form-label">User ID</label>
-                        <input type="text" class="form-control" id="UserId" name="UserId" value="@ViewBag.UserViewModel?.UserId" required>
+                        <label for="userIDCreate" class="form-label">User ID</label>
+                        <input type="text" class="form-control" id="userID" name="userID" value="@ViewBag.UserViewModel?.userID" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="EmailCreate" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="Email" name="Email" value="@ViewBag.UserViewModel?.Email" required>
+                        <input type="email" class="form-control" id="email" name="email" value="@ViewBag.UserViewModel?.email" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="NameCreate" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="Name" name="Name" value="@ViewBag.UserViewModel?.Name" required>
+                        <input type="text" class="form-control" id="name" name="name" value="@ViewBag.UserViewModel?.name" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="PasswordCreate" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="Password" name="Password" required>
+                        <input type="password" class="form-control" id="password" name="password" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="ConfirmPasswordCreate" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" required>
+                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
                     </div>
 
-                    <button type="submit" class="btn btn-success">Create User</button>
+                    <button type="submit" class="btn btn-success">Create Admin</button>
                 </form>
             </div>
         </div>
@@ -137,7 +137,7 @@
                         <input type="hidden" name="Id" value="@user.ID" />
                         <div class="mb-3">
                             <label for="UserIdEdit-@user.ID" class="form-label">User ID</label>
-                            <input type="text" class="form-control" id="UserIdEdit-@user.ID" name="UserId" value="@user.userID" disabled>
+                            <input type="text" class="form-control" id="UserIdEdit-@user.ID" name="UserID" value="@user.userID" disabled>
                         </div>
                         <div class="mb-3">
                             <label for="NameEdit-@user.ID" class="form-label">Name</label>

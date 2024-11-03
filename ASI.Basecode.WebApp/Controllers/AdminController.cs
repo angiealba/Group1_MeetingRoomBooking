@@ -107,7 +107,7 @@ namespace ASI.Basecode.WebApp.Controllers
             try
             {
                 _userService.AddUser(model);
-                return RedirectToAction("Index", "SuperAdmin");
+                return RedirectToAction("Index", "Admin");
             }
             catch (InvalidDataException ex)
             {

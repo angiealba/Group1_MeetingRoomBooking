@@ -15,17 +15,28 @@
     @RenderSection("Styles", required: false)
 </head>
 <body>
-    @if (User.IsInRole("User"))
-    {
-        @Html.Partial("_UserHeader")
+    @{
+        var userRole = HttpContextAccessor.HttpContext.Session.GetString("Role");
     }
-    else if (User.IsInRole("Superadmin"))
+
+    @if (!string.IsNullOrEmpty(userRole))
     {
-        @Html.Partial("_SuperAdminHeader")
+        if (userRole == "User")
+        {
+            @await Html.PartialAsync("_UserHeader")
+        }
+        else if (userRole == "Superadmin")
+        {
+            @await Html.PartialAsync("_SuperAdminHeader")
+        }
+        else
+        {
+            @await Html.PartialAsync("_Header")
+        }
     }
     else
     {
-        @Html.Partial("_Header")
+        @await Html.PartialAsync("_Header")
     }
 
     <div class="container">

@@ -90,6 +90,12 @@ namespace ASI.Basecode.WebApp
                     sqlServerOptions => sqlServerOptions.CommandTimeout(120));
             });
 
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30); // Set your desired timeout
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
 
