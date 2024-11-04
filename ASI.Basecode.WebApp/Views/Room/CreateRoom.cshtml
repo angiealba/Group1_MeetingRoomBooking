@@ -1,0 +1,32 @@
+﻿@model ASI.Basecode.Data.Models.Room
+
+@{
+    ViewData["Title"] = "Create Room";
+}
+
+<h1>Create Room</h1>
+
+<form asp-action="createRoom" method="post">
+    <div class="form-group">
+        <label asp-for="roomName"></label>
+        <input asp-for="roomName" class="form-control" />
+        <span asp-validation-for="roomName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="roomLocation"></label>
+        <input asp-for="roomLocation" class="form-control" />
+        <span asp-validation-for="roomLocation" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="roomCapacity"></label>
+        <input asp-for="roomCapacity" class="form-control" />
+        <span asp-validation-for="roomCapacity" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="availableFacilities"></label>
+        <input asp-for="availableFacilities" class="form-control" />
+        <span asp-validation-for="availableFacilities" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

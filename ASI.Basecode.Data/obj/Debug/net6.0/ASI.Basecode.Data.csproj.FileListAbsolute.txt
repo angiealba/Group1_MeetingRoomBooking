@@ -40,3 +40,33 @@ C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Data\obj\Debug\net6.0\ref
 C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.pdb
 C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.genruntimeconfig.cache
 C:\Users\Predator Neo\Desktop\ASIBasecode\ASI.Basecode.Data\obj\Debug\net6.0\ref\ASI.Basecode.Data.dll
+C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Project\Group1_MeetingRoomBooking\ASI.Basecode.Data\bin\Debug\net6.0\ASI.Basecode.Data.deps.json
+C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Project\Group1_MeetingRoomBooking\ASI.Basecode.Data\bin\Debug\net6.0\ASI.Basecode.Data.runtimeconfig.json
+C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Project\Group1_MeetingRoomBooking\ASI.Basecode.Data\bin\Debug\net6.0\ASI.Basecode.Data.dll
+C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Project\Group1_MeetingRoomBooking\ASI.Basecode.Data\bin\Debug\net6.0\ASI.Basecode.Data.pdb
+C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Project\Group1_MeetingRoomBooking\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.csproj.AssemblyReference.cache
+C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Project\Group1_MeetingRoomBooking\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Project\Group1_MeetingRoomBooking\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.AssemblyInfoInputs.cache
+C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Project\Group1_MeetingRoomBooking\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.AssemblyInfo.cs
+C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Project\Group1_MeetingRoomBooking\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.csproj.CoreCompileInputs.cache
+C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Project\Group1_MeetingRoomBooking\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.sourcelink.json
+C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Project\Group1_MeetingRoomBooking\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.dll
+C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Project\Group1_MeetingRoomBooking\ASI.Basecode.Data\obj\Debug\net6.0\refint\ASI.Basecode.Data.dll
+C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Project\Group1_MeetingRoomBooking\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.pdb
+C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Project\Group1_MeetingRoomBooking\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.genruntimeconfig.cache
+C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Project\Group1_MeetingRoomBooking\ASI.Basecode.Data\obj\Debug\net6.0\ref\ASI.Basecode.Data.dll
+C:\Elasi\Group1_MeetingRoomBooking\ASI.Basecode.Data\bin\Debug\net6.0\ASI.Basecode.Data.deps.json
+C:\Elasi\Group1_MeetingRoomBooking\ASI.Basecode.Data\bin\Debug\net6.0\ASI.Basecode.Data.runtimeconfig.json
+C:\Elasi\Group1_MeetingRoomBooking\ASI.Basecode.Data\bin\Debug\net6.0\ASI.Basecode.Data.dll
+C:\Elasi\Group1_MeetingRoomBooking\ASI.Basecode.Data\bin\Debug\net6.0\ASI.Basecode.Data.pdb
+C:\Elasi\Group1_MeetingRoomBooking\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.csproj.AssemblyReference.cache
+C:\Elasi\Group1_MeetingRoomBooking\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Elasi\Group1_MeetingRoomBooking\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.AssemblyInfoInputs.cache
+C:\Elasi\Group1_MeetingRoomBooking\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.AssemblyInfo.cs
+C:\Elasi\Group1_MeetingRoomBooking\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.csproj.CoreCompileInputs.cache
+C:\Elasi\Group1_MeetingRoomBooking\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.sourcelink.json
+C:\Elasi\Group1_MeetingRoomBooking\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.dll
+C:\Elasi\Group1_MeetingRoomBooking\ASI.Basecode.Data\obj\Debug\net6.0\refint\ASI.Basecode.Data.dll
+C:\Elasi\Group1_MeetingRoomBooking\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.pdb
+C:\Elasi\Group1_MeetingRoomBooking\ASI.Basecode.Data\obj\Debug\net6.0\ASI.Basecode.Data.genruntimeconfig.cache
+C:\Elasi\Group1_MeetingRoomBooking\ASI.Basecode.Data\obj\Debug\net6.0\ref\ASI.Basecode.Data.dll

@@ -1,0 +1,152 @@
+﻿@model IEnumerable<ASI.Basecode.Data.Models.Room>
+
+@{
+    ViewData["Title"] = "Room Management";
+    var searchQuery = Context.Request.Query["search"];
+}
+
+<br />
+
+<h1 class="fw-bold mb-3">Meeting Rooms</h1>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#createRoomModal">Add Room</button>
+    <form class="d-flex" method="GET">
+        <input class="form-control me-2" type="search" placeholder="Search rooms" aria-label="Search" name="search" value="@searchQuery">
+        <button class="btn btn-outline-dark" type="submit">Search</button>
+    </form>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<div class="table-responsive">
+    <table class="table table-striped mt-3 align-middle">
+        <thead>
+            <tr>
+                <th>Room ID</th>
+                <th>Room Name</th>
+                <th>Location</th>
+                <th>Capacity</th>
+                <th>Facilities</th>
+                <th class="action-column">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var room in Model)
+            {
+                <tr>
+                    <td>@room.roomId</td>
+                    <td>@room.roomName</td>
+                    <td>@room.roomLocation</td>
+                    <td>@room.roomCapacity</td>
+                    <td>@room.availableFacilities</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#editRoomModal-@room.roomId">
+                            Edit
+                        </button>
+                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteRoomModal-@room.roomId">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<div class="modal fade" id="createRoomModal" tabindex="-1" aria-labelledby="createRoomModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createRoomModalLabel">Add New Room</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="CreateRoom" method="post">
+                    <div class="mb-3">
+                        <label for="roomName" class="form-label">Room Name</label>
+                        <input type="text" class="form-control" id="roomName" name="roomName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="roomLocation" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="roomLocation" name="roomLocation" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="roomCapacity" class="form-label">Capacity</label>
+                        <input type="number" class="form-control" id="roomCapacity" name="roomCapacity" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="availableFacilities" class="form-label">Facilities</label>
+                        <textarea class="form-control" id="availableFacilities" name="availableFacilities" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Create Room</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@foreach (var room in Model)
+{
+    <div class="modal fade" id="editRoomModal-@room.roomId" tabindex="-1" aria-labelledby="editRoomModalLabel-@room.roomId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editRoomModalLabel-@room.roomId">Edit Room @room.roomName</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="Update" method="post">
+                        <input type="hidden" name="roomId" value="@room.roomId" />
+                        <div class="mb-3">
+                            <label for="roomNameEdit-@room.roomId" class="form-label">Room Name</label>
+                            <input type="text" class="form-control" id="roomNameEdit-@room.roomId" name="roomName" value="@room.roomName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="roomLocationEdit-@room.roomId" class="form-label">Location</label>
+                            <input type="text" class="form-control" id="roomLocationEdit-@room.roomId" name="roomLocation" value="@room.roomLocation" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="roomCapacityEdit-@room.roomId" class="form-label">Capacity</label>
+                            <input type="number" class="form-control" id="roomCapacityEdit-@room.roomId" name="roomCapacity" value="@room.roomCapacity" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="availableFacilitiesEdit-@room.roomId" class="form-label">Facilities</label>
+                            <textarea class="form-control" id="availableFacilitiesEdit-@room.roomId" name="availableFacilities" rows="3" required>@room.availableFacilities</textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">Update Room</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@foreach (var room in Model)
+{
+    <div class="modal fade" id="deleteRoomModal-@room.roomId" tabindex="-1" aria-labelledby="deleteRoomModalLabel-@room.roomId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteRoomModalLabel-@room.roomId">Delete Room @room.roomName</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" name="roomId" value="@room.roomId" />
+                        <p>Are you sure you want to delete room @room.roomName?</p>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>

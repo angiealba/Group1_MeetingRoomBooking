@@ -21,28 +21,28 @@
 
                         <form method="post" action="/Account/Register">
                             <div class="form-outline mb-4">
-                                <label class="form-label" for="userId">UserId</label>
-                                <input type="text" id="userId" class="form-control"
-                                       asp-for="UserId" placeholder="Enter userid" />
-                                <span asp-validation-for="UserId" class="text-danger"></span>
+                                <label class="form-label" for="userID">UserId</label>
+                                <input type="text" id="userID" class="form-control"
+                                       asp-for="userID" placeholder="Enter userid" />
+                                <span asp-validation-for="userID" class="text-danger"></span>
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="name">Name</label>
                                 <input type="text" id="name" class="form-control"
-                                       asp-for="Name" placeholder="Enter name" />
-                                <span asp-validation-for="Name" class="text-danger"></span>
+                                       asp-for="name" placeholder="Enter name" />
+                                <span asp-validation-for="name" class="text-danger"></span>
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="password">Password</label>
                                 <input type="password" id="password" class="form-control"
-                                       asp-for="Password" placeholder="Enter password" />
-                                <span asp-validation-for="Password" class="text-danger"></span>
+                                       asp-for="password" placeholder="Enter password" />
+                                <span asp-validation-for="password" class="text-danger"></span>
                             </div>
                             <div class="form-outline mb-4">
-                                <label class="form-label" for="confirmpassword">Confirm Password</label>
-                                <input type="password" id="confirmpassword" class="form-control" 
-                                       asp-for="ConfirmPassword" placeholder="Confirm Password" />
-                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                <label class="form-label" for="confirmPassword">Confirm Password</label>
+                                <input type="password" id="confirmPassword" class="form-control" 
+                                       asp-for="password" placeholder="Confirm Password" />
+                                <span asp-validation-for="password" class="text-danger"></span>
                             </div>
                             <div class="text-center pt-1 mb-5 pb-1 d-flex flex-column align-items-center">
                                 <button class="btn btn-primary btn-block login-btn gradient-custom-2 mb-3" type="submit">

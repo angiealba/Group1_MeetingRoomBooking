@@ -1,4 +1,5 @@
 ﻿@using static ASI.Basecode.Resources.Views.Screen
+@inject IHttpContextAccessor HttpContextAccessor
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,12 +15,36 @@
     @RenderSection("Styles", required: false)
 </head>
 <body>
-    @Html.Partial("_Header")
+    @{
+        var userRole = HttpContextAccessor.HttpContext.Session.GetString("Role");
+    }
+
+    @if (!string.IsNullOrEmpty(userRole))
+    {
+        if (userRole == "User")
+        {
+            @await Html.PartialAsync("_UserHeader")
+        }
+        else if (userRole == "Superadmin")
+        {
+            @await Html.PartialAsync("_SuperAdminHeader")
+        }
+        else
+        {
+            @await Html.PartialAsync("_Header")
+        }
+    }
+    else
+    {
+        @await Html.PartialAsync("_Header")
+    }
+
     <div class="container">
         <main role="main">
             @RenderBody()
         </main>
     </div>
+
     <footer class="border-top footer text-muted">
         <div class="container">
             @Copyright

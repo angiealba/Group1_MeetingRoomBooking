@@ -1,0 +1,15 @@
+﻿@model ASI.Basecode.Data.Models.Room
+
+@{
+    ViewData["Title"] = "Delete Room";
+}
+
+<h1>Delete Room</h1>
+
+<p>Are you sure you want to delete the room <strong>@Model.roomName</strong>?</p>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="roomId" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

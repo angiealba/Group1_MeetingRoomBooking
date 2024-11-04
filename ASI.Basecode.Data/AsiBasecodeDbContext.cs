@@ -18,38 +18,39 @@ namespace ASI.Basecode.Data
         }
 
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Room> Rooms { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>(entity =>
             {
-                entity.HasIndex(e => e.UserId, "UQ__Users__1788CC4D5F4A160F")
+                entity.HasIndex(e => e.userID, "UQ__Users__1788CC4D5F4A160F")
                     .IsUnique();
 
-                entity.Property(e => e.CreatedBy)
+                entity.Property(e => e.createdBy)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+                entity.Property(e => e.createdTime).HasColumnType("datetime");
 
-                entity.Property(e => e.Name)
+                entity.Property(e => e.name)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Password)
+                entity.Property(e => e.password)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.UpdatedBy)
+                entity.Property(e => e.updatedBy)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.UpdatedTime).HasColumnType("datetime");
+                entity.Property(e => e.updatedTime).HasColumnType("datetime");
 
-                entity.Property(e => e.UserId)
+                entity.Property(e => e.userID)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);

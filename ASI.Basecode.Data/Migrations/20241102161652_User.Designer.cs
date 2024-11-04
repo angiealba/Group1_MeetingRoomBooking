@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASI.Basecode.Data.Migrations
 {
     [DbContext(typeof(AsiBasecodeDBContext))]
-    [Migration("20240704153811_initial")]
-    partial class initial
+    [Migration("20241102161652_User")]
+    partial class User
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,53 +24,90 @@ namespace ASI.Basecode.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("ASI.Basecode.Data.Models.User", b =>
+            modelBuilder.Entity("ASI.Basecode.Data.Models.Room", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("roomId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("roomId"), 1L, 1);
 
-                    b.Property<string>("CreatedBy")
+                    b.Property<string>("availableFacilities")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("createdBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("roomCapacity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("roomLocation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("roomName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("roomId");
+
+                    b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("ASI.Basecode.Data.Models.User", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("createdBy")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<DateTime>("CreatedTime")
+                    b.Property<DateTime>("createdTime")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("password")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<string>("UpdatedBy")
+                    b.Property<string>("role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("updatedBy")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime>("updatedTime")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("userID")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
-                    b.HasIndex(new[] { "UserId" }, "UQ__Users__1788CC4D5F4A160F")
+                    b.HasIndex(new[] { "userID" }, "UQ__Users__1788CC4D5F4A160F")
                         .IsUnique();
 
                     b.ToTable("Users");
