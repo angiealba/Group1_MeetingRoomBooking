@@ -95,7 +95,8 @@ namespace ASI.Basecode.WebApp.Controllers
                 var claims = new List<System.Security.Claims.Claim>
             {
                 new System.Security.Claims.Claim(ClaimTypes.Name, user.name),
-                new System.Security.Claims.Claim(ClaimTypes.Role, user.role)
+                new System.Security.Claims.Claim(ClaimTypes.Role, user.role),
+                new System.Security.Claims.Claim(ClaimTypes.NameIdentifier, user.userID)
             };
 
                 var claimsIdentity = new ClaimsIdentity(claims);

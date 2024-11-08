@@ -22,6 +22,63 @@ namespace ASI.Basecode.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("ASI.Basecode.Data.Models.Booking", b =>
+                {
+                    b.Property<int>("bookingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("bookingId"), 1L, 1);
+
+                    b.Property<int>("ID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("duration")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isRecurring")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("recurrenceEndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("recurrenceFrequency")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("recurringBookingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("roomId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("time")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("bookingId");
+
+                    b.HasIndex("ID");
+
+                    b.HasIndex("roomId");
+
+                    b.ToTable("Bookings");
+                });
+
+            modelBuilder.Entity("ASI.Basecode.Data.Models.RecurringIdTracker", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
+
+                    b.HasKey("id");
+
+                    b.ToTable("RecurringIdTrackers");
+                });
+
             modelBuilder.Entity("ASI.Basecode.Data.Models.Room", b =>
                 {
                     b.Property<int>("roomId")
@@ -109,6 +166,25 @@ namespace ASI.Basecode.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ASI.Basecode.Data.Models.Booking", b =>
+                {
+                    b.HasOne("ASI.Basecode.Data.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("ID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ASI.Basecode.Data.Models.Room", "Room")
+                        .WithMany()
+                        .HasForeignKey("roomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Room");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
