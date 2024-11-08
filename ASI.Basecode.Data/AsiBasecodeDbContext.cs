@@ -19,6 +19,8 @@ namespace ASI.Basecode.Data
 
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
+        public virtual DbSet<Booking> Bookings { get; set; }
+        public virtual DbSet<RecurringIdTracker> RecurringIdTrackers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>(entity =>
