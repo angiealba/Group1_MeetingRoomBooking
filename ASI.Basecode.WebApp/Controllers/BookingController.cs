@@ -250,6 +250,44 @@ namespace ASI.Basecode.WebApp.Controllers
 
             return RedirectToAction("Index");
         }
+        public ActionResult BookingSummary(string room, DateTime? date, string userName)
+        {
+            // Get rooms for the dropdown
+            var rooms = _bookingService.GetRooms();
+            ViewBag.Rooms = new SelectList(rooms, "roomId", "roomName");
+
+            // Store filter values for form persistence
+            ViewBag.SelectedRoom = room;
+            ViewBag.SelectedDate = date;
+            ViewBag.SelectedUser = userName;
+
+            // Fetch all bookings
+            (bool result, IEnumerable<Booking> bookings) = _bookingService.GetAllBookings();
+
+            if (!result)
+            {
+                TempData["ErrorMessage"] = "Failed to load bookings.";
+                return View(new List<Booking>());
+            }
+
+            // Apply filters
+            if (!string.IsNullOrEmpty(room))
+            {
+                bookings = bookings.Where(b => b.Room.roomId.ToString() == room);
+            }
+
+            if (date.HasValue)
+            {
+                bookings = bookings.Where(b => b.date.Date == date.Value.Date);
+            }
+
+            if (!string.IsNullOrEmpty(userName))
+            {
+                bookings = bookings.Where(b => b.User.userID.Contains(userName, StringComparison.OrdinalIgnoreCase));
+            }
+
+            return View(bookings);
+        }
 
         // POST: BookingController/DeleteBooking
         [HttpPost]
@@ -328,5 +366,7 @@ namespace ASI.Basecode.WebApp.Controllers
 
             return RedirectToAction("Index");
         }
+      
     }
 }
+

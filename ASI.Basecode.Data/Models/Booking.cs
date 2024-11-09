@@ -16,6 +16,7 @@ namespace ASI.Basecode.Data.Models
 
         public int ID { get; set; }
 
+
         [ForeignKey("ID")]
         public virtual User User { get; set; }
 

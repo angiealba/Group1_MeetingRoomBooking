@@ -9,7 +9,7 @@ namespace ASI.Basecode.Services.Interfaces
 {
     public interface IBookingService
     {
-        (bool result, IEnumerable<Booking> bookings) GetBookings();
+        (bool result, IEnumerable<Booking> bookings) GetAllBookings();
 
         (bool result, IEnumerable<Booking> bookings) GetBookingsByUserId(int id);
 

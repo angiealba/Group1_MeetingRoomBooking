@@ -7,6 +7,7 @@ using ASI.Basecode.Data.Models;
 using System.IO;
 using ASI.Basecode.Data.Interfaces;
 using Basecode.Data.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASI.Basecode.Data.Repositories
 {
@@ -21,7 +22,10 @@ namespace ASI.Basecode.Data.Repositories
 
         public IEnumerable<Booking> ViewBookings()
         {
-            return _dbContext.Bookings.ToList();
+            return _dbContext.Bookings
+             .Include(b => b.Room)
+             .Include(b => b.User) 
+             .ToList();
         }
         public void AddBooking(Booking booking)
         {
@@ -47,15 +51,28 @@ namespace ASI.Basecode.Data.Repositories
         }
         public (bool, IEnumerable<Booking>) GetBookings()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var bookings = _dbContext.Bookings
+                    .Include(b => b.Room)
+                    .Include(b => b.User)  // Include User navigation property
+                    .ToList();
+                return (true, bookings);
+            }
+            catch
+            {
+                return (false, null);
+            }
         }
 
         public IEnumerable<Booking> GetBookingsByUserId(int id)
         {
             return _dbContext.Bookings
-                .Where(b => b.ID == id)
-                .OrderByDescending(b => b.date)
-                .ToList();
+            .Include(b => b.Room)
+            .Include(b => b.User)  
+            .Where(b => b.ID == id)
+            .OrderByDescending(b => b.date)
+            .ToList();
         }
 
         public IEnumerable<Room> GetRooms()

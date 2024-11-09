@@ -1,0 +1,85 @@
+﻿@model IEnumerable<ASI.Basecode.Data.Models.Booking>
+<h1 class="fw-bold mb-3">Bookings</h1>
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title mb-3">Filter Bookings</h5>
+        <form method="GET" action="@Url.Action("BookingSummary")">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label for="room" class="form-label">Room</label>
+                    <select id="room" name="room" class="form-select">
+                        <option value="">All Rooms</option>
+                        @foreach (var room in ViewBag.Rooms)
+                        {
+                            if (ViewBag.SelectedRoom == room.Value)
+                            {
+                                <option value="@room.Value" selected>@room.Text</option>
+                            }
+                            else
+                            {
+                                <option value="@room.Value">@room.Text</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="date" class="form-label">Date</label>
+                    <input type="date" id="date" name="date" class="form-control"
+                           value="@ViewBag.SelectedDate?.ToString("yyyy-MM-dd")">
+                </div>
+                <div class="col-md-4">
+                    <label for="userName" class="form-label">User Name</label>
+                    <input type="text" id="userName" name="userName" class="form-control"
+                           placeholder="Search by user name" value="@ViewBag.SelectedUser">
+                </div>
+                <div class="col-12 text-end">
+                    <a href="@Url.Action("BookingSummary")" class="btn btn-secondary me-2">
+                        Reset
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        Apply Filters
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Room</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Duration</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var booking in Model)
+                {
+                    <tr>
+                        <td>@booking.bookingId</td>
+                        <td>@(booking.Room != null ? booking.Room.roomName : "Room Unavailable")</td>
+                        <td>@(booking.User != null ? booking.User.userID : "User Not Found")</td>
+                        <td>@booking.date.ToString("MM/dd/yyyy")</td>
+                        <td>@booking.time.ToString("HH:mm")</td>
+                        <td>@booking.duration hour(s)</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6" class="text-center">No bookings found.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="mt-3 small text-muted">
+    <p>* Booking IDs are unique identifiers for each reservation</p>
+</div>

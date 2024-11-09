@@ -19,7 +19,7 @@ namespace ASI.Basecode.Services.Services
             this._bookingRepository = bookingRepository;
         }
 
-        public (bool, IEnumerable<Booking>) GetBookings()
+        public (bool, IEnumerable<Booking>) GetAllBookings()
         {
             var bookings = _bookingRepository.ViewBookings();
             if (bookings != null)
