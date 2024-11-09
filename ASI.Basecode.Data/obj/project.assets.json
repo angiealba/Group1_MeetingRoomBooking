@@ -3034,19 +3034,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\PT512\\.nuget\\packages\\": {}
+    "C:\\Users\\PT520\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\PT512\\Desktop\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj",
+      "projectUniqueName": "C:\\elasi-3\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj",
       "projectName": "ASI.Basecode.Data",
-      "projectPath": "C:\\Users\\PT512\\Desktop\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj",
-      "packagesPath": "C:\\Users\\PT512\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\PT512\\Desktop\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\obj\\",
+      "projectPath": "C:\\elasi-3\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj",
+      "packagesPath": "C:\\Users\\PT520\\.nuget\\packages\\",
+      "outputPath": "C:\\elasi-3\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\PT512\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\PT520\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
