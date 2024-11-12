@@ -368,7 +368,13 @@ namespace ASI.Basecode.WebApp.Controllers
 
             return RedirectToAction("Index");
         }
-      
+        public ActionResult Sample()
+        {
+            return View();
+
+
+
+        }
         public ActionResult Analytics(string room, DateTime? start, DateTime? end, string userName)
         {
             // Get rooms for the dropdown
@@ -414,7 +420,8 @@ namespace ASI.Basecode.WebApp.Controllers
             // Group bookings by date and calculate statistics
             var analyticsData = bookings
                 .GroupBy(b => b.date.Date)
-                .Select(g => {
+                .Select(g =>
+                {
                     // Get the hour with most bookings (peak usage time)
                     var hourlyBookings = g.GroupBy(b => b.time.Hour)
                                         .OrderByDescending(h => h.Count())
@@ -444,10 +451,6 @@ namespace ASI.Basecode.WebApp.Controllers
 
             return View(analyticsData);
         }
-
-
-
-
 
     }
 }

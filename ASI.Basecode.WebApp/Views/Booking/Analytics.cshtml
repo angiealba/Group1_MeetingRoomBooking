@@ -57,10 +57,15 @@
                     </div>
                 </div>
 
-                <div class="mt-5">
-                    <!-- Chart for Bookings -->
-                    <canvas id="bookingsChart"></canvas>
-                    <canvas id="userActivityChart"></canvas>
+                <div class="row mt-5">
+                    <!-- Chart for Bookings (Side by Side) -->
+                    <div class="col-md-6">
+                        <canvas id="bookingsChart"></canvas>
+                    </div>
+                    <!-- Chart for User Activity (Side by Side) -->
+                    <div class="col-md-6">
+                        <canvas id="userActivityChart"></canvas>
+                    </div>
                 </div>
 
                 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -171,15 +176,35 @@
     @if (!string.IsNullOrEmpty(ViewBag.SelectedRoom))
     {
         <p>
-            <strong> 
-            @* Room selection logic remains the same *@
-            </strong>
+            <strong>
+            @{
+                var selectedRoom = string.Empty;
+                foreach (var room in ViewBag.Rooms)
+                {
+                    if (room.Value == ViewBag.SelectedRoom)
+                    {
+                        selectedRoom = room.Text; // Room name
+                        break;
+                    }
+                }
+                if (!string.IsNullOrEmpty(selectedRoom))
+                {
+                    @selectedRoom
+                }
+                else
+                {
+                    @:All Rooms
+                }
+               
+
+            } </strong>
         </p>
     }
     else
     {
         <p><strong>All Rooms</strong></p>
     }
+
 
     <div class="table-responsive">
         <table class="table">
@@ -192,14 +217,23 @@
                 </tr>
             </thead>
             <tbody id="reportTableBody">
-                @foreach (var item in Model)
+                @if (!Model.Any())
                 {
                     <tr>
-                        <td>@item.Date.ToString("MM-dd-yyyy")</td>
-                        <td>@item.TotalBookings</td>
-                        <td>@item.PeakUsageTime</td>
-                        <td>@item.ActivityLevel</td>
+                        <td colspan="4" class="text-center">No bookings found</td>
                     </tr>
+                }
+                else
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Date.ToString("dd/MM/yyyy")</td>
+                            <td>@item.TotalBookings</td>
+                            <td>@item.PeakUsageTime</td>
+                            <td>@item.ActivityLevel</td>
+                        </tr>
+                    }
                 }
             </tbody>
         </table>
