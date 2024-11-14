@@ -1,0 +1,241 @@
+﻿@model IEnumerable<BookingAnalyticsViewModel>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="~/css/style.css" rel="stylesheet">
+</head>
+<div class="container mt-5">
+    <h1 class="fw-bold mb-3">Reporting & Analytics</h1>
+    <div class="card mb-3">
+        <div class="card-body">
+            <form method="GET" action="@Url.Action("Analytics")">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h2 class="h4 mb-0">Room Usage Report</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>Generates reports on room usage, including total bookings, peak usage times, and user activity.</p>
+
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="room" class="form-label">Room</label>
+                                <select id="room" name="room" class="form-select">
+                                    <option value="">All Rooms</option>
+                                    @foreach (var room in ViewBag.Rooms)
+                                    {
+                                        if (ViewBag.SelectedRoom == room.Value)
+                                        {
+                                            <option value="@room.Value" selected>@room.Text</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@room.Value">@room.Text</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="col-md-12 col-lg-4">
+                                <label for="usageDateRange" class="form-label">Date Range</label>
+                                <div class="input-daterange input-group" id="datepicker">
+                                    <input type="date" class="input-sm form-control" name="start" value="@ViewBag.SelectedStartDate?.ToString("yyyy-MM-dd")" placeholder="Start Date" />
+                                    <span class="input-group-text">to</span>
+                                    <input type="date" class="input-sm form-control" name="end" value="@ViewBag.SelectedEndDate?.ToString("yyyy-MM-dd")" placeholder="End Date" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-lg-4">
+                                <label class="form-label">&nbsp;</label>
+                                <div class="d-grid gap-2 d-md-flex">
+                                    <button type="submit" class="btn btn-success">Generate Report</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-5">
+                    <!-- Chart for Bookings (Side by Side) -->
+                    <div class="col-md-6">
+                        <canvas id="bookingsChart"></canvas>
+                    </div>
+                    <!-- Chart for User Activity (Side by Side) -->
+                    <div class="col-md-6">
+                        <canvas id="userActivityChart"></canvas>
+                    </div>
+                </div>
+
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                <script>
+                    $(document).ready(function () {
+                        $(".input-daterange").datepicker({
+                            format: "mm/dd/yyyy",
+                            autoclose: true,
+                        });
+                    });
+
+                    function extractTableData() {
+                        const labels = [];
+                        const bookingsData = [];
+                        const peakUsageData = [];
+                        const userActivityData = [];
+
+                        const rows = document.querySelectorAll("#reportTableBody tr");
+                        rows.forEach((row) => {
+                            const cells = row.querySelectorAll("td");
+                            labels.push(cells[0].innerText);
+                            bookingsData.push(parseInt(cells[1].innerText)); // Ensure correct index
+                            peakUsageData.push(cells[2].innerText); // Ensure correct index
+                            userActivityData.push(cells[3].innerText); // Ensure correct index
+                        });
+                        return {
+                            labels,
+                            bookingsData,
+                            peakUsageData,
+                            userActivityData,
+                        };
+                    }
+
+                    document.addEventListener("DOMContentLoaded", function () {
+                        const data = extractTableData();
+
+                        var ctxBookings = document.getElementById("bookingsChart").getContext("2d");
+                        new Chart(ctxBookings, {
+                            type: "bar",
+                            data: {
+                                labels: data.labels,
+                                datasets: [
+                                    {
+                                        label: "Total Bookings",
+                                        data: data.bookingsData,
+                                        backgroundColor: "rgba(75, 192, 192, 0.2)",
+                                        borderColor: "rgba(75, 192, 192, 1)",
+                                        borderWidth: 1,
+                                    },
+                                ],
+                            },
+                            options: {
+                                responsive: true,
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                    },
+                                },
+                            },
+                        });
+
+                        var ctxUserActivity = document.getElementById("userActivityChart").getContext("2d");
+                        new Chart(ctxUserActivity, {
+                            type: "line",
+                            data: {
+                                labels: data.labels,
+                                datasets: [
+                                    {
+                                        label: "User Activity",
+                                        data: data.userActivityData.map((activity) => {
+                                            switch (activity) {
+                                                case "High":
+                                                    return 3;
+                                                case "Medium":
+                                                    return 2;
+                                                case "Low":
+                                                    return 1;
+                                                default:
+                                                    return 0;
+                                            }
+                                        }),
+                                        backgroundColor: [
+                                            "rgba(255, 99, 132, 0.2)",
+                                            "rgba(54, 162, 235, 0.2)",
+                                            "rgba(75, 192, 192, 0.2)",
+                                        ],
+                                        borderColor: [
+                                            "rgba(255, 99, 132, 1)",
+                                            "rgba(54, 162, 235, 1)",
+                                            "rgba(75, 192, 192, 1)",
+                                        ],
+                                        borderWidth: 1,
+                                    },
+                                ],
+                            },
+                            options: {
+                                responsive: true,
+                            },
+                        });
+                    });
+                </script>
+            </form>
+        </div>
+    </div>
+    @if (!string.IsNullOrEmpty(ViewBag.SelectedRoom))
+    {
+        <p>
+            <strong>
+            @{
+                var selectedRoom = string.Empty;
+                foreach (var room in ViewBag.Rooms)
+                {
+                    if (room.Value == ViewBag.SelectedRoom)
+                    {
+                        selectedRoom = room.Text; // Room name
+                        break;
+                    }
+                }
+                if (!string.IsNullOrEmpty(selectedRoom))
+                {
+                    @selectedRoom
+                }
+                else
+                {
+                    @:All Rooms
+                }
+               
+
+            } </strong>
+        </p>
+    }
+    else
+    {
+        <p><strong>All Rooms</strong></p>
+    }
+
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Total Bookings</th>
+                    <th>Peak Usage Time</th>
+                    <th>Activity Level</th>
+                </tr>
+            </thead>
+            <tbody id="reportTableBody">
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="4" class="text-center">No bookings found</td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Date.ToString("dd/MM/yyyy")</td>
+                            <td>@item.TotalBookings</td>
+                            <td>@item.PeakUsageTime</td>
+                            <td>@item.ActivityLevel</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

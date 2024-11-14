@@ -1,9 +1,11 @@
 ﻿using ASI.Basecode.Data.Models;
 using ASI.Basecode.Services.Interfaces;
 using ASI.Basecode.Services.Services;
+using ASI.Basecode.WebApp.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NUlid;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -366,7 +368,90 @@ namespace ASI.Basecode.WebApp.Controllers
 
             return RedirectToAction("Index");
         }
-      
+        public ActionResult Sample()
+        {
+            return View();
+
+
+
+        }
+        public ActionResult Analytics(string room, DateTime? start, DateTime? end, string userName)
+        {
+            // Get rooms for the dropdown
+            var rooms = _bookingService.GetRooms();
+            ViewBag.Rooms = new SelectList(rooms, "roomId", "roomName");
+
+            // Store filter values for form persistence
+            ViewBag.SelectedRoom = room;
+            ViewBag.SelectedStartDate = start;
+            ViewBag.SelectedEndDate = end;
+            ViewBag.SelectedUser = userName;
+
+            // Fetch all bookings
+            (bool result, IEnumerable<Booking> bookings) = _bookingService.GetAllBookings();
+
+            if (!result)
+            {
+                TempData["ErrorMessage"] = "Failed to load bookings.";
+                return View(new List<BookingAnalyticsViewModel>());
+            }
+
+            // Apply filters
+            if (!string.IsNullOrEmpty(room))
+            {
+                bookings = bookings.Where(b => b.Room.roomId.ToString() == room);
+            }
+
+            if (start.HasValue)
+            {
+                bookings = bookings.Where(b => b.date >= start.Value.Date);
+            }
+
+            if (end.HasValue)
+            {
+                bookings = bookings.Where(b => b.date <= end.Value.Date);
+            }
+
+            if (!string.IsNullOrEmpty(userName))
+            {
+                bookings = bookings.Where(b => b.User.userID.Contains(userName, StringComparison.OrdinalIgnoreCase));
+            }
+
+            // Group bookings by date and calculate statistics
+            var analyticsData = bookings
+                .GroupBy(b => b.date.Date)
+                .Select(g =>
+                {
+                    // Get the hour with most bookings (peak usage time)
+                    var hourlyBookings = g.GroupBy(b => b.time.Hour)
+                                        .OrderByDescending(h => h.Count())
+                                        .FirstOrDefault();
+
+                    var peakHour = hourlyBookings?.Key ?? 0;
+                    var totalBookings = g.Count();
+
+                    // Determine activity level
+                    string activityLevel = totalBookings switch
+                    {
+                        var n when n >= 8 => "High",
+                        var n when n >= 4 => "Medium",
+                        _ => "Low"
+                    };
+
+                    return new BookingAnalyticsViewModel
+                    {
+                        Date = g.Key,
+                        TotalBookings = totalBookings,
+                        PeakUsageTime = $"{peakHour:00}:00",
+                        ActivityLevel = activityLevel
+                    };
+                })
+                .OrderBy(x => x.Date)
+                .ToList();
+
+            return View(analyticsData);
+        }
+
     }
 }
 

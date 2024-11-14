@@ -2,6 +2,7 @@
 using ASI.Basecode.Data.Models;
 using ASI.Basecode.Data.Repositories;
 using ASI.Basecode.Services.Interfaces;
+using RTools_NTS.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -104,6 +105,14 @@ namespace ASI.Basecode.Services.Services
         public IEnumerable<Booking> GetRecurringBookings(int? recurringBookingId)
         {
             return _bookingRepository.GetRecurringBookings(recurringBookingId);
+        }
+        public IEnumerable<Booking> GenerateRoomUsageReport(string room,DateTime startDate, DateTime endDate)
+        {
+            // Fetch all bookings within the specified date range without aggregation or grouping
+            var bookings = _bookingRepository.ViewBookings()
+                            .Where(b => b.date >= startDate && b.date <= endDate);
+
+            return bookings;
         }
     }
 }
