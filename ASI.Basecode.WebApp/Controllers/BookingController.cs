@@ -451,6 +451,32 @@ namespace ASI.Basecode.WebApp.Controllers
 
             return View(analyticsData);
         }
+        //calendar
+        public IActionResult Calendar()
+        {
+            var rooms = _bookingService.GetRooms();
+            ViewBag.Rooms = new SelectList(rooms, "roomId", "roomName");
+
+            // Get the userId from claims
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            int id = 0;
+            if (userId != null)
+            {
+                id = _bookingService.GetUserID(userId);
+            }
+
+            // Get user-specific bookings
+            (bool result, IEnumerable<Booking> bookings) = _bookingService.GetBookingsByUserId(id);
+
+            ViewBag.Bookings = bookings.Select(b => new
+            {
+                title = $"{b.Room.roomName}",
+                start = $"{b.date.ToString("yyyy-MM-dd")}T{b.time.ToString("HH:mm:ss")}",
+                end = $"{b.date.ToString("yyyy-MM-dd")}T{b.time.AddHours(b.duration).ToString("HH:mm:ss")}"
+            });
+
+            return View();
+        }
 
     }
 }
