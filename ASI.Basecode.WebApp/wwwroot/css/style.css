@@ -362,3 +362,49 @@ header {
     color: white;
     border-radius: 4px;
 }
+
+.calendar {
+    max-width: 100%;
+    font-family: Arial, sans-serif;
+}
+
+h2 {
+    color: #333;
+}
+
+/* Style FullCalendar buttons to match Bootstrap */
+.fc-button {
+    background-color: #fffff !important; /* Matches red color of the theme */
+    color: #fff !important;
+    border: none !important;
+    font-weight: bold;
+}
+
+    .fc-button:hover {
+        background-color: #c82333 !important;
+        color: #fff !important;
+    }
+
+/* Title and other calendar elements */
+.fc-toolbar-title {
+    font-weight: 600;
+    color: #333;
+}
+
+.fc-col-header-cell {
+    font-weight: bold;
+    color: #495057;
+}
+
+/* Event styling */
+.fc-event {
+    background-color: #007bff !important;
+    border: none !important;
+    color: #fff !important;
+}
+
+    /* Customize event popup tooltip */
+    .fc-event:hover {
+        cursor: pointer;
+        background-color: #0056b3 !important;
+    }
