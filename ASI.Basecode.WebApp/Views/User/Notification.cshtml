@@ -1,48 +1,11 @@
-﻿@page
-@{
-    var notifications = new[]
-    {
-        new
-        {
-            Id = 1,
-            Type = "booking_created",
-            Message = "Your booking for Conference Room B on 2023-05-20 at 10:00 AM has been created.",
-            Date = DateTime.Parse("2023-05-18 09:30:00"),
-            IsRead = false
-        },
-        new
-        {
-            Id = 2,
-            Type = "booking_updated",
-            Message = "Your booking for Meeting Room C on 2023-05-22 has been updated to 2:00 PM.",
-            Date = DateTime.Parse("2023-05-19 14:15:00"),
-            IsRead = false
-        },
-        new
-        {
-            Id = 3,
-            Type = "booking_cancelled",
-            Message = "Your booking for Boardroom A on 2023-05-21 at 11:00 AM has been cancelled.",
-            Date = DateTime.Parse("2023-05-20 10:45:00"),
-            IsRead = true
-        },
-        new
-        {
-            Id = 4,
-            Type = "reminder",
-            Message = "Reminder: You have a booking for Training Room on 2023-05-23 at 3:00 PM.",
-            Date = DateTime.Parse("2023-05-23 14:00:00"),
-            IsRead = false
-        }
-    }.OrderByDescending(n => n.Date);
-}
+﻿@model IEnumerable<ASI.Basecode.Data.Models.Notification>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notifications</title>
+    <title>@ViewData["Title"]</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .notification-item {
@@ -65,9 +28,21 @@
                 background-color: #f8f9fa;
             }
 
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .notification-body {
+            margin-top: 10px;
+        }
+
         .notification-date {
             color: #6c757d;
             font-size: 0.875rem;
+            margin-top: 10px;
         }
 
         .delete-notification {
@@ -99,29 +74,33 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="fw-bold mb-3">Notifications</h1>
+        <h1 class="fw-bold mb-3">@ViewData["Title"]</h1>
         <div id="notificationsContainer">
-            @if (!notifications.Any())
+            @if (Model != null && Model.Any())
             {
-                <p>You have no notifications.</p>
-            }
-            else
-            {
-                foreach (var notification in notifications)
+                foreach (var notification in Model)
                 {
                     <div class="notification-item @(notification.IsRead ? "" : "unread")" data-notification-id="@notification.Id">
                         <div class="notification-content" data-bs-toggle="modal" data-bs-target="#viewNotificationModal"
                              data-notification-id="@notification.Id"
                              data-notification-message="@notification.Message"
                              data-notification-date="@notification.Date.ToString("F")">
-                            <p class="mb-1">@notification.Message</p>
-                            <p class="notification-date mb-0">
-                                @notification.Date.ToString("MMMM d, yyyy, h:mm tt")
-                            </p>
+                            <div class="notification-body mt-2">
+                                <p>@notification.Message</p>
+                                <div class="notification-date">
+                                    @notification.Date.ToString("MMMM dd, yyyy HH:mm:ss")
+                                </div>
+                            </div>
                         </div>
                         <span class="delete-notification" onclick="deleteNotification(event, @notification.Id)">X</span>
                     </div>
                 }
+            }
+            else
+            {
+                <div class="alert alert-info">
+                    <strong>No notifications found.</strong>
+                </div>
             }
         </div>
     </div>
@@ -209,7 +188,7 @@
 
         // Function to simulate random notifications
         function simulateNotification() {
-            const messages = @Json.Serialize(notifications.Select(n => n.Message));
+            const messages = @Html.Raw(Json.Serialize(Model.Select(n => n.Message)));
             const randomMessage = messages[Math.floor(Math.random() * messages.length)];
             showToast(randomMessage);
         }

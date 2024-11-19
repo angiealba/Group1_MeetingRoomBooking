@@ -1,5 +1,6 @@
 ﻿using ASI.Basecode.Data;
 using ASI.Basecode.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -33,6 +34,15 @@ public class NotificationRepository : INotificationRepository
             notification.IsRead = true;
             _dbContext.SaveChanges();
         }
+    }
+    public int GetUserID(string userId)
+    {
+        var user = _dbContext.Users.FirstOrDefault(u => u.userID == userId);
+        if (user == null)
+        {
+            throw new Exception("User not found!");
+        }
+        return user.ID;
     }
 
     public void DeleteNotification(int id)

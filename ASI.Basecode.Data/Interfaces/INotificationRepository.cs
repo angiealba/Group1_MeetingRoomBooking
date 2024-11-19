@@ -7,4 +7,5 @@ public interface INotificationRepository
     List<Notification> GetNotifications();
     void MarkAsRead(int id);
     void DeleteNotification(int id);
+    int GetUserID(string userId);
 }

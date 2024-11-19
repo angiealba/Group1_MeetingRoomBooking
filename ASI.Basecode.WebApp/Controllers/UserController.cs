@@ -5,18 +5,21 @@ using ASI.Basecode.Services.ServiceModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 
 namespace ASI.Basecode.WebApp.Controllers
 {
     public class UserController : Controller
     {
         private readonly IUserService _userService;
-
-        public UserController(IUserService userService)
+        private readonly INotificationService _notificationService;
+        public UserController(IUserService userService, INotificationService notificationService)
         {
             _userService = userService;
+            _notificationService = notificationService;
         }
 
         public ActionResult Index(string search)
@@ -121,8 +124,31 @@ namespace ASI.Basecode.WebApp.Controllers
         }
         public ActionResult Notification()
         {
-            return View();
+            // Declare the variable to hold the user ID
+            int id = 0;
+
+            // Get the current user's ID as a string from the Claims
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            // If userId is found, fetch the actual user ID as an integer
+            if (userId != null)
+            {
+                id = _notificationService.GetUserID(userId);  // Assuming this returns an integer User ID
+            }
+
+            // Now that we have the user ID, let's fetch the notifications for this user
+            var notifications = _notificationService.GetNotifications()
+                .Where(n => n.userId == id)  // Assuming n.UserId is the ID of the user
+                .OrderByDescending(n => n.Date)
+                .ToList();
+
+            // Return the notifications to the view
+            return View(notifications);
         }
+
+
+
+
         public ActionResult Setting()
         {
             return View();
