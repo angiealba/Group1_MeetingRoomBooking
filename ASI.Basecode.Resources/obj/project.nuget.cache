@@ -1,12 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "wXjiEH1JRtg=",
+  "dgSpecHash": "4hh49Y1pr/Y=",
   "success": true,
-  "projectFilePath": "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\Rico Gabunada\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.36\\microsoft.windowsdesktop.app.ref.6.0.36.nupkg.sha512",
-    "C:\\Users\\Rico Gabunada\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.36\\microsoft.netcore.app.ref.6.0.36.nupkg.sha512",
-    "C:\\Users\\Rico Gabunada\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.36\\microsoft.aspnetcore.app.ref.6.0.36.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }

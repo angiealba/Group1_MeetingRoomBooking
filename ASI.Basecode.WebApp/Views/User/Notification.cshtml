@@ -6,7 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"]</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/main.min.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .notification-item {
             padding: 15px;
@@ -92,7 +93,11 @@
                                 </div>
                             </div>
                         </div>
-                        <span class="delete-notification" onclick="deleteNotification(event, @notification.Id)">X</span>
+                        <form asp-action="DeleteNotification" method="post" style="display:inline;">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@notification.Id" />
+                            <button type="submit" class="delete-notification btn btn-link" title="Delete Notification">X</button>
+                        </form>
                     </div>
                 }
             }
@@ -105,7 +110,7 @@
         </div>
     </div>
 
-    <!-- View Notification Modal -->
+   
     <div class="modal fade" id="viewNotificationModal" tabindex="-1" aria-labelledby="viewNotificationModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -124,12 +129,11 @@
         </div>
     </div>
 
-    <!-- Toast container -->
+   
     <div class="toast-container"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // JavaScript to handle populating the view notification modal
         const viewNotificationModal = document.getElementById('viewNotificationModal');
         viewNotificationModal.addEventListener('show.bs.modal', function (event) {
             const notificationItem = event.relatedTarget;
@@ -141,27 +145,11 @@
             modalBody.querySelector('#notificationMessage').textContent = message;
             modalBody.querySelector('#notificationDate').textContent = 'Sent on: ' + date;
 
-            // Mark notification as read
             notificationItem.classList.remove('unread');
         });
 
-        // Function to delete a notification
-        function deleteNotification(event, notificationId) {
-            event.stopPropagation();
 
-            const notificationItem = document.querySelector(`.notification-item[data-notification-id="${notificationId}"]`);
-            if (notificationItem) {
-                notificationItem.remove();
-            }
 
-            const remainingNotifications = document.querySelectorAll('.notification-item');
-            if (remainingNotifications.length === 0) {
-                const notificationsContainer = document.getElementById('notificationsContainer');
-                notificationsContainer.innerHTML = '<p>You have no notifications.</p>';
-            }
-        }
-
-        // Function to create and show a toast notification
         function showToast(message) {
             const toastContainer = document.querySelector('.toast-container');
             const toastElement = document.createElement('div');
@@ -171,30 +159,47 @@
             toastElement.setAttribute('aria-atomic', 'true');
 
             toastElement.innerHTML = `
-                                <div class="toast-header">
-                                    <strong class="me-auto">New Notification</strong>
-                                    <small>Just now</small>
-                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                                </div>
-                                <div class="toast-body">
-                                    ${message}
-                                </div>
-                            `;
+                <div class="toast-header">
+                    <strong class="me-auto">New Notification</strong>
+                    <small>Just now</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    ${message}
+                </div>
+            `;
 
             toastContainer.appendChild(toastElement);
-            const toast = new bootstrap.Toast(toastElement);
+
+           
+            const toast = new bootstrap.Toast(toastElement, {
+                autohide: true,
+                delay: 4000 
+            });
+
             toast.show();
+
+           
+            toastElement.addEventListener('hidden.bs.toast', () => {
+                toastElement.remove();
+            });
         }
 
-        // Function to simulate random notifications
+
+
         function simulateNotification() {
+            // Fetch the first notification
             const messages = @Html.Raw(Json.Serialize(Model.Select(n => n.Message)));
-            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-            showToast(randomMessage);
+            if (messages.length > 0) {
+                const firstMessage = messages[0]; // Get the first message
+                showToast(firstMessage);
+            }
         }
 
-        // Set interval to show random notifications every 10 seconds
-        setInterval(simulateNotification, 10000);
+
+
+ 
+        setInterval(simulateNotification, 5000);
     </script>
 </body>
 </html>
