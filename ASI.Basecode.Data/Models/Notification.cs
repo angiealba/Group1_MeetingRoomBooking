@@ -9,7 +9,7 @@ namespace ASI.Basecode.Data.Models
     public class Notification
     {
         public int Id { get; set; }
-        public int BookingId { get; set; }
+        public int userId { get; set; }
 
         public string Type { get; set; }
         public string Message { get; set; }

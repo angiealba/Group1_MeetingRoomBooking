@@ -21,8 +21,8 @@ public class NotificationService : INotificationService
         }
         var notification = new Notification
         {
-            BookingId = id,
-            Type = "Booking Confirmation",
+            userId = id,
+            Type = type,
             Message = message,
             Date = DateTime.Now,
             IsRead = false

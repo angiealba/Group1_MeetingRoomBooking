@@ -157,9 +157,9 @@ namespace ASI.Basecode.WebApp.Controllers
                 }
                 
                 _notificationService.AddNotification(
-                    booking.bookingId,
+                    booking.ID,
                     "Booking Confirmation",
-                    $"Your booking on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been confirmed."
+                    $"Your booking for {booking.roomId} on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been created."
                 );
 
 
@@ -195,38 +195,41 @@ namespace ASI.Basecode.WebApp.Controllers
                     return RedirectToAction("Index");
                 }
 
+                // Retrieve the userId from claims (same as in CreateBooking)
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (userId != null)
+                {
+                    int id = _bookingService.GetUserID(userId);  // Get the user's internal ID if needed
+                    booking.ID = id;  // Assign the userId to the booking object
+                }
+
+                // If not recurring, update the booking immediately
                 if (!existingBooking.isRecurring)
                 {
-                    // If the booking is not recurring, update it immediately
                     _bookingService.UpdateBooking(booking);
 
-                    // Ensure booking.ID is not null before sending the notification
-                    if (booking.bookingId != 0)
-                    {
-                        _notificationService.AddNotification(
-                            booking.ID,
-                            "Booking Update",
-                            $"Your booking on {booking.date:MM-dd-yyyy} at {booking.time:HH:mm} has been updated."
-                        );
-                    }
+                    // Add notification for booking update
+                    _notificationService.AddNotification(
+                        booking.ID,
+                        "Booking Update",
+                        $"Your booking on {booking.date:MM-dd-yyyy} at {booking.time:HH:mm} has been updated."
+                    );
+
                     TempData["SuccessMessage"] = "Booking updated successfully.";
                 }
                 else
                 {
-                    // If the booking is recurring, handle based on editRecurringUpdate value
+                    // Handle recurring booking update (same logic as before)
                     switch (editRecurringUpdate)
                     {
                         case "this":
                             // Update only this occurrence
                             _bookingService.UpdateBooking(booking);
-                            if (booking.ID != 0)
-                            {
-                                _notificationService.AddNotification(
-                                    booking.ID,
-                                    "Booking Update",
-                                    $"Your booking on {booking.date:MM-dd-yyyy} at {booking.time:HH:mm} has been updated."
-                                );
-                            }
+                            _notificationService.AddNotification(
+                                booking.ID,
+                                "Booking Update",
+                                $"Your booking on {booking.date:MM-dd-yyyy} at {booking.time:HH:mm} has been updated."
+                            );
                             TempData["SuccessMessage"] = "This occurrence of the booking has been updated.";
                             break;
 
@@ -235,7 +238,6 @@ namespace ASI.Basecode.WebApp.Controllers
                             var recurringBookings = _bookingService.GetRecurringBookings(existingBooking.recurringBookingId);
                             var currentBookingDate = existingBooking.date;
 
-                            // Update the current booking
                             _bookingService.UpdateBooking(booking);
 
                             // Update all following bookings
@@ -247,14 +249,11 @@ namespace ASI.Basecode.WebApp.Controllers
                                 _bookingService.UpdateBooking(followingBooking);
                             }
 
-                            if (booking.ID != 0)
-                            {
-                                _notificationService.AddNotification(
-                                    booking.bookingId,
-                                    "Booking Update",
-                                    $"Your booking on {booking.date:MM-dd-yyyy} at {booking.time:HH:mm} has been updated."
-                                );
-                            }
+                            _notificationService.AddNotification(
+                                booking.ID, 
+                                "Booking Update",
+                                $"Your booking on {booking.date:MM-dd-yyyy} at {booking.time:HH:mm} has been updated."
+                            );
                             TempData["SuccessMessage"] = "This occurrence and all following occurrences have been updated.";
                             break;
 
@@ -269,15 +268,11 @@ namespace ASI.Basecode.WebApp.Controllers
                                 _bookingService.UpdateBooking(recurringBooking);
                             }
 
-                            if (booking.ID != 0)
-                            {
-                                _notificationService.AddNotification(
-                                    booking.ID,
-                                    "Booking Update",
-                                    $"Your booking on {booking.date:MM-dd-yyyy} at {booking.time:HH:mm} has been updated."
-                                );
-                            }
-
+                            _notificationService.AddNotification(
+                                booking.ID,
+                                "Booking Update",
+                                $"Your booking on {booking.date:MM-dd-yyyy} at {booking.time:HH:mm} has been updated."
+                            );
                             TempData["SuccessMessage"] = "All occurrences of the booking have been updated.";
                             break;
 
@@ -294,6 +289,8 @@ namespace ASI.Basecode.WebApp.Controllers
 
             return RedirectToAction("Index");
         }
+
+
 
         public ActionResult BookingSummary(string room, DateTime? date, string userName)
         {
@@ -342,8 +339,15 @@ namespace ASI.Basecode.WebApp.Controllers
             
                 // Get the booking by ID
                 var booking = _bookingService.GetBookingById(bookingId);
+                // Retrieve the userId from claims (same as in CreateBooking)
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (userId != null)
+                {
+                    int id = _bookingService.GetUserID(userId);  // Get the user's internal ID if needed
+                    booking.ID = id;  // Assign the userId to the booking object
+                }
 
-                if (booking == null)
+            if (booking == null)
                 {
                     TempData["ErrorMessage"] = "Booking not found.";
                     return RedirectToAction("Index");
@@ -364,7 +368,7 @@ namespace ASI.Basecode.WebApp.Controllers
                             // Delete only this occurrence
                             _bookingService.DeleteBooking(booking);
                             _notificationService.AddNotification(
-                                bookingId,
+                                booking.ID,
                                 "Booking Deletion",
                                 $"Your booking on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been cancelled."
                             );
@@ -405,14 +409,14 @@ namespace ASI.Basecode.WebApp.Controllers
                             {
                                 _bookingService.DeleteBooking(recurringBooking);
                                 _notificationService.AddNotification(
-                                    recurringBooking.ID,
+                                    booking.ID,
                                     "Booking Deletion",
                                     $"Your booking on {recurringBooking.date.ToString("MM-dd-yyyy")} at {recurringBooking.time.ToString("HH:mm")} has been cancelled."
                                 );
                             }
 
                             _notificationService.AddNotification(
-                                bookingId,
+                                booking.ID,
                                 "Booking Deletion",
                                 $"Your booking on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been deleted."
                             );
