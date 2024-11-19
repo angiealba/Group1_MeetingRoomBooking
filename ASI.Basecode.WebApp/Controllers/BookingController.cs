@@ -17,10 +17,11 @@ namespace ASI.Basecode.WebApp.Controllers
     public class BookingController : Controller
     {
         private readonly IBookingService _bookingService;
-
-        public BookingController(IBookingService bookingService)
+        private readonly INotificationService _notificationService;
+        public BookingController(IBookingService bookingService, INotificationService notificationService)
         {
             _bookingService = bookingService;
+            _notificationService = notificationService;
         }
 
         // GET: BookingController
@@ -154,6 +155,13 @@ namespace ASI.Basecode.WebApp.Controllers
                     // Add the original booking
                     _bookingService.AddBooking(booking);
                 }
+                
+                _notificationService.AddNotification(
+                    booking.bookingId,
+                    "Booking Confirmation",
+                    $"Your booking on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been confirmed."
+                );
+
 
                 TempData["SuccessMessage"] = "Your booking was successful.";
                 return RedirectToAction("Index");
@@ -191,6 +199,16 @@ namespace ASI.Basecode.WebApp.Controllers
                 {
                     // If the booking is not recurring, update it immediately
                     _bookingService.UpdateBooking(booking);
+
+                    // Ensure booking.ID is not null before sending the notification
+                    if (booking.bookingId != 0)
+                    {
+                        _notificationService.AddNotification(
+                            booking.ID,
+                            "Booking Update",
+                            $"Your booking on {booking.date:MM-dd-yyyy} at {booking.time:HH:mm} has been updated."
+                        );
+                    }
                     TempData["SuccessMessage"] = "Booking updated successfully.";
                 }
                 else
@@ -201,6 +219,14 @@ namespace ASI.Basecode.WebApp.Controllers
                         case "this":
                             // Update only this occurrence
                             _bookingService.UpdateBooking(booking);
+                            if (booking.ID != 0)
+                            {
+                                _notificationService.AddNotification(
+                                    booking.ID,
+                                    "Booking Update",
+                                    $"Your booking on {booking.date:MM-dd-yyyy} at {booking.time:HH:mm} has been updated."
+                                );
+                            }
                             TempData["SuccessMessage"] = "This occurrence of the booking has been updated.";
                             break;
 
@@ -216,12 +242,19 @@ namespace ASI.Basecode.WebApp.Controllers
                             foreach (var followingBooking in recurringBookings.Where(rb => rb.date > currentBookingDate))
                             {
                                 followingBooking.roomId = booking.roomId;
-                                //followingBooking.date = booking.date;
                                 followingBooking.time = booking.time;
                                 followingBooking.duration = booking.duration;
                                 _bookingService.UpdateBooking(followingBooking);
                             }
 
+                            if (booking.ID != 0)
+                            {
+                                _notificationService.AddNotification(
+                                    booking.bookingId,
+                                    "Booking Update",
+                                    $"Your booking on {booking.date:MM-dd-yyyy} at {booking.time:HH:mm} has been updated."
+                                );
+                            }
                             TempData["SuccessMessage"] = "This occurrence and all following occurrences have been updated.";
                             break;
 
@@ -231,11 +264,20 @@ namespace ASI.Basecode.WebApp.Controllers
                             foreach (var recurringBooking in allRecurringBookings)
                             {
                                 recurringBooking.roomId = booking.roomId;
-                                //recurringBooking.date = booking.date;
                                 recurringBooking.time = booking.time;
                                 recurringBooking.duration = booking.duration;
                                 _bookingService.UpdateBooking(recurringBooking);
                             }
+
+                            if (booking.ID != 0)
+                            {
+                                _notificationService.AddNotification(
+                                    booking.ID,
+                                    "Booking Update",
+                                    $"Your booking on {booking.date:MM-dd-yyyy} at {booking.time:HH:mm} has been updated."
+                                );
+                            }
+
                             TempData["SuccessMessage"] = "All occurrences of the booking have been updated.";
                             break;
 
@@ -245,13 +287,14 @@ namespace ASI.Basecode.WebApp.Controllers
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                TempData["ErrorMessage"] = "An error occurred while updating the booking.";
+                TempData["ErrorMessage"] = $"An error occurred while updating the booking: {ex.Message}";
             }
 
             return RedirectToAction("Index");
         }
+
         public ActionResult BookingSummary(string room, DateTime? date, string userName)
         {
             // Get rooms for the dropdown
@@ -292,11 +335,11 @@ namespace ASI.Basecode.WebApp.Controllers
         }
 
         // POST: BookingController/DeleteBooking
+        // POST: BookingController/DeleteBooking
         [HttpPost]
         public IActionResult DeleteBooking(int bookingId, string cancelRecurring)
         {
-            try
-            {
+            
                 // Get the booking by ID
                 var booking = _bookingService.GetBookingById(bookingId);
 
@@ -320,6 +363,11 @@ namespace ASI.Basecode.WebApp.Controllers
                         case "this":
                             // Delete only this occurrence
                             _bookingService.DeleteBooking(booking);
+                            _notificationService.AddNotification(
+                                bookingId,
+                                "Booking Deletion",
+                                $"Your booking on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been cancelled."
+                            );
                             TempData["SuccessMessage"] = "This occurrence of the booking has been deleted.";
                             break;
 
@@ -340,9 +388,14 @@ namespace ASI.Basecode.WebApp.Controllers
                             foreach (var followingBooking in followingBookings)
                             {
                                 _bookingService.DeleteBooking(followingBooking);
+                                _notificationService.AddNotification(
+                                    followingBooking.ID,
+                                    "Booking Deletion",
+                                    $"Your booking on {followingBooking.date.ToString("MM-dd-yyyy")} at {followingBooking.time.ToString("HH:mm")} has been cancelled."
+                                );
                             }
 
-                            TempData["SuccessMessage"] = "This occurrence and all following occurrences have been deleted.";
+                            TempData["SuccessMessage"] = "This occurrence and all following occurrences have been cancelled.";
                             break;
 
                         case "all":
@@ -351,7 +404,19 @@ namespace ASI.Basecode.WebApp.Controllers
                             foreach (var recurringBooking in allRecurringBookings)
                             {
                                 _bookingService.DeleteBooking(recurringBooking);
+                                _notificationService.AddNotification(
+                                    recurringBooking.ID,
+                                    "Booking Deletion",
+                                    $"Your booking on {recurringBooking.date.ToString("MM-dd-yyyy")} at {recurringBooking.time.ToString("HH:mm")} has been cancelled."
+                                );
                             }
+
+                            _notificationService.AddNotification(
+                                bookingId,
+                                "Booking Deletion",
+                                $"Your booking on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been deleted."
+                            );
+
                             TempData["SuccessMessage"] = "All occurrences of the booking have been deleted.";
                             break;
 
@@ -360,14 +425,11 @@ namespace ASI.Basecode.WebApp.Controllers
                             break;
                     }
                 }
-            }
-            catch (Exception)
-            {
-                TempData["ErrorMessage"] = "An error occurred while deleting the booking.";
-            }
-
+            
+           
             return RedirectToAction("Index");
         }
+
         public ActionResult Sample()
         {
             return View();
