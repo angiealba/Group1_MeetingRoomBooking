@@ -18,10 +18,12 @@ namespace ASI.Basecode.WebApp.Controllers
     {
         private readonly IBookingService _bookingService;
         private readonly INotificationService _notificationService;
-        public BookingController(IBookingService bookingService, INotificationService notificationService)
+        private readonly IUserService _userService;
+        public BookingController(IBookingService bookingService, INotificationService notificationService, IUserService userService)
         {
             _bookingService = bookingService;
             _notificationService = notificationService;
+            _userService = userService;
         }
 
         
@@ -29,6 +31,16 @@ namespace ASI.Basecode.WebApp.Controllers
         {
             int id = 0;
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            User currentUser = null;
+
+            if (userId != null)
+            {
+                id = _bookingService.GetUserID(userId);
+                currentUser = _userService.GetUserByUserId(id); 
+            }
+
+            ViewBag.defaultBookingDuration = currentUser?.defaultBookingDuration ?? 1;
+
             if (userId != null)
             {
                 id = _bookingService.GetUserID(userId);

@@ -126,8 +126,8 @@
                         <input type="time" class="form-control" id="time" name="time">
                     </div>
                     <div class="mb-3">
-                        <label for="duration" class="form-label">Duration (hours)</label>
-                        <input type="number" class="form-control" id="duration" name="duration" min="1" step="1">
+                        <label for="time" class="form-label">Duration</label>
+                         <input type="number" class="form-control" id="duration" name="duration" min="1" step="1" value="@(ViewBag.defaultBookingDuration ?? 1)">
                     </div>
                     <div class="mb-3">
                         <div class="form-check">

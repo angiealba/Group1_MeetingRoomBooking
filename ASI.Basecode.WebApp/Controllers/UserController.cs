@@ -161,13 +161,53 @@ namespace ASI.Basecode.WebApp.Controllers
             return RedirectToAction("Notification");
         }
 
+        [HttpPost]
+        [HttpPost]
+        public IActionResult SaveSettings(bool? enableNotifications, int defaultBookingDuration)
+        {
+            try
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (userId == null)
+                {
+                    return Unauthorized();
+                }
 
+                bool notificationsEnabled = enableNotifications ?? false;
 
+                _userService.UpdateUserSettings(userId, notificationsEnabled, defaultBookingDuration);
 
+                TempData["SuccessMessage"] = "Settings updated successfully.";
+                return RedirectToAction("Setting");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"Failed to update settings: {ex.Message}";
+                return RedirectToAction("Setting");
+            }
+        }
 
         public ActionResult Setting()
         {
-            return View();
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
+
+            // Retrieve the updated user from the database
+            var user = _userService.GetUsers().FirstOrDefault(u => u.userID == userId);
+
+            if (user == null)
+            {
+                TempData["ErrorMessage"] = "User not found.";
+                return RedirectToAction("Index");
+            }
+
+            return View(user);
         }
+
+
     }
 }
+

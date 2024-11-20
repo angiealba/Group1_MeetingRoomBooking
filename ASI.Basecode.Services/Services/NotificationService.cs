@@ -1,16 +1,20 @@
 ﻿
+using ASI.Basecode.Data.Interfaces;
 using ASI.Basecode.Data.Models;
 using ASI.Basecode.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class NotificationService : INotificationService
 {
     private readonly INotificationRepository _notificationRepository;
+    private readonly IUserRepository _userRepository;
 
-    public NotificationService(INotificationRepository notificationRepository)
+    public NotificationService(INotificationRepository notificationRepository, IUserRepository userRepository)
     {
         _notificationRepository = notificationRepository;
+        _userRepository = userRepository;
     }
 
     public void AddNotification(int id, string type, string message)
@@ -19,6 +23,14 @@ public class NotificationService : INotificationService
         {
             throw new ArgumentException("Invalid notification parameters.");
         }
+
+        // Check if notifications are enabled for the user
+        var user = _userRepository.GetUsers().FirstOrDefault(u => u.ID == id);
+        if (user == null || !user.enableNotifications)
+        {
+            return; // Do not add notification if user is not found or notifications are disabled
+        }
+
         var notification = new Notification
         {
             userId = id,

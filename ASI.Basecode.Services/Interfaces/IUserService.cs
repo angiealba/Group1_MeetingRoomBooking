@@ -13,5 +13,7 @@ namespace ASI.Basecode.Services.Interfaces
         void UpdateUser(User user);
         void DeleteUser(int ID);
         bool UserExists(string userID);
+        void UpdateUserSettings(string userId, bool enableNotifications, int defaultBookingDuration);
+        User GetUserByUserId(int id);
     }
 }

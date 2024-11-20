@@ -37,8 +37,6 @@ namespace ASI.Basecode.Services.Services
 
 
         }
-
-
         public void AddUser(UserViewModel model)
         {
             if (!_repository.UserExists(model.userID))
@@ -81,9 +79,6 @@ namespace ASI.Basecode.Services.Services
                 _repository.UpdateUser(existingUser);
             }
         }
-
-
-
         public void DeleteUser(int id)
         {
             var user = _repository.GetUsers().FirstOrDefault(u => u.ID == id);
@@ -92,7 +87,25 @@ namespace ASI.Basecode.Services.Services
                 _repository.DeleteUser(user);
             }
         }
-
         public bool UserExists(string userID) => _repository.UserExists(userID);
+        public void UpdateUserSettings(string userId, bool enableNotifications, int defaultBookingDuration)
+        {
+            var user = _repository.GetUsers().FirstOrDefault(u => u.userID == userId);
+
+            if (user != null)
+            {
+                user.enableNotifications = enableNotifications ? true : false; // Explicitly set true or false
+                user.defaultBookingDuration = defaultBookingDuration;
+                user.updatedTime = DateTime.Now;
+                user.updatedBy = Environment.UserName;
+                _repository.UpdateUser(user);
+            }
+        }
+
+
+        public User GetUserByUserId(int id)
+        {
+            return _repository.GetUsers().FirstOrDefault(u => u.ID == id);
+        }
     }
 }
