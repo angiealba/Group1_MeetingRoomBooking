@@ -32,6 +32,7 @@ namespace ASI.Basecode.Data.Repositories
                 existingUser.name = user.name;
                 existingUser.email = user.email;
                 existingUser.role = user.role;
+                existingUser.defaultBookingDuration = user.defaultBookingDuration;
                 if (!string.IsNullOrEmpty(user.password))
                 {
                     existingUser.password = user.password;

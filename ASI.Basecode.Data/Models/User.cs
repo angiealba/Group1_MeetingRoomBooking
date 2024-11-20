@@ -21,5 +21,7 @@ namespace ASI.Basecode.Data.Models
         public DateTime createdTime { get; set; }
         public string updatedBy { get; set; }
         public DateTime updatedTime { get; set; }
+        public bool enableNotifications { get; set; } = true; // Default to true
+        public int defaultBookingDuration { get; set; } = 1; // Default to 1 hour
     }
 }
