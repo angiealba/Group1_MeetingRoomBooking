@@ -5,18 +5,21 @@ using ASI.Basecode.Services.ServiceModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 
 namespace ASI.Basecode.WebApp.Controllers
 {
     public class UserController : Controller
     {
         private readonly IUserService _userService;
-
-        public UserController(IUserService userService)
+        private readonly INotificationService _notificationService;
+        public UserController(IUserService userService, INotificationService notificationService)
         {
             _userService = userService;
+            _notificationService = notificationService;
         }
 
         public ActionResult Index(string search)
@@ -90,7 +93,7 @@ namespace ASI.Basecode.WebApp.Controllers
         [HttpPost]
         public IActionResult DeleteUser(int id)
         {
-            _userService.DeleteUser(id);  // Permanently delete the user
+            _userService.DeleteUser(id);  
             return RedirectToAction("Index");
         }
         [HttpGet]
@@ -121,8 +124,47 @@ namespace ASI.Basecode.WebApp.Controllers
         }
         public ActionResult Notification()
         {
-            return View();
+            
+            int id = 0;
+
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+           
+            if (userId != null)
+            {
+                id = _notificationService.GetUserID(userId); 
+            }
+
+           
+            var notifications = _notificationService.GetNotifications()
+                .Where(n => n.userId == id)
+                .OrderByDescending(n => n.Date)
+                .ToList();
+
+            return View(notifications);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteNotification(int id)
+        {
+            try
+            {
+                _notificationService.DeleteNotification(id);
+                TempData["SuccessMessage"] = "Notification deleted successfully.";
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Failed to delete the notification: " + ex.Message;
+            }
+
+            // Redirect back to the Notifications page
+            return RedirectToAction("Notification");
+        }
+
+
+
+
+
         public ActionResult Setting()
         {
             return View();

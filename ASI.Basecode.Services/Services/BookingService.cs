@@ -30,6 +30,8 @@ namespace ASI.Basecode.Services.Services
             return (false, null);
         }
 
+
+
         public (bool, IEnumerable<Booking>) GetBookingsByUserId(int id)
         {
             var bookings = _bookingRepository.GetBookingsByUserId(id);
@@ -80,6 +82,12 @@ namespace ASI.Basecode.Services.Services
             }
 
             _bookingRepository.UpdateBooking(booking);
+        }
+
+        public IEnumerable<Booking> GetBookingsWithinNextHour(int userId)
+        {
+            return _bookingRepository.GetBookingsWithinNextHour(userId);
+
         }
 
         public void DeleteBooking(Booking booking)

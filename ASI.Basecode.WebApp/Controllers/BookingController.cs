@@ -17,17 +17,17 @@ namespace ASI.Basecode.WebApp.Controllers
     public class BookingController : Controller
     {
         private readonly IBookingService _bookingService;
-
-        public BookingController(IBookingService bookingService)
+        private readonly INotificationService _notificationService;
+        public BookingController(IBookingService bookingService, INotificationService notificationService)
         {
             _bookingService = bookingService;
+            _notificationService = notificationService;
         }
 
-        // GET: BookingController
+        
         public ActionResult Index(string search, int page = 1, int pageSize = 6)
         {
             int id = 0;
-            // Get the userId from claims
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userId != null)
             {
@@ -51,7 +51,6 @@ namespace ASI.Basecode.WebApp.Controllers
                                             || b.time.ToString("HH:mm").Contains(search));
             }
 
-            // Pagination logic
             var totalBookings = bookings.Count();
             var totalPages = (int)Math.Ceiling((double)totalBookings / pageSize);
             var paginatedBookings = bookings.Skip((page - 1) * pageSize).Take(pageSize).ToList();
@@ -63,20 +62,21 @@ namespace ASI.Basecode.WebApp.Controllers
             return View(paginatedBookings);
         }
 
-        // POST: BookingController/CreateBooking
         [HttpPost]
         public IActionResult CreateBooking(Booking booking)
         {
             try
             {
-                // Validate the booking object
                 if (!ModelState.IsValid)
                 {
                     TempData["ErrorMessage"] = "All fields are required.";
                     return RedirectToAction("Index");
                 }
+                var rooms = _bookingService.GetRooms(); 
 
-                // Get the userId from claims
+                var room = rooms.FirstOrDefault(r => r.roomId == booking.roomId);
+                string roomName = room != null ? room.roomName : "Unknown Room";
+
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 if (userId != null)
                 {
@@ -84,35 +84,28 @@ namespace ASI.Basecode.WebApp.Controllers
                     booking.ID = id;
                 }
 
-                // Handle recurring bookings
                 if (booking.isRecurring)
                 {
-                    // Validate recurrence frequency and end date
                     if (string.IsNullOrEmpty(booking.recurrenceFrequency) || booking.recurrenceEndDate == null)
                     {
                         TempData["ErrorMessage"] = "Please specify a recurrence frequency and end date.";
                         return RedirectToAction("Index");
                     }
 
-                    // Ensure the 'until' date is after the initial booking date
                     if (booking.recurrenceEndDate <= booking.date)
                     {
                         TempData["ErrorMessage"] = "'Until' date must be after the initial booking date.";
                         return RedirectToAction("Index");
                     }
 
-                    // Generate a unique identifier for the recurring series
                     int recurringSeriesId = _bookingService.GetRecurringIdTracker();
 
-                    // Add the original booking with the recurring series ID
-                    booking.recurringBookingId = recurringSeriesId; // Set the recurringBookingId to the unique ID
+                    booking.recurringBookingId = recurringSeriesId;
                     _bookingService.AddBooking(booking);
 
-                    // Create multiple bookings based on the recurrence frequency
                     DateTime currentDate = booking.date;
                     while (currentDate < booking.recurrenceEndDate)
                     {
-                        // Increment the date based on the recurrence frequency
                         switch (booking.recurrenceFrequency)
                         {
                             case "daily":
@@ -126,7 +119,7 @@ namespace ASI.Basecode.WebApp.Controllers
                                 break;
                         }
 
-                        // Create a new booking for the current date
+                       
                         var newBooking = new Booking
                         {
                             ID = booking.ID,
@@ -137,23 +130,27 @@ namespace ASI.Basecode.WebApp.Controllers
                             isRecurring = true,
                             recurrenceFrequency = booking.recurrenceFrequency,
                             recurrenceEndDate = booking.recurrenceEndDate,
-                            recurringBookingId = booking.recurringBookingId // Reference to the unique recurring series ID
+                            recurringBookingId = booking.recurringBookingId 
                         };
 
-                        // Add the new booking
                         _bookingService.AddBooking(newBooking);
                     }
                 }
                 else
                 {
-                    // If not recurring, set recurrence fields to null
                     booking.recurrenceFrequency = null;
                     booking.recurrenceEndDate = null;
                     booking.recurringBookingId = null;
 
-                    // Add the original booking
                     _bookingService.AddBooking(booking);
                 }
+                
+                _notificationService.AddNotification(
+                    booking.ID,
+                    "Booking Confirmation",
+                    $"Your booking for {roomName} on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been created."
+                );
+
 
                 TempData["SuccessMessage"] = "Your booking was successful.";
                 return RedirectToAction("Index");
@@ -165,20 +162,43 @@ namespace ASI.Basecode.WebApp.Controllers
             }
         }
 
-        // POST: BookingController/EditBooking
+        public void CheckUpcomingBookings()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null) return;
+
+            int id = _bookingService.GetUserID(userId);
+
+            var upcomingBookings = _bookingService.GetBookingsWithinNextHour(id);
+
+            foreach (var booking in upcomingBookings)
+            {
+                var room = _bookingService.GetRooms().FirstOrDefault(r => r.roomId == booking.roomId);
+                string roomName = room != null ? room.roomName : "Unknown Room";
+
+                _notificationService.AddNotification(
+                    booking.ID,
+                    "Upcoming Booking Reminder",
+                    $"Reminder: You have a booking for {roomName} in one hour at {booking.time.ToString("HH:mm")}."
+                );
+            }
+        }
+
         [HttpPost]
         public IActionResult EditBooking(Booking booking, string editRecurringUpdate)
         {
             try
             {
-                // Validate the booking object
                 if (!ModelState.IsValid)
                 {
                     TempData["ErrorMessage"] = "All fields are required.";
                     return RedirectToAction("Index");
                 }
 
-                // Get the existing booking by ID
+                var rooms = _bookingService.GetRooms();
+                var newRoom = rooms.FirstOrDefault(r => r.roomId == booking.roomId);
+                string newRoomName = newRoom != null ? newRoom.roomName : "Unknown Room";
+
                 var existingBooking = _bookingService.GetBookingById(booking.bookingId);
 
                 if (existingBooking == null)
@@ -187,55 +207,189 @@ namespace ASI.Basecode.WebApp.Controllers
                     return RedirectToAction("Index");
                 }
 
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (userId != null)
+                {
+                    int id = _bookingService.GetUserID(userId);
+                    booking.ID = id;
+                }
+
+                var oldRoom = rooms.FirstOrDefault(r => r.roomId == existingBooking.roomId);
+                string oldRoomName = oldRoom != null ? oldRoom.roomName : "Unknown Room";
+
+                bool isRoomChanged = existingBooking.roomId != booking.roomId;
+                bool isBookingUpdated = existingBooking.date != booking.date || existingBooking.time != booking.time || existingBooking.duration != booking.duration;
+                bool isDateChanged = existingBooking.date != booking.date;
+                bool isTimeChanged = existingBooking.time != booking.time;
+                bool isDurationChanged = existingBooking.duration != booking.duration;
+
                 if (!existingBooking.isRecurring)
                 {
-                    // If the booking is not recurring, update it immediately
                     _bookingService.UpdateBooking(booking);
+
+                    if (isRoomChanged)
+                    {
+                        _notificationService.AddNotification(
+                            booking.ID,
+                            "Room Change",
+                            $"Your booking for {oldRoomName} on {existingBooking.date.ToString("MM-dd-yyyy")} has been moved to {newRoomName}."
+                        );
+                    }
+
+                    if (isDateChanged)
+                    {
+                        _notificationService.AddNotification(
+                            booking.ID,
+                            "Date Change",
+                            $"Your booking for {oldRoomName} has been rescheduled to {booking.date.ToString("MM-dd-yyyy")}."
+                        );
+                    }
+                    if (isTimeChanged)
+                    {
+                        _notificationService.AddNotification(
+                            booking.ID,
+                            "Duration Change",
+                            $"Your booking for {oldRoomName} has been changed to {booking.time}."
+                        );
+                    }
+                    if (isDurationChanged)
+                    {
+                        _notificationService.AddNotification(
+                            booking.ID,
+                            "Duration Change",
+                            $"Your booking for {oldRoomName} has been changed to {booking.duration} hours."
+                        );
+                    }
+
+                    if (isBookingUpdated && !isRoomChanged && !isDateChanged && !isDurationChanged)
+                    {
+                        _notificationService.AddNotification(
+                            booking.ID,
+                            "Booking Update",
+                            $"Your booking for {newRoomName} on {booking.date.ToString("MM-dd-yyyy")} has been updated to {booking.time.ToString("HH:mm")}."
+                        );
+                    }
+
                     TempData["SuccessMessage"] = "Booking updated successfully.";
                 }
                 else
                 {
-                    // If the booking is recurring, handle based on editRecurringUpdate value
                     switch (editRecurringUpdate)
                     {
                         case "this":
-                            // Update only this occurrence
                             _bookingService.UpdateBooking(booking);
+
+                            if (isRoomChanged)
+                            {
+                                _notificationService.AddNotification(
+                                    booking.ID,
+                                    "Room Change",
+                                    $"Your booking for {oldRoomName} on {existingBooking.date.ToString("MM-dd-yyyy")} has been moved to {newRoomName}."
+                                );
+                            }
+
+                            if (isDateChanged)
+                            {
+                                _notificationService.AddNotification(
+                                    booking.ID,
+                                    "Date Change",
+                                    $"Your booking for {newRoomName} on has been rescheduled to {booking.date.ToString("MM-dd-yyyy")}."
+                                );
+                            }
+
+                            if (isDurationChanged)
+                            {
+                                _notificationService.AddNotification(
+                                    booking.ID,
+                                    "Duration Change",
+                                    $"Your booking for {oldRoomName} has been changed to {booking.duration} hours."
+                                );
+                            }
+
+                            if (isBookingUpdated && !isRoomChanged && !isDateChanged && !isDurationChanged)
+                            {
+                                _notificationService.AddNotification(
+                                    booking.ID,
+                                    "Booking Update",
+                                    $"Your booking for {newRoomName} on {booking.date.ToString("MM-dd-yyyy")} has been updated to {booking.time.ToString("HH:mm")}."
+                                );
+                            }
+
                             TempData["SuccessMessage"] = "This occurrence of the booking has been updated.";
                             break;
 
                         case "following":
-                            // Update this occurrence and all following occurrences
                             var recurringBookings = _bookingService.GetRecurringBookings(existingBooking.recurringBookingId);
                             var currentBookingDate = existingBooking.date;
 
-                            // Update the current booking
                             _bookingService.UpdateBooking(booking);
 
-                            // Update all following bookings
+                            if (isRoomChanged)
+                            {
+                                _notificationService.AddNotification(
+                                    booking.ID,
+                                    "Room Change",
+                                    $"Your booking for {oldRoomName} on {existingBooking.date.ToString("MM-dd-yyyy")} has been moved to {newRoomName} at {booking.time.ToString("HH:mm")}."
+                                );
+                            }
+
+                            if (isDateChanged)
+                            {
+                                _notificationService.AddNotification(
+                                    booking.ID,
+                                    "Date Change",
+                                    $"Your booking for {newRoomName} has been rescheduled to {booking.date.ToString("MM-dd-yyyy")}."
+                                );
+                            }
+
+                            if (isDurationChanged)
+                            {
+                                _notificationService.AddNotification(
+                                    booking.ID,
+                                    "Duration Change",
+                                    $"Your booking for {oldRoomName} has been changed to {booking.duration} hours."
+                                );
+                            }
+
                             foreach (var followingBooking in recurringBookings.Where(rb => rb.date > currentBookingDate))
                             {
                                 followingBooking.roomId = booking.roomId;
-                                //followingBooking.date = booking.date;
                                 followingBooking.time = booking.time;
                                 followingBooking.duration = booking.duration;
                                 _bookingService.UpdateBooking(followingBooking);
+                            }
+
+                            if (isBookingUpdated && !isRoomChanged && !isDateChanged && !isDurationChanged)
+                            {
+                                _notificationService.AddNotification(
+                                    booking.ID,
+                                    "Booking Update",
+                                    $"Your booking for {newRoomName} has been updated to {booking.time.ToString("HH:mm")}."
+                                );
                             }
 
                             TempData["SuccessMessage"] = "This occurrence and all following occurrences have been updated.";
                             break;
 
                         case "all":
-                            // Update all occurrences in the series
                             var allRecurringBookings = _bookingService.GetRecurringBookings(existingBooking.recurringBookingId);
                             foreach (var recurringBooking in allRecurringBookings)
                             {
                                 recurringBooking.roomId = booking.roomId;
-                                //recurringBooking.date = booking.date;
                                 recurringBooking.time = booking.time;
                                 recurringBooking.duration = booking.duration;
                                 _bookingService.UpdateBooking(recurringBooking);
                             }
+
+                            if (isBookingUpdated && !isRoomChanged && !isDateChanged && !isDurationChanged)
+                            {
+                                _notificationService.AddNotification(
+                                    booking.ID,
+                                    "Booking Update",
+                                    $"Your booking for {newRoomName} on {booking.date.ToString("MM-dd-yyyy")} has been updated to {booking.time.ToString("HH:mm")}."
+                                );
+                            }
+
                             TempData["SuccessMessage"] = "All occurrences of the booking have been updated.";
                             break;
 
@@ -245,25 +399,30 @@ namespace ASI.Basecode.WebApp.Controllers
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                TempData["ErrorMessage"] = "An error occurred while updating the booking.";
+                TempData["ErrorMessage"] = $"An error occurred while updating the booking: {ex.Message}";
             }
 
             return RedirectToAction("Index");
         }
+
+
+
+
+
+
+
         public ActionResult BookingSummary(string room, DateTime? date, string userName)
         {
-            // Get rooms for the dropdown
             var rooms = _bookingService.GetRooms();
             ViewBag.Rooms = new SelectList(rooms, "roomId", "roomName");
 
-            // Store filter values for form persistence
             ViewBag.SelectedRoom = room;
             ViewBag.SelectedDate = date;
             ViewBag.SelectedUser = userName;
 
-            // Fetch all bookings
+
             (bool result, IEnumerable<Booking> bookings) = _bookingService.GetAllBookings();
 
             if (!result)
@@ -292,15 +451,23 @@ namespace ASI.Basecode.WebApp.Controllers
         }
 
         // POST: BookingController/DeleteBooking
+        // POST: BookingController/DeleteBooking
         [HttpPost]
         public IActionResult DeleteBooking(int bookingId, string cancelRecurring)
         {
-            try
-            {
-                // Get the booking by ID
+            
                 var booking = _bookingService.GetBookingById(bookingId);
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (userId != null)
+                {
+                    int id = _bookingService.GetUserID(userId); 
+                    booking.ID = id;  
+                }
+            var rooms = _bookingService.GetRooms();
 
-                if (booking == null)
+            var room = rooms.FirstOrDefault(r => r.roomId == booking.roomId);
+            string roomName = room != null ? room.roomName : "Unknown Room";
+            if (booking == null)
                 {
                     TempData["ErrorMessage"] = "Booking not found.";
                     return RedirectToAction("Index");
@@ -310,39 +477,51 @@ namespace ASI.Basecode.WebApp.Controllers
                 {
                     // If the booking is not recurring, delete it immediately
                     _bookingService.DeleteBooking(booking);
-                    TempData["SuccessMessage"] = "Booking deleted successfully.";
+                _notificationService.AddNotification(
+                                booking.ID,
+                                "Booking Deletion",
+                                 $"Your booking for {roomName} on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been cancelled."
+                            );
+                TempData["SuccessMessage"] = "Booking deleted successfully.";
                 }
                 else
                 {
-                    // If the booking is recurring, handle based on cancelRecurring value
+                   
                     switch (cancelRecurring)
                     {
                         case "this":
                             // Delete only this occurrence
                             _bookingService.DeleteBooking(booking);
+                            _notificationService.AddNotification(
+                                booking.ID,
+                                "Booking Deletion",
+                                 $"Your booking for {roomName} on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been cancelled."
+                            );
                             TempData["SuccessMessage"] = "This occurrence of the booking has been deleted.";
                             break;
 
                         case "following":
-                            // Delete this occurrence and all following occurrences
+                           
                             var recurringBookings = _bookingService.GetRecurringBookings(booking.recurringBookingId);
                             var currentBookingDate = booking.date;
 
-                            // Filter to get only the bookings that occur after the current booking date
                             var followingBookings = recurringBookings
                                 .Where(rb => rb.date > currentBookingDate)
                                 .ToList();
 
-                            // Delete the current booking
                             _bookingService.DeleteBooking(booking);
 
-                            // Delete all following bookings
                             foreach (var followingBooking in followingBookings)
                             {
                                 _bookingService.DeleteBooking(followingBooking);
+                                _notificationService.AddNotification(
+                                    followingBooking.ID,
+                                    "Booking Deletion",
+                                     $"Your booking for {roomName} on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been cancelled."
+                                );
                             }
 
-                            TempData["SuccessMessage"] = "This occurrence and all following occurrences have been deleted.";
+                            TempData["SuccessMessage"] = "This occurrence and all following occurrences have been cancelled.";
                             break;
 
                         case "all":
@@ -351,7 +530,19 @@ namespace ASI.Basecode.WebApp.Controllers
                             foreach (var recurringBooking in allRecurringBookings)
                             {
                                 _bookingService.DeleteBooking(recurringBooking);
+                                _notificationService.AddNotification(
+                                    booking.ID,
+                                    "Booking Deletion",
+                                     $"Your booking for {roomName} on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been cancelled."
+                                );
                             }
+
+                            _notificationService.AddNotification(
+                                booking.ID,
+                                "Booking Deletion",
+                                 $"Your booking for {roomName} on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been cancelled."
+                            );
+
                             TempData["SuccessMessage"] = "All occurrences of the booking have been deleted.";
                             break;
 
@@ -360,14 +551,11 @@ namespace ASI.Basecode.WebApp.Controllers
                             break;
                     }
                 }
-            }
-            catch (Exception)
-            {
-                TempData["ErrorMessage"] = "An error occurred while deleting the booking.";
-            }
-
+            
+           
             return RedirectToAction("Index");
         }
+
         public ActionResult Sample()
         {
             return View();
@@ -377,17 +565,14 @@ namespace ASI.Basecode.WebApp.Controllers
         }
         public ActionResult Analytics(string room, DateTime? start, DateTime? end, string userName)
         {
-            // Get rooms for the dropdown
             var rooms = _bookingService.GetRooms();
             ViewBag.Rooms = new SelectList(rooms, "roomId", "roomName");
 
-            // Store filter values for form persistence
             ViewBag.SelectedRoom = room;
             ViewBag.SelectedStartDate = start;
             ViewBag.SelectedEndDate = end;
             ViewBag.SelectedUser = userName;
 
-            // Fetch all bookings
             (bool result, IEnumerable<Booking> bookings) = _bookingService.GetAllBookings();
 
             if (!result)
@@ -396,7 +581,6 @@ namespace ASI.Basecode.WebApp.Controllers
                 return View(new List<BookingAnalyticsViewModel>());
             }
 
-            // Apply filters
             if (!string.IsNullOrEmpty(room))
             {
                 bookings = bookings.Where(b => b.Room.roomId.ToString() == room);
@@ -417,12 +601,10 @@ namespace ASI.Basecode.WebApp.Controllers
                 bookings = bookings.Where(b => b.User.userID.Contains(userName, StringComparison.OrdinalIgnoreCase));
             }
 
-            // Group bookings by date and calculate statistics
             var analyticsData = bookings
                 .GroupBy(b => b.date.Date)
                 .Select(g =>
                 {
-                    // Get the hour with most bookings (peak usage time)
                     var hourlyBookings = g.GroupBy(b => b.time.Hour)
                                         .OrderByDescending(h => h.Count())
                                         .FirstOrDefault();
@@ -430,7 +612,6 @@ namespace ASI.Basecode.WebApp.Controllers
                     var peakHour = hourlyBookings?.Key ?? 0;
                     var totalBookings = g.Count();
 
-                    // Determine activity level
                     string activityLevel = totalBookings switch
                     {
                         var n when n >= 8 => "High",
@@ -451,7 +632,8 @@ namespace ASI.Basecode.WebApp.Controllers
 
             return View(analyticsData);
         }
-        //calendar
+
+        
         public IActionResult Calendar()
         {
             var rooms = _bookingService.GetRooms();

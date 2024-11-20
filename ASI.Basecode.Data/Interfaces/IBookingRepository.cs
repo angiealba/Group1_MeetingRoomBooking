@@ -15,6 +15,8 @@ namespace ASI.Basecode.Data.Interfaces
         (bool, IEnumerable<Booking>) GetBookings();
         IEnumerable<Booking> GetBookingsByUserId(int id);
         IEnumerable<Room> GetRooms();
+
+        public IEnumerable<Booking> GetBookingsWithinNextHour(int userId);
         Booking GetBookingById(int id);
         void UpdateBooking(Booking booking);
         void DeleteBooking(Booking booking);

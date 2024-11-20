@@ -40,11 +40,12 @@ namespace ASI.Basecode.WebApp
             this._services.AddScoped<IBookingService, BookingService>();
             this._services.AddScoped<IAdminService, AdminService>();
             this._services.AddScoped<IAdminService, AdminService>();
+            this._services.AddScoped<INotificationService, NotificationService>();
 
             // Repositories
             this._services.AddScoped<IUserRepository, UserRepository>();
             this._services.AddScoped<IRoomRepository, RoomRepository>();
-            //this._services.AddScoped<INotificationRepository, NotificationRepository>();
+            this._services.AddScoped<INotificationRepository, NotificationRepository>();
             this._services.AddScoped<IBookingRepository, BookingRepository>();
             this._services.AddScoped<IAdminRepository, AdminRepository>();
             this._services.AddScoped<IAdminRepository, AdminRepository>();

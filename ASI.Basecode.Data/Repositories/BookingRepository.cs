@@ -49,6 +49,7 @@ namespace ASI.Basecode.Data.Repositories
                 throw new InvalidDataException("Error adding booking");
             }
         }
+
         public (bool, IEnumerable<Booking>) GetBookings()
         {
             try
@@ -78,6 +79,20 @@ namespace ASI.Basecode.Data.Repositories
         public IEnumerable<Room> GetRooms()
         {
             return _dbContext.Rooms.ToList();
+        }
+
+        public IEnumerable<Booking> GetBookingsWithinNextHour(int userId)
+        {
+            var now = DateTime.Now;
+            var oneHourFromNow = now.AddHours(1);
+
+            return _dbContext.Bookings
+            .Where(b => b.ID == userId &&
+                        b.date.Date == now.Date &&
+                        b.time.TimeOfDay >= now.TimeOfDay &&
+                        b.time.TimeOfDay <= oneHourFromNow.TimeOfDay)
+            .ToList();
+
         }
 
         public Booking GetBookingById(int id)
