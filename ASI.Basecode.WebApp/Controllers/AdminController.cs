@@ -19,20 +19,30 @@ namespace ASI.Basecode.WebApp.Controllers
             _userService = userService;
         }
 
-        public ActionResult Index(string search)
-        {
-            var users = _userService.GetUsers();
+		public ActionResult Index(string search, int page = 1, int pageSize = 20)
+		{
+			var users = _userService.GetUsers();
 
-            if (!string.IsNullOrEmpty(search))
-            {
-                users = users.Where(u => u.name.Contains(search, StringComparison.OrdinalIgnoreCase) ||
-                                         u.email.Contains(search, StringComparison.OrdinalIgnoreCase));
-            }
+			if (!string.IsNullOrEmpty(search))
+			{
+				users = users.Where(u => u.name.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+										 u.email.Contains(search, StringComparison.OrdinalIgnoreCase));
+			}
 
-            return View(users.ToList());
+            var totalUsers = users.Count();
+            var totalPages = (int)Math.Ceiling((double)totalUsers / pageSize);
+            var paginatedUsers = users.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.SearchQuery = search;
+
+            return View(paginatedUsers);
         }
 
-        [HttpPost]
+
+
+		[HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult CreateUser(UserViewModel userViewModel)
         {
