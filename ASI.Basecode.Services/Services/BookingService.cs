@@ -52,7 +52,7 @@ namespace ASI.Basecode.Services.Services
             var newBooking = new Booking();
 
             newBooking.ID = booking.ID;
-            newBooking.bookingRefId = System.Guid.NewGuid().ToString("N");
+            newBooking.bookingRefId = Math.Abs(System.Guid.NewGuid().GetHashCode()).ToString();
             newBooking.roomId = booking.roomId;
             newBooking.date = booking.date;
             newBooking.time = booking.time;
