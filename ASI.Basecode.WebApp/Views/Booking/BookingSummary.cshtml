@@ -61,7 +61,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>Booking Reference</th>
                 <th>Room</th>
                 <th>Name</th>
                 <th>Date</th>
@@ -75,7 +75,7 @@
                 foreach (var booking in Model)
                 {
                     <tr>
-                        <td>@booking.bookingId</td>
+                        <td>@booking.bookingRefId</td>
                         <td>@(booking.Room != null ? booking.Room.roomName : "Room Unavailable")</td>
                         <td>@(booking.User != null ? booking.User.userID : "User Not Found")</td>
                         <td>@booking.date.ToString("MM/dd/yyyy")</td>
