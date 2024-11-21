@@ -8,7 +8,7 @@
 }
 
 <div class="container my-5">
-    <h2 class="text-left mb-4">Calendar</h2>
+    <h1 class="fw-bold mb-3">Calendar</h1>
     <div id="calendar" class="calendar border rounded p-3 shadow-sm"></div>
 </div>
 
@@ -120,14 +120,14 @@
                     const modal = new bootstrap.Modal(document.getElementById('createBookingModal'));
                     modal.show();
                 },
-                eventClick: function (info) {
-                    alert(`
-                                Booking Details:
-                                Room: ${info.event.title}
-                                Start: ${info.event.start.toLocaleString()}
-                                End: ${info.event.end.toLocaleString()}
-                            `);
-                }
+                // eventClick: function (info) {
+                //     alert(`
+                //                 Booking Details:
+                //                 Room: ${info.event.title}
+                //                 Start: ${info.event.start.toLocaleString()}
+                //                 End: ${info.event.end.toLocaleString()}
+                //             `);
+                // }
             });
             calendar.render();
 

@@ -22,7 +22,7 @@ namespace ASI.Basecode.WebApp.Controllers
             _notificationService = notificationService;
         }
 
-        public ActionResult Index(string search)
+        public ActionResult Index(string search, int page = 1, int pageSize = 16)
         {
             var users = _userService.GetUsers();
 
@@ -32,8 +32,17 @@ namespace ASI.Basecode.WebApp.Controllers
                                          u.email.Contains(search, StringComparison.OrdinalIgnoreCase));
             }
 
-            return View(users.ToList());
+            var totalUsers = users.Count();
+            var totalPages = (int)Math.Ceiling((double)totalUsers / pageSize);
+            var paginatedUsers = users.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.SearchQuery = search;
+
+            return View(paginatedUsers);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

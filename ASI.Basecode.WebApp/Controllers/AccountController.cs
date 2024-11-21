@@ -114,11 +114,19 @@ namespace ASI.Basecode.WebApp.Controllers
                 {
                     return RedirectToAction("Index", "Admin");
                 }
+                else if (user.role == "User")
+                {
+                    return RedirectToAction("Index", "Booking");
+                }
+                else if (user.role == "Admin")
+                {
+                    return RedirectToAction("Index", "User");
+                }
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-                TempData["ErrorMessage"] = "Incorrect UserId or Password";
+                TempData["ErrorMessage"] = "Invalid Credentials";
                 return View();
             }
         }
