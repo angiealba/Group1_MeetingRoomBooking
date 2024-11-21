@@ -52,6 +52,7 @@ namespace ASI.Basecode.Services.Services
             var newBooking = new Booking();
 
             newBooking.ID = booking.ID;
+            newBooking.bookingRefId = System.Guid.NewGuid().ToString("N");
             newBooking.roomId = booking.roomId;
             newBooking.date = booking.date;
             newBooking.time = booking.time;
@@ -121,6 +122,10 @@ namespace ASI.Basecode.Services.Services
                             .Where(b => b.date >= startDate && b.date <= endDate);
 
             return bookings;
+        }
+        public IEnumerable<Booking> GetBookingsByRoomAndDate(int roomId, DateTime date)
+        {
+            return _bookingRepository.GetBookingsByRoomAndDate(roomId, date);
         }
     }
 }
