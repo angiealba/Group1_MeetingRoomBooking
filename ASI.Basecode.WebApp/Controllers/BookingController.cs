@@ -656,6 +656,12 @@ namespace ASI.Basecode.WebApp.Controllers
             ViewBag.SelectedEndDate = end;
             ViewBag.SelectedUser = userName;
 
+            if (start.HasValue && end.HasValue && end.Value < start.Value)
+            {
+                TempData["ErrorMessage"] = "Invalid Date Range. The end date cannot be earlier than the start date.";
+                return RedirectToAction("Analytics");
+            }
+
             (bool result, IEnumerable<Booking> bookings) = _bookingService.GetAllBookings();
 
             if (!result)
