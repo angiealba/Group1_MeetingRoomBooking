@@ -6,6 +6,7 @@
     var searchQuery = Context.Request.Query["search"];
 }
 
+
 <br />
 
 <h1 class="fw-bold mb-3">Admin Management</h1>
@@ -33,7 +34,7 @@
     <table class="table table-striped mt-3 align-middle">
         <thead>
             <tr>
-                <th>User ID</th>
+                <th>Username</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>
@@ -73,7 +74,7 @@
                 <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
             </div>
             <div class="modal-body">
-                <form asp-action="Register" method="post">
+                <form id="createUserForm" asp-action="Register" method="post">
                     @Html.AntiForgeryToken()
 
                     <!-- Show validation error messages -->
@@ -88,8 +89,9 @@
                             </ul>
                         </div>
                     }
+
                     <div class="mb-3">
-                        <label for="userIDCreate" class="form-label">User ID</label>
+                        <label for="userIDCreate" class="form-label">Username</label>
                         <input type="text" class="form-control" id="userID" name="userID" value="@ViewBag.UserViewModel?.userID" required>
                     </div>
 
@@ -111,6 +113,7 @@
                     <div class="mb-3">
                         <label for="ConfirmPasswordCreate" class="form-label">Confirm Password</label>
                         <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                        <div id="passwordMismatchError" class="text-danger" style="display: none;">Passwords do not match!</div>
                     </div>
 
                     <button type="submit" class="btn btn-success">Create Admin</button>
@@ -119,6 +122,23 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById("createUserForm").addEventListener("submit", function (event) {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+
+        if (password !== confirmPassword) {
+            
+            event.preventDefault();
+
+            document.getElementById("passwordMismatchError").style.display = "block";
+        } else {
+            document.getElementById("passwordMismatchError").style.display = "none";
+        }
+    });
+</script>
+
 
 
 <!-- Edit User Modal -->
@@ -132,42 +152,21 @@
                     <button type="button" class="btn" data-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
                 </div>
                 <div class="modal-body">
-                    <form asp-action="EditUser" method="post">
+                    <form id="editUserForm-@user.ID" asp-action="EditUser" method="post">
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="Id" value="@user.ID" />
                         <div class="mb-3">
-                            <label for="UserIdEdit-@user.ID" class="form-label">User ID</label>
-                            <input type="text" class="form-control" id="UserIdEdit-@user.ID" name="UserID" value="@user.userID" disabled>
+                            <label for="userIDEdit-@user.ID" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="userIDEdit-@user.ID" name="userID" value="@user.userID" disabled>
                         </div>
                         <div class="mb-3">
-                            <label for="NameEdit-@user.ID" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="NameEdit-@user.ID" name="Name" value="@user.name" required>
+                            <label for="nameEdit-@user.ID" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="NameEdit-@user.ID" name="name" value="@user.name" required>
                         </div>
                         <div class="mb-3">
                             <label for="EmailEdit-@user.ID" class="form-label">Email</label>
                             <input type="email" class="form-control" id="EmailEdit-@user.ID" name="Email" value="@user.email" required>
                         </div>
-                        @* <div class="mb-3">
-                    <label for="RoleEdit-@user.ID" class="form-label">Role</label>
-                    <select class="form-control" id="RoleEdit-@user.ID" name="role" required>
-                    @if (user.Role == "Customer")
-                    {
-                    <option value="Customer" selected>Customer</option>
-                    <option value="Admin">Admin</option>
-                    <option value="Superadmin" disabled>Superadmin</option>
-                    }
-                    else if (user.Role == "Admin")
-                    {
-                    <option value="Customer">Customer</option>
-                    <option value="Admin" selected>Admin</option>
-                    <option value="Superadmin" disabled>Superadmin</option>
-                    }
-                    else if (user.Role == "Superadmin")
-                    {
-                    <option value="Superadmin" selected disabled>Superadmin</option>
-                    }
-                    </select>
-                    </div> *@
                         <div class="mb-3">
                             <label for="PasswordEdit-@user.ID" class="form-label">Password</label>
                             <input type="password" class="form-control" id="PasswordEdit-@user.ID" name="Password" placeholder="Leave blank to keep existing password">
@@ -175,6 +174,7 @@
                         <div class="mb-3">
                             <label for="ConfirmPasswordEdit-@user.ID" class="form-label">Confirm Password</label>
                             <input type="password" class="form-control" id="ConfirmPasswordEdit-@user.ID" name="ConfirmPassword" placeholder="Leave blank to keep existing password">
+                            <div id="passwordMismatchError-@user.ID" class="text-danger" style="display: none;">Passwords do not match!</div>
                         </div>
 
                         <button type="submit" class="btn btn-success">Update User</button>
@@ -183,7 +183,33 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById("editUserForm-@user.ID").addEventListener("submit", function (event) {
+            var password = document.getElementById("PasswordEdit-@user.ID").value;
+            var confirmPassword = document.getElementById("ConfirmPasswordEdit-@user.ID").value;
+
+            // Make sure Confirm Password is required if Password is filled
+            if (password && confirmPassword === "") {
+                event.preventDefault();
+                document.getElementById("passwordMismatchError-@user.ID").style.display = "block";
+                document.getElementById("passwordMismatchError-@user.ID").innerText = "Please confirm your password.";
+                return;
+            }
+
+            // Check if passwords match, show error if not
+            if (password !== confirmPassword && password !== "" && confirmPassword !== "") {
+                event.preventDefault();
+                document.getElementById("passwordMismatchError-@user.ID").style.display = "block";
+                document.getElementById("passwordMismatchError-@user.ID").innerText = "Passwords do not match!";
+            } else {
+                document.getElementById("passwordMismatchError-@user.ID").style.display = "none";
+            }
+        });
+    </script>
+
 }
+
 
 
 <!-- Delete User Modal -->
