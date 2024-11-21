@@ -32,6 +32,6 @@ namespace ASI.Basecode.Services.Interfaces
         IEnumerable<Booking> GetRecurringBookings(int? recurringBookingId);
         IEnumerable<Booking> GenerateRoomUsageReport(string room, DateTime startDate, DateTime endDate);
 
-
+        IEnumerable<Booking> GetBookingsByRoomAndDate(int roomId, DateTime date);
     }
 }

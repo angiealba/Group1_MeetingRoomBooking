@@ -33,6 +33,7 @@ namespace ASI.Basecode.Data.Repositories
             {
                 var newBooking = new Booking();
                 newBooking.ID = booking.ID;
+                newBooking.bookingRefId = booking.bookingRefId;
                 newBooking.roomId = booking.roomId;
                 newBooking.date = booking.date;
                 newBooking.time = booking.time;
@@ -152,6 +153,12 @@ namespace ASI.Basecode.Data.Repositories
         {
             return _dbContext.Bookings
                 .Where(b => b.recurringBookingId == recurringBookingId)
+                .ToList();
+        }
+        public IEnumerable<Booking> GetBookingsByRoomAndDate(int roomId, DateTime date)
+        {
+            return _dbContext.Bookings
+                .Where(b => b.roomId == roomId && b.date.Date == date.Date)
                 .ToList();
         }
     }

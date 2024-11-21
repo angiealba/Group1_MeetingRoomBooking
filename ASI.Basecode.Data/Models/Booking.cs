@@ -14,6 +14,8 @@ namespace ASI.Basecode.Data.Models
         [Key]
         public int bookingId { get; set; }
 
+        public string bookingRefId { get; set; }
+
         public int ID { get; set; }
 
 

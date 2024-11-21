@@ -23,5 +23,6 @@ namespace ASI.Basecode.Data.Interfaces
         int GetUserID(string userId);
         int GetRecurringIdTracker();
         IEnumerable<Booking> GetRecurringBookings(int? recurringBookingId);
+        IEnumerable<Booking> GetBookingsByRoomAndDate(int roomId, DateTime date);
     }
 }

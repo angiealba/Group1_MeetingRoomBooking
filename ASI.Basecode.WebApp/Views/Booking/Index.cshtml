@@ -54,7 +54,7 @@
                             <span>None</span>
                         }
                     </p>
-                    <p class="card-text mb-2">Booking ID: @booking.bookingId</p>
+                    <p class="card-text mb-2">Booking ID: @booking.bookingRefId</p>
                 </div>
                 <div class="card-footer bg-white d-flex justify-content-between align-items-center border-top">
                     <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#editBookingModal-@booking.bookingId">
@@ -109,13 +109,19 @@
             <div class="modal-body">
                     <div class="mb-3">
                         <label for="roomId" class="form-label">Select Room</label>
-                        <select class="form-select form-control" id="roomId" name="roomId">
+                        <select class="form-select form-control" id="roomId" name="roomId" onchange="fetchRoomDetails(this.value)">
                             <option value="">Choose a room...</option>
                             @foreach (var room in ViewBag.Rooms)
                             {
                                 <option value="@room.Value">@room.Text</option>
                             }
                         </select>
+                    </div>
+                    <!--Should display room details-->
+                    <div id="roomDetails" style="display: none;">
+                        <p>Location: <span id="roomLocation"></span></p>
+                        <p>Capacity: <span id="roomCapacity"></span></p>
+                        <p>Facilities: <span id="roomFacilities"></span></p>
                     </div>
                     <div class="mb-3">
                         <label for="date" class="form-label">Date</label>
@@ -153,7 +159,7 @@
                     </div>
             </div>
             <div class="modal-footer">
-                <button type="reset" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                <button type="reset" class="btn btn-secondary" id="cancelBtn" data-bs-dismiss="modal">Cancel</button>
                 <button type="submit" class="btn btn-success" id="bookBtn">Book Room</button>
             </div>
             </form>
@@ -349,6 +355,7 @@
         document.getElementById('cancelBtn').addEventListener('click', function () {
             document.getElementById('isRecurring').checked = false;
             document.getElementById('recurringOptions').style.display = 'none';
+            $('#roomDetails').hide();
         });
     </script>
     <script>
@@ -360,6 +367,29 @@
         var successMessage = '@TempData["SuccessMessage"]';
         if (successMessage) {
             toastr.success(successMessage);
+        }
+    </script>
+    <script>
+        function fetchRoomDetails(roomId) {
+            if (roomId) {
+                // AJAX call to fetch room details
+                $.ajax({
+                    url: '/Booking/GetRoomDetails', // Adjust the URL as necessary
+                    type: 'GET',
+                    data: { id: roomId },
+                    success: function (data) {
+                        $('#roomLocation').text(data.roomLocation);
+                        $('#roomCapacity').text(data.roomCapacity);
+                        $('#roomFacilities').text(data.availableFacilities);
+                        $('#roomDetails').show();
+                    },
+                    error: function () {
+                        $('#roomDetails').hide();
+                    }
+                });
+            } else {
+                $('#roomDetails').hide();
+            }
         }
     </script>
 

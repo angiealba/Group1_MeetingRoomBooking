@@ -3034,19 +3034,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Kierzen\\.nuget\\packages\\": {}
+    "C:\\Users\\PC\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj",
+      "projectUniqueName": "C:\\Users\\PC\\Documents\\alayans\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj",
       "projectName": "ASI.Basecode.Data",
-      "projectPath": "C:\\Elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj",
-      "packagesPath": "C:\\Users\\Kierzen\\.nuget\\packages\\",
-      "outputPath": "C:\\Elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\obj\\",
+      "projectPath": "C:\\Users\\PC\\Documents\\alayans\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj",
+      "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\PC\\Documents\\alayans\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Kierzen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

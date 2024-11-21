@@ -24,13 +24,19 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="roomId" class="form-label">Select Room</label>
-                        <select class="form-select form-control" id="roomId" name="roomId" required>
+                        <select class="form-select form-control" id="roomId" name="roomId" required  onchange="fetchRoomDetails(this.value)">
                             <option value="">Choose a room...</option>
                             @foreach (var room in ViewBag.Rooms)
                             {
                                 <option value="@room.Value">@room.Text</option>
                             }
                         </select>
+                    </div>
+                    <!--Should display room details-->
+                    <div id="roomDetails" style="display: none;">
+                        <p>Location: <span id="roomLocation"></span></p>
+                        <p>Capacity: <span id="roomCapacity"></span></p>
+                        <p>Facilities: <span id="roomFacilities"></span></p>
                     </div>
                     <div class="mb-3">
                         <label for="date" class="form-label">Date</label>
@@ -68,7 +74,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="reset" class="btn btn-secondary" id="cancelBtn" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-success">Book Room</button>
                 </div>
             </form>
@@ -130,9 +136,38 @@
                 document.getElementById('recurringOptions').style.display = this.checked ? 'block' : 'none';
             });
 
+            document.getElementById('cancelBtn').addEventListener('click', function () {
+                document.getElementById('isRecurring').checked = false;
+                document.getElementById('recurringOptions').style.display = 'none';
+                $('#roomDetails').hide();
+            });
+
             // Set minimum date for booking
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('recurrenceEndDate').min = today;
         });
+    </script>
+    <script>
+        function fetchRoomDetails(roomId) {
+            if (roomId) {
+                // AJAX call to fetch room details
+                $.ajax({
+                    url: '/Booking/GetRoomDetails', // Adjust the URL as necessary
+                    type: 'GET',
+                    data: { id: roomId },
+                    success: function (data) {
+                        $('#roomLocation').text(data.roomLocation);
+                        $('#roomCapacity').text(data.roomCapacity);
+                        $('#roomFacilities').text(data.availableFacilities);
+                        $('#roomDetails').show();
+                    },
+                    error: function () {
+                        $('#roomDetails').hide();
+                    }
+                });
+            } else {
+                $('#roomDetails').hide();
+            }
+        }
     </script>
 }
