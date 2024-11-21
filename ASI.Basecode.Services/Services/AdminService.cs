@@ -25,18 +25,16 @@ namespace ASI.Basecode.Services.Services
 
         public LoginResult AuthenticateUser(string userID, string password, ref User user)
         {
-            // Check if the user is the static superadmin
             if (userID == "superadmin")
             {
-                user = _repository.GetUsers().FirstOrDefault(x => x.userID == userID && x.password == password); // No hashing for superadmin
+                user = _repository.GetUsers().FirstOrDefault(x => x.userID == userID && x.role == "Superadmin" && x.password == password);
                 return user != null ? LoginResult.Success : LoginResult.Failed;
             }
 
             user = _repository.GetUsers().FirstOrDefault(x => x.userID == userID && x.password == PasswordManager.EncryptPassword(password));
             return user != null ? LoginResult.Success : LoginResult.Failed;
-
-
         }
+
 
 
         public void AddUser(UserViewModel model)

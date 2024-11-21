@@ -72,19 +72,18 @@
     </table>
 </div>
 
-<!-- Create User Modal -->
 <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createUserModalLabel">Add New User</h5>
+                <h5 class="modal-title" id="createUserModalLabel">Add New Admin</h5>
                 <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
             </div>
             <div class="modal-body">
-                <form asp-action="Register" method="post">
+                <form id="createUserForm" asp-action="Register" method="post">
                     @Html.AntiForgeryToken()
 
-                    <!-- Show validation error messages -->
+                    
                     @if (!ViewData.ModelState.IsValid)
                     {
                         <div class="alert alert-danger">
@@ -96,8 +95,9 @@
                             </ul>
                         </div>
                     }
+
                     <div class="mb-3">
-                        <label for="userIDCreate" class="form-label">User ID</label>
+                        <label for="userIDCreate" class="form-label">Username</label>
                         <input type="text" class="form-control" id="userID" name="userID" value="@ViewBag.UserViewModel?.userID" required>
                     </div>
 
@@ -119,14 +119,33 @@
                     <div class="mb-3">
                         <label for="ConfirmPasswordCreate" class="form-label">Confirm Password</label>
                         <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                        <div id="passwordMismatchError" class="text-danger" style="display: none;">Passwords do not match!</div>
                     </div>
 
-                    <button type="submit" class="btn btn-success">Create User</button>
+                    <button type="submit" class="btn btn-success">Create Admin</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById("createUserForm").addEventListener("submit", function (event) {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+
+        // Check if the passwords match
+        if (password !== confirmPassword) {
+            
+            event.preventDefault();
+
+            document.getElementById("passwordMismatchError").style.display = "block";
+        } else {
+            document.getElementById("passwordMismatchError").style.display = "none";
+        }
+    });
+</script>
+
 
 
 <!-- Edit User Modal -->
@@ -140,11 +159,11 @@
                     <button type="button" class="btn" data-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
                 </div>
                 <div class="modal-body">
-                    <form asp-action="EditUser" method="post">
+                    <form id="editUserForm-@user.ID" asp-action="EditUser" method="post">
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="Id" value="@user.ID" />
                         <div class="mb-3">
-                            <label for="userIDEdit-@user.ID" class="form-label">User ID</label>
+                            <label for="userIDEdit-@user.ID" class="form-label">Username</label>
                             <input type="text" class="form-control" id="userIDEdit-@user.ID" name="userID" value="@user.userID" disabled>
                         </div>
                         <div class="mb-3">
@@ -162,6 +181,7 @@
                         <div class="mb-3">
                             <label for="ConfirmPasswordEdit-@user.ID" class="form-label">Confirm Password</label>
                             <input type="password" class="form-control" id="ConfirmPasswordEdit-@user.ID" name="ConfirmPassword" placeholder="Leave blank to keep existing password">
+                            <div id="passwordMismatchError-@user.ID" class="text-danger" style="display: none;">Passwords do not match!</div>
                         </div>
 
                         <button type="submit" class="btn btn-success">Update User</button>
@@ -170,7 +190,33 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById("editUserForm-@user.ID").addEventListener("submit", function (event) {
+            var password = document.getElementById("PasswordEdit-@user.ID").value;
+            var confirmPassword = document.getElementById("ConfirmPasswordEdit-@user.ID").value;
+
+            // Make sure Confirm Password is required if Password is filled
+            if (password && confirmPassword === "") {
+                event.preventDefault();
+                document.getElementById("passwordMismatchError-@user.ID").style.display = "block";
+                document.getElementById("passwordMismatchError-@user.ID").innerText = "Please confirm your password.";
+                return;
+            }
+
+            // Check if passwords match, show error if not
+            if (password !== confirmPassword && password !== "" && confirmPassword !== "") {
+                event.preventDefault();
+                document.getElementById("passwordMismatchError-@user.ID").style.display = "block";
+                document.getElementById("passwordMismatchError-@user.ID").innerText = "Passwords do not match!";
+            } else {
+                document.getElementById("passwordMismatchError-@user.ID").style.display = "none";
+            }
+        });
+    </script>
+
 }
+
 
 
 <!-- Delete User Modal -->
