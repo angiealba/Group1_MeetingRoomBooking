@@ -127,7 +127,8 @@ namespace ASI.Basecode.WebApp.Controllers
             {
                 TempData["ErrorMessage"] = Resources.Messages.Errors.ServerError;
             }
-            return View();
+            TempData["ErrorMessage"] = "Username is already registered";
+            return RedirectToAction("Index");
         }
         //public ActionResult SuperAdminUsers(string search)
         //{
