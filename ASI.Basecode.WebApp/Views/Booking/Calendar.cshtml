@@ -106,33 +106,26 @@
                     meridiem: 'short'
                 },
                 dateClick: function (info) {
-                    // Prevent booking for past dates
+                    
                     const selectedDate = new Date(info.dateStr);
                     const today = new Date();
                     today.setHours(0, 0, 0, 0);
         if (selectedDate < today) {
             const errorMessage = document.getElementById('errorMessage');
-            errorMessage.innerHTML = "Invalid date! You cannot book for past dates.";
+            errorMessage.innerHTML = "Cannot create booking for past dates.";
             errorMessage.style.display = 'block';
             return;
         }
 
 
-                    // Set the selected date in the modal
+                 
                     document.getElementById('date').value = info.dateStr;
 
-                    // Show the modal
+                   
                     const modal = new bootstrap.Modal(document.getElementById('createBookingModal'));
                     modal.show();
                 },
-                // eventClick: function (info) {
-                //     alert(`
-                //                 Booking Details:
-                //                 Room: ${info.event.title}
-                //                 Start: ${info.event.start.toLocaleString()}
-                //                 End: ${info.event.end.toLocaleString()}
-                //             `);
-                // }
+               
             });
             calendar.render();
 
