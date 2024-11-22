@@ -34,15 +34,12 @@
         {
             @await Html.PartialAsync("_SuperAdminHeader")
         }
-        else
+        else if (userRole == "Admin")
         {
             @await Html.PartialAsync("_Header")
         }
     }
-    else
-    {
-        @await Html.PartialAsync("_Header")
-    }
+   
 
     <div class="container">
         <main role="main">
