@@ -62,30 +62,35 @@
 	</table>
 </div>
 
-<ul class="pagination justify-content-center">
-	@if (currentPage > 1)
-	{
-		<li class="page-item">
-			<a class="page-link" href="?page=@(currentPage - 1)&search=@searchQuery" aria-label="Previous">
-				<span aria-hidden="true">&laquo;</span>
-			</a>
-		</li>
-	}
-	@for (int i = 1; i <= totalPages; i++)
-	{
-		<li class="page-item @(i == currentPage ? "active" : "")">
-			<a class="page-link" href="?page=@i&search=@searchQuery">@i</a>
-		</li>
-	}
-	@if (currentPage < totalPages)
-	{
-		<li class="page-item">
-			<a class="page-link" href="?page=@(currentPage + 1)&search=@searchQuery" aria-label="Next">
-				<span aria-hidden="true">&raquo;</span>
-			</a>
-		</li>
-	}
-</ul>
+@* Pagination *@
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        <!-- "First Page" button -->
+        @if (currentPage > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" href="?page=1&search=@searchQuery" aria-label="First">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        }
+        <!-- Page numbers -->
+        @for (int i = 1; i <= totalPages; i++)
+        {
+            <li class="page-item @(i == currentPage ? "active" : "")">
+                <a class="page-link" href="?page=@i&search=@searchQuery">@i</a>
+            </li>
+        }
+        <!-- "Last Page" button -->
+        @if (currentPage < totalPages)
+        {
+            <li class="page-item">
+                <a class="page-link" href="?page=@totalPages&search=@searchQuery" aria-label="Last">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        }
+    </ul>
 </nav>
 
 <!-- Create User Modal -->
@@ -138,7 +143,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="reset" class="btn btn-secondary" id="cancelBtn" data-bs-dismiss="modal">Cancel</button>
+                     <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 					<button type="submit" class="btn btn-success">Add Admin</button>
 				</div>
 			</form>
@@ -200,7 +205,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="reset" class="btn btn-secondary" id="cancelBtn" data-bs-dismiss="modal">Cancel</button>
+                        <button type="reset" id="editCancelButton-@user.ID" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 						<button type="submit" class="btn btn-success">Update Admin</button>
 					</div>
 				</form>
@@ -231,7 +236,6 @@
 			}
 		});
 	</script>
-
 }
 
 <!-- Delete User Modal -->
@@ -242,7 +246,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="deleteUserModalLabel-@user.ID">Delete Admin</h5>
-					<button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+					<button type="button" class="btn" data-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
 				</div>
 				<form asp-action="DeleteUser" method="post">
 					<div class="modal-body">
@@ -254,10 +258,9 @@
 							Name: @user.name <br />
 							Email: @user.email <br />
 						</p>
-
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="reset" id="cancelButton-@user.ID" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 						<button type="submit" class="btn btn-danger">Delete</button>
 					</div>
 				</form>

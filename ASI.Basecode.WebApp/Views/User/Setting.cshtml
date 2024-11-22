@@ -1,43 +1,45 @@
 ﻿@model ASI.Basecode.Data.Models.User
 
 <div class="container mt-5">
-	<h1 class="fw-bold mb-3">Settings & Preferences</h1>
-	<form asp-action="SaveSettings" method="post" id="preferencesForm">
-		<div class="mb-4">
-			<h5 class="fw-bold">Notification Settings</h5>
-			<input type="hidden" name="enableNotifications" value="false" />
-			<div class="form-check">
-				<input class="form-check-input"
-					   type="checkbox"
-					   id="enableNotifications"
-					   name="enableNotifications"
-					   value="true"
-				@(Model.enableNotifications ? "checked" : "") />
-				<label class="form-check-label" for="enableNotifications">
-					Enable Notifications
-				</label>
-			</div>
-		</div>
-		<div class="mb-4 mt-4">
-			<h5 class="fw-bold">Default Booking Duration</h5>
-			<select asp-for="defaultBookingDuration" class="form-select custom-select-style">
-				<option value="1">1 hour</option>
-				<option value="2">2 hours</option>
-				<option value="3">3 hours</option>
-				<option value="4">4 hours</option>
-			</select>
-		</div>
-		<button type="submit" class="btn btn-success">Save Changes</button>
-	</form>
+    <h1 class="fw-bold mb-3">Settings & Preferences</h1>
+    <form asp-action="SaveSettings" method="post" id="preferencesForm">
+        <div class="mb-4">
+            <h5 class="fw-bold">Notification Settings</h5>
+            <div class="form-check">
+                <input class="form-check-input"
+                       type="checkbox"
+                       id="enableNotifications"
+                       name="enableNotifications"
+                       value="true"
+                @(Model.enableNotifications ? "checked" : "") />
+                <label class="form-check-label" for="enableNotifications">
+                    Enable Notifications
+                </label>
+            </div>
+        </div>
+        <div class="mb-4 mt-4">
+            <h5 class="fw-bold">Default Booking Duration</h5>
+            <select asp-for="defaultBookingDuration" class="form-select custom-select-style">
+                <option value="1">1 hour</option>
+                <option value="2">2 hours</option>
+                <option value="3">3 hours</option>
+                <option value="4">4 hours</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Save Changes</button>
+    </form>
 </div>
-<script>
-	// Check for error message and display Toastr notification
-	var errorMessage = '@TempData["ErrorMessage"]';
-	if (errorMessage) {
-		toastr.error(errorMessage);
-	}
-	var successMessage = '@TempData["SuccessMessage"]';
-	if (successMessage) {
-		toastr.success(successMessage);
-	}
-</script>
+@section scripts {
+    <script>
+        // Check for error message and display Toastr notification
+        var errorMessage = '@TempData["ErrorMessage"]';
+        if (errorMessage) {
+            toastr.error(errorMessage, 'Error', { timeOut: 5000 });
+        }
+
+        var successMessage = '@TempData["SuccessMessage"]';
+        if (successMessage) {
+            toastr.success(successMessage, 'Success', { timeOut: 5000 });
+        }
+    </script>
+}

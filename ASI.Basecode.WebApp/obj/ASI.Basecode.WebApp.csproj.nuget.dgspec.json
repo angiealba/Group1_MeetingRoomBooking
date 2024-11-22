@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.WebApp\\ASI.Basecode.WebApp.csproj": {}
+    "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.WebApp\\ASI.Basecode.WebApp.csproj": {}
   },
   "projects": {
-    "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj": {
+    "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj",
+        "projectUniqueName": "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj",
         "projectName": "ASI.Basecode.Data",
-        "projectPath": "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj",
-        "packagesPath": "C:\\Users\\Rico Gabunada\\.nuget\\packages\\",
-        "outputPath": "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\obj\\",
+        "projectPath": "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj",
+        "packagesPath": "C:\\Users\\Rey Aaron Buaya\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Rico Gabunada\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Rey Aaron Buaya\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -38,13 +34,7 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "all"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net6.0": {
@@ -109,25 +99,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj": {
+    "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj",
+        "projectUniqueName": "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj",
         "projectName": "ASI.Basecode.Resources",
-        "projectPath": "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj",
-        "packagesPath": "C:\\Users\\Rico Gabunada\\.nuget\\packages\\",
-        "outputPath": "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\obj\\",
+        "projectPath": "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj",
+        "packagesPath": "C:\\Users\\Rey Aaron Buaya\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Rico Gabunada\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Rey Aaron Buaya\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -147,13 +133,7 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "all"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net6.0": {
@@ -174,25 +154,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\ASI.Basecode.Services.csproj": {
+    "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\ASI.Basecode.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\ASI.Basecode.Services.csproj",
+        "projectUniqueName": "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\ASI.Basecode.Services.csproj",
         "projectName": "ASI.Basecode.Services",
-        "projectPath": "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\ASI.Basecode.Services.csproj",
-        "packagesPath": "C:\\Users\\Rico Gabunada\\.nuget\\packages\\",
-        "outputPath": "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\obj\\",
+        "projectPath": "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\ASI.Basecode.Services.csproj",
+        "packagesPath": "C:\\Users\\Rey Aaron Buaya\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Rico Gabunada\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Rey Aaron Buaya\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -206,11 +182,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj": {
-                "projectPath": "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj"
+              "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj": {
+                "projectPath": "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj"
               },
-              "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj": {
-                "projectPath": "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj"
+              "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj": {
+                "projectPath": "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj"
               }
             }
           }
@@ -219,13 +195,7 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "all"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net6.0": {
@@ -280,25 +250,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.WebApp\\ASI.Basecode.WebApp.csproj": {
+    "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.WebApp\\ASI.Basecode.WebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.WebApp\\ASI.Basecode.WebApp.csproj",
+        "projectUniqueName": "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.WebApp\\ASI.Basecode.WebApp.csproj",
         "projectName": "ASI.Basecode.WebApp",
-        "projectPath": "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.WebApp\\ASI.Basecode.WebApp.csproj",
-        "packagesPath": "C:\\Users\\Rico Gabunada\\.nuget\\packages\\",
-        "outputPath": "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.WebApp\\obj\\",
+        "projectPath": "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.WebApp\\ASI.Basecode.WebApp.csproj",
+        "packagesPath": "C:\\Users\\Rey Aaron Buaya\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.WebApp\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Rico Gabunada\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Rey Aaron Buaya\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -312,11 +278,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj": {
-                "projectPath": "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj"
+              "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj": {
+                "projectPath": "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj"
               },
-              "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\ASI.Basecode.Services.csproj": {
-                "projectPath": "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\ASI.Basecode.Services.csproj"
+              "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\ASI.Basecode.Services.csproj": {
+                "projectPath": "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Project\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\ASI.Basecode.Services.csproj"
               }
             }
           }
@@ -325,13 +291,7 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "all"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net6.0": {
@@ -415,7 +375,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

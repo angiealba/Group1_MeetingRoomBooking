@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<ASI.Basecode.Data.Models.Notification>
+
 <div class="container mt-5">
 	<h1 class="fw-bold mb-3">@ViewData["Title"]</h1>
 	<h1 class="fw-bold mb-3">Notifications</h1>
@@ -36,7 +37,7 @@
 	</div>
 </div>
 
-<div class="modal fade" id="viewNotificationModal" tabindex="-1" aria-labelledby="viewNotificationModalLabel" aria-hidden="true">
+@* <div class="modal fade" id="viewNotificationModal" tabindex="-1" aria-labelledby="viewNotificationModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -52,7 +53,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> *@
 <div class="toast-container"></div>
 <!-- Include Toastr CSS -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
@@ -73,20 +74,19 @@
 	</script>
 }
 <script>
-	const viewNotificationModal = document.getElementById('viewNotificationModal');
-	viewNotificationModal.addEventListener('show.bs.modal', function (event) {
-		const notificationItem = event.relatedTarget;
-		const notificationId = notificationItem.getAttribute('data-notification-id');
-		const message = notificationItem.getAttribute('data-notification-message');
-		const date = notificationItem.getAttribute('data-notification-date');
+	// const viewNotificationModal = document.getElementById('viewNotificationModal');
+	// viewNotificationModal.addEventListener('show.bs.modal', function (event) {
+	// 	const notificationItem = event.relatedTarget;
+	// 	const notificationId = notificationItem.getAttribute('data-notification-id');
+	// 	const message = notificationItem.getAttribute('data-notification-message');
+	// 	const date = notificationItem.getAttribute('data-notification-date');
 
-		const modalBody = viewNotificationModal.querySelector('.modal-body');
-		modalBody.querySelector('#notificationMessage').textContent = message;
-		modalBody.querySelector('#notificationDate').textContent = 'Sent on: ' + date;
+	// 	const modalBody = viewNotificationModal.querySelector('.modal-body');
+	// 	modalBody.querySelector('#notificationMessage').textContent = message;
+	// 	modalBody.querySelector('#notificationDate').textContent = 'Sent on: ' + date;
 
-		notificationItem.classList.remove('unread');
-	});
-
+	// 	notificationItem.classList.remove('unread');
+	// });
 
 	function showToast(message) {
 		const toastContainer = document.querySelector('.toast-container');
