@@ -1,135 +1,139 @@
 ﻿@model IEnumerable<ASI.Basecode.Data.Models.Notification>
 
 <div class="container mt-5">
-	<h1 class="fw-bold mb-3">@ViewData["Title"]</h1>
-	<h1 class="fw-bold mb-3">Notifications</h1>
-	<div id="notificationsContainer">
-		@if (Model != null && Model.Any())
-		{
-			foreach (var notification in Model)
-			{
-				<div class="notification-item @(notification.IsRead ? "" : "unread")" data-notification-id="@notification.Id">
-					<div class="notification-content" data-bs-toggle="modal" data-bs-target="#viewNotificationModal"
-						 data-notification-id="@notification.Id"
-						 data-notification-message="@notification.Message"
-						 data-notification-date="@notification.Date.ToString("F")">
-						<div class="notification-body mt-2">
-							<p>@notification.Message</p>
-							<div class="notification-date">
-								@notification.Date.ToString("MMMM dd, yyyy HH:mm:ss")
-							</div>
-						</div>
-					</div>
-					<form asp-action="DeleteNotification" method="post" style="display:inline;">
-						@Html.AntiForgeryToken()
-						<input type="hidden" name="id" value="@notification.Id" />
-						<button type="submit" class="delete-notification btn btn-link" title="Delete Notification">X</button>
-					</form>
-				</div>
-			}
-		}
-		else
-		{
-			<div class="alert alert-info">
-				<strong>No notifications found.</strong>
-			</div>
-		}
-	</div>
+    <h1 class="fw-bold mb-3">@ViewData["Title"]</h1>
+    <h1 class="fw-bold mb-3">Notifications</h1>
+
+    <div id="notificationsContainer">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var notification in Model)
+            {
+                <div class="notification-item @(notification.IsRead ? "" : "unread")" data-notification-id="@notification.Id">
+                    <div class="notification-content" data-bs-toggle="modal" data-bs-target="#viewNotificationModal"
+                         data-notification-id="@notification.Id"
+                         data-notification-message="@notification.Message"
+                         data-notification-date="@notification.Date.ToString("F")">
+                        <div class="notification-body mt-2">
+                            <p>@notification.Message</p>
+                            <div class="notification-date">
+                                @notification.Date.ToString("MMMM dd, yyyy HH:mm:ss")
+                            </div>
+                        </div>
+                    </div>
+                    <form asp-action="DeleteNotification" method="post" style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@notification.Id" />
+                        <button type="submit" class="delete-notification btn btn-link" title="Delete Notification">X</button>
+                    </form>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="alert alert-info">
+                <strong>No notifications found.</strong>
+            </div>
+        }
+    </div>
 </div>
 
-@* <div class="modal fade" id="viewNotificationModal" tabindex="-1" aria-labelledby="viewNotificationModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="viewNotificationModalLabel">Notification Details</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<p id="notificationMessage"></p>
-				<p id="notificationDate" class="text-muted"></p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div> *@
 <div class="toast-container"></div>
+
 <!-- Include Toastr CSS -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 <!-- Include Toastr JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 @section scripts {
-	<script>
-		// Check for error message and display Toastr notification
-		var errorMessage = '@TempData["ErrorMessage"]';
-		if (errorMessage) {
-			toastr.error(errorMessage);
-		}
-		var successMessage = '@TempData["SuccessMessage"]';
-		if (successMessage) {
-			toastr.success(successMessage);
-		}
-	</script>
+    <script>
+        // Check for error message and display Toastr notification
+        var errorMessage = '@TempData["ErrorMessage"]';
+        if (errorMessage) {
+            toastr.error(errorMessage);
+        }
+
+        var successMessage = '@TempData["SuccessMessage"]';
+        if (successMessage) {
+            toastr.success(successMessage);
+        }
+    </script>
+
+    <script>
+        function showToast(notificationMessage, timeLeftMessage) {
+          
+            const toastContainer = document.querySelector('.toast-container');
+            const toastElement = document.createElement('div');
+            toastElement.classList.add('toast');
+            toastElement.setAttribute('role', 'alert');
+            toastElement.setAttribute('aria-live', 'assertive');
+            toastElement.setAttribute('aria-atomic', 'true');
+
+            toastElement.innerHTML = `
+                        <div class="toast-header">
+                            <strong class="me-auto">Booking Reminder</strong>
+                            <small>Just now</small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                            ${notificationMessage}<br><strong>${timeLeftMessage}</strong>
+                        </div>
+                    `;
+
+            toastContainer.appendChild(toastElement);
+
+            const toast = new bootstrap.Toast(toastElement, {
+                autohide: true,
+                delay: 4000
+            });
+
+            toast.show();
+
+            toastElement.addEventListener('hidden.bs.toast', () => {
+                toastElement.remove();
+            });
+        }
+
+        function simulateNotification() {
+
+            const notifications = @Html.Raw(Json.Serialize(Model));
+
+            notifications.forEach(notification => {
+          
+                const message = notification.message; // Directly get the message
+                const bookingDate = notification.bookingDate; // Assuming the bookingDate field is passed
+
+                // Calculate the time difference
+                const now = new Date();
+                const timeDifference = new Date(bookingDate) - now;
+
+                let timeLeftMessage = '';
+                if (timeDifference > 0) {
+                    const seconds = Math.floor(timeDifference / 1000);
+                    const minutes = Math.floor(seconds / 60);
+                    const hours = Math.floor(minutes / 60);
+                    const days = Math.floor(hours / 24);
+                    
+
+                    if (days > 0) {
+                        timeLeftMessage = `${days} day${days > 1 ? 's' : ''} left`;
+                    } else if (hours > 0) {
+                        timeLeftMessage = `${hours} hour${hours > 1 ? 's' : ''} left`;
+                    } else if (minutes > 0) {
+                        timeLeftMessage = `${minutes} minute${minutes > 1 ? 's' : ''} left`;
+                    } else {
+                        timeLeftMessage = 'Less than a minute left';
+                    }
+                } else {
+                    timeLeftMessage = 'Booking time has passed';
+                }
+
+               
+                showToast(message, timeLeftMessage);
+            });
+        }
+
+     
+        setInterval(simulateNotification, 5000);
+    </script>
 }
-<script>
-	// const viewNotificationModal = document.getElementById('viewNotificationModal');
-	// viewNotificationModal.addEventListener('show.bs.modal', function (event) {
-	// 	const notificationItem = event.relatedTarget;
-	// 	const notificationId = notificationItem.getAttribute('data-notification-id');
-	// 	const message = notificationItem.getAttribute('data-notification-message');
-	// 	const date = notificationItem.getAttribute('data-notification-date');
-
-	// 	const modalBody = viewNotificationModal.querySelector('.modal-body');
-	// 	modalBody.querySelector('#notificationMessage').textContent = message;
-	// 	modalBody.querySelector('#notificationDate').textContent = 'Sent on: ' + date;
-
-	// 	notificationItem.classList.remove('unread');
-	// });
-
-	function showToast(message) {
-		const toastContainer = document.querySelector('.toast-container');
-		const toastElement = document.createElement('div');
-		toastElement.classList.add('toast');
-		toastElement.setAttribute('role', 'alert');
-		toastElement.setAttribute('aria-live', 'assertive');
-		toastElement.setAttribute('aria-atomic', 'true');
-
-		toastElement.innerHTML = `
-					<div class="toast-header">
-						<strong class="me-auto">New Notification</strong>
-						<small>Just now</small>
-						<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-					</div>
-					<div class="toast-body">
-						${message}
-					</div>
-				`;
-
-		toastContainer.appendChild(toastElement);
-
-
-		const toast = new bootstrap.Toast(toastElement, {
-			autohide: true,
-			delay: 4000
-		});
-
-		toast.show();
-
-
-		toastElement.addEventListener('hidden.bs.toast', () => {
-			toastElement.remove();
-		});
-	}
-
-	function simulateNotification() {
-		// Fetch the first notification
-		const messages = @Html.Raw(Json.Serialize(Model.Select(n => n.Message)));
-		if (messages.length > 0) {
-			const firstMessage = messages[0]; // Get the first message
-			showToast(firstMessage);
-		}
-	}
-	setInterval(simulateNotification, 5000);
-</script>

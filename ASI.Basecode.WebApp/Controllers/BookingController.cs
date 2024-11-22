@@ -224,8 +224,9 @@ namespace ASI.Basecode.WebApp.Controllers
                 _notificationService.AddNotification(
                     booking.ID,
                     "Booking Confirmation",
-                    $"Your booking for {roomName} on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been created."
-                );
+                    $"Your booking for {roomName} on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been created.",
+					 booking.time
+				);
 
 
                 TempData["SuccessMessage"] = "Your booking was successful.";
@@ -255,8 +256,9 @@ namespace ASI.Basecode.WebApp.Controllers
                 _notificationService.AddNotification(
                     booking.ID,
                     "Upcoming Booking Reminder",
-                    $"Reminder: You have a booking for {roomName} in one hour at {booking.time.ToString("HH:mm")}."
-                );
+                    $"Reminder: You have a booking for {roomName} in one hour at {booking.time.ToString("HH:mm")}.",
+					 booking.time
+				);
             }
         }
 
@@ -308,8 +310,9 @@ namespace ASI.Basecode.WebApp.Controllers
                         _notificationService.AddNotification(
                             booking.ID,
                             "Room Change",
-                            $"Your booking for {oldRoomName} on {existingBooking.date.ToString("MM-dd-yyyy")} has been moved to {newRoomName}."
-                        );
+                            $"Your booking for {oldRoomName} on {existingBooking.date.ToString("MM-dd-yyyy")} has been moved to {newRoomName}.",
+							 booking.time
+						);
                     }
 
                     if (isDateChanged)
@@ -317,24 +320,27 @@ namespace ASI.Basecode.WebApp.Controllers
                         _notificationService.AddNotification(
                             booking.ID,
                             "Date Change",
-                            $"Your booking for {oldRoomName} has been rescheduled to {booking.date.ToString("MM-dd-yyyy")}."
-                        );
+                            $"Your booking for {oldRoomName} has been rescheduled to {booking.date.ToString("MM-dd-yyyy")}.",
+							 booking.time
+						);
                     }
                     if (isTimeChanged)
                     {
                         _notificationService.AddNotification(
                             booking.ID,
                             "Duration Change",
-                            $"Your booking for {oldRoomName} has been changed to {booking.time}."
-                        );
+                            $"Your booking for {oldRoomName} has been changed to {booking.time}.",
+							 booking.time
+						);
                     }
                     if (isDurationChanged)
                     {
                         _notificationService.AddNotification(
                             booking.ID,
                             "Duration Change",
-                            $"Your booking for {oldRoomName} has been changed to {booking.duration} hours."
-                        );
+                            $"Your booking for {oldRoomName} has been changed to {booking.duration} hours.",
+							 booking.time
+						);
                     }
 
                     if (isBookingUpdated && !isRoomChanged && !isDateChanged && !isDurationChanged)
@@ -342,8 +348,9 @@ namespace ASI.Basecode.WebApp.Controllers
                         _notificationService.AddNotification(
                             booking.ID,
                             "Booking Update",
-                            $"Your booking for {newRoomName} on {booking.date.ToString("MM-dd-yyyy")} has been updated to {booking.time.ToString("HH:mm")}."
-                        );
+                            $"Your booking for {newRoomName} on {booking.date.ToString("MM-dd-yyyy")} has been updated to {booking.time.ToString("HH:mm")}.",
+							 booking.time
+						);
                     }
 
                     TempData["SuccessMessage"] = "Booking updated successfully.";
@@ -360,8 +367,9 @@ namespace ASI.Basecode.WebApp.Controllers
                                 _notificationService.AddNotification(
                                     booking.ID,
                                     "Room Change",
-                                    $"Your booking for {oldRoomName} on {existingBooking.date.ToString("MM-dd-yyyy")} has been moved to {newRoomName}."
-                                );
+                                    $"Your booking for {oldRoomName} on {existingBooking.date.ToString("MM-dd-yyyy")} has been moved to {newRoomName}.",
+									 booking.time
+								);
                             }
 
                             if (isDateChanged)
@@ -369,8 +377,9 @@ namespace ASI.Basecode.WebApp.Controllers
                                 _notificationService.AddNotification(
                                     booking.ID,
                                     "Date Change",
-                                    $"Your booking for {newRoomName} on has been rescheduled to {booking.date.ToString("MM-dd-yyyy")}."
-                                );
+                                    $"Your booking for {newRoomName} on has been rescheduled to {booking.date.ToString("MM-dd-yyyy")}.",
+									 booking.time
+								);
                             }
 
                             if (isDurationChanged)
@@ -378,8 +387,9 @@ namespace ASI.Basecode.WebApp.Controllers
                                 _notificationService.AddNotification(
                                     booking.ID,
                                     "Duration Change",
-                                    $"Your booking for {oldRoomName} has been changed to {booking.duration} hours."
-                                );
+                                    $"Your booking for {oldRoomName} has been changed to {booking.duration} hours.",
+									 booking.time
+								);
                             }
 
                             if (isBookingUpdated && !isRoomChanged && !isDateChanged && !isDurationChanged)
@@ -387,8 +397,9 @@ namespace ASI.Basecode.WebApp.Controllers
                                 _notificationService.AddNotification(
                                     booking.ID,
                                     "Booking Update",
-                                    $"Your booking for {newRoomName} on {booking.date.ToString("MM-dd-yyyy")} has been updated to {booking.time.ToString("HH:mm")}."
-                                );
+                                    $"Your booking for {newRoomName} on {booking.date.ToString("MM-dd-yyyy")} has been updated to {booking.time.ToString("HH:mm")}.",
+									 booking.time
+								);
                             }
 
                             TempData["SuccessMessage"] = "This occurrence of the booking has been updated.";
@@ -405,8 +416,9 @@ namespace ASI.Basecode.WebApp.Controllers
                                 _notificationService.AddNotification(
                                     booking.ID,
                                     "Room Change",
-                                    $"Your booking for {oldRoomName} on {existingBooking.date.ToString("MM-dd-yyyy")} has been moved to {newRoomName} at {booking.time.ToString("HH:mm")}."
-                                );
+                                    $"Your booking for {oldRoomName} on {existingBooking.date.ToString("MM-dd-yyyy")} has been moved to {newRoomName} at {booking.time.ToString("HH:mm")}.",
+									 booking.time
+								);
                             }
 
                             if (isDateChanged)
@@ -414,8 +426,9 @@ namespace ASI.Basecode.WebApp.Controllers
                                 _notificationService.AddNotification(
                                     booking.ID,
                                     "Date Change",
-                                    $"Your booking for {newRoomName} has been rescheduled to {booking.date.ToString("MM-dd-yyyy")}."
-                                );
+                                    $"Your booking for {newRoomName} has been rescheduled to {booking.date.ToString("MM-dd-yyyy")}.",
+									 booking.time
+								);
                             }
 
                             if (isDurationChanged)
@@ -423,8 +436,9 @@ namespace ASI.Basecode.WebApp.Controllers
                                 _notificationService.AddNotification(
                                     booking.ID,
                                     "Duration Change",
-                                    $"Your booking for {oldRoomName} has been changed to {booking.duration} hours."
-                                );
+                                    $"Your booking for {oldRoomName} has been changed to {booking.duration} hours.",
+									 booking.time
+								);
                             }
 
                             foreach (var followingBooking in recurringBookings.Where(rb => rb.date > currentBookingDate))
@@ -440,8 +454,9 @@ namespace ASI.Basecode.WebApp.Controllers
                                 _notificationService.AddNotification(
                                     booking.ID,
                                     "Booking Update",
-                                    $"Your booking for {newRoomName} has been updated to {booking.time.ToString("HH:mm")}."
-                                );
+                                    $"Your booking for {newRoomName} has been updated to {booking.time.ToString("HH:mm")}.",
+									 booking.time
+								);
                             }
 
                             TempData["SuccessMessage"] = "This occurrence and all following occurrences have been updated.";
@@ -462,8 +477,9 @@ namespace ASI.Basecode.WebApp.Controllers
                                 _notificationService.AddNotification(
                                     booking.ID,
                                     "Booking Update",
-                                    $"Your booking for {newRoomName} on {booking.date.ToString("MM-dd-yyyy")} has been updated to {booking.time.ToString("HH:mm")}."
-                                );
+                                    $"Your booking for {newRoomName} on {booking.date.ToString("MM-dd-yyyy")} has been updated to {booking.time.ToString("HH:mm")}.",
+									 booking.time
+								);
                             }
 
                             TempData["SuccessMessage"] = "All occurrences of the booking have been updated.";
@@ -569,8 +585,9 @@ namespace ASI.Basecode.WebApp.Controllers
                 _notificationService.AddNotification(
                                 booking.ID,
                                 "Booking Deletion",
-                                 $"Your booking for {roomName} on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been cancelled."
-                            );
+                                 $"Your booking for {roomName} on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been cancelled.",
+								  booking.time
+							);
                 TempData["SuccessMessage"] = "Booking deleted successfully.";
                 }
                 else
@@ -584,8 +601,9 @@ namespace ASI.Basecode.WebApp.Controllers
                             _notificationService.AddNotification(
                                 booking.ID,
                                 "Booking Deletion",
-                                 $"Your booking for {roomName} on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been cancelled."
-                            );
+                                 $"Your booking for {roomName} on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been cancelled.",
+								  booking.time
+							);
                             TempData["SuccessMessage"] = "This occurrence of the booking has been deleted.";
                             break;
 
@@ -606,8 +624,9 @@ namespace ASI.Basecode.WebApp.Controllers
                                 _notificationService.AddNotification(
                                     followingBooking.ID,
                                     "Booking Deletion",
-                                     $"Your booking for {roomName} on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been cancelled."
-                                );
+                                     $"Your booking for {roomName} on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been cancelled.",
+									  booking.time
+								);
                             }
 
                             TempData["SuccessMessage"] = "This occurrence and all following occurrences have been cancelled.";
@@ -622,15 +641,17 @@ namespace ASI.Basecode.WebApp.Controllers
                                 _notificationService.AddNotification(
                                     booking.ID,
                                     "Booking Deletion",
-                                     $"Your booking for {roomName} on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been cancelled."
-                                );
+                                     $"Your booking for {roomName} on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been cancelled.",
+									  booking.time
+								);
                             }
 
                             _notificationService.AddNotification(
                                 booking.ID,
                                 "Booking Deletion",
-                                 $"Your booking for {roomName} on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been cancelled."
-                            );
+                                 $"Your booking for {roomName} on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been cancelled.",
+								  booking.time
+							);
 
                             TempData["SuccessMessage"] = "All occurrences of the booking have been deleted.";
                             break;
@@ -652,7 +673,20 @@ namespace ASI.Basecode.WebApp.Controllers
 
 
         }
-        public ActionResult Analytics(string room, DateTime? start, DateTime? end, string userName)
+
+		public IActionResult Notifications()
+		{
+			var notifications = _notificationService.GetNotifications();
+
+			// Log to check the notifications
+			foreach (var notification in notifications)
+			{
+				Console.WriteLine($"Notification: {notification.Message}, Booking Date: {notification.BookingDate}");
+			}
+
+			return View(notifications);
+		}
+		public ActionResult Analytics(string room, DateTime? start, DateTime? end, string userName)
         {
             var rooms = _bookingService.GetRooms();
             ViewBag.Rooms = new SelectList(rooms, "roomId", "roomName");
