@@ -70,31 +70,35 @@
 </div>
 
 
+@* Pagination *@
 <nav aria-label="Page navigation">
-	<ul class="pagination justify-content-center">
-		@if (currentPage > 1)
-		{
-			<li class="page-item">
-				<a class="page-link" href="?page=@(currentPage - 1)&search=@searchQuery" aria-label="Previous">
-					<span aria-hidden="true">&laquo;</span>
-				</a>
-			</li>
-		}
-		@for (int i = 1; i <= totalPages; i++)
-		{
-			<li class="page-item @(i == currentPage ? "active" : "")">
-				<a class="page-link" href="?page=@i&search=@searchQuery">@i</a>
-			</li>
-		}
-		@if (currentPage < totalPages)
-		{
-			<li class="page-item">
-				<a class="page-link" href="?page=@(currentPage + 1)&search=@searchQuery" aria-label="Next">
-					<span aria-hidden="true">&raquo;</span>
-				</a>
-			</li>
-		}
-	</ul>
+    <ul class="pagination justify-content-center">
+        <!-- "First Page" button -->
+        @if (currentPage > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" href="?page=1&search=@searchQuery" aria-label="First">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        }
+        <!-- Page numbers -->
+        @for (int i = 1; i <= totalPages; i++)
+        {
+            <li class="page-item @(i == currentPage ? "active" : "")">
+                <a class="page-link" href="?page=@i&search=@searchQuery">@i</a>
+            </li>
+        }
+        <!-- "Last Page" button -->
+        @if (currentPage < totalPages)
+        {
+            <li class="page-item">
+                <a class="page-link" href="?page=@totalPages&search=@searchQuery" aria-label="Last">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        }
+    </ul>
 </nav>
 
 <div class="modal fade" id="createBookingModal" tabindex="-1" aria-labelledby="createBookingModalLabel" aria-hidden="true">

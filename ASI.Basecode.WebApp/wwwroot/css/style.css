@@ -475,9 +475,10 @@ h2 {
     top: 10px;
     right: 10px;
     cursor: pointer;
-    color: #dc3545;
-    font-weight: bold;
+    color: red !important;
+    font-weight: bold !important;
     padding: 5px 10px;
+    text-decoration: none !important;
 }
 
     .delete-notification:hover {
