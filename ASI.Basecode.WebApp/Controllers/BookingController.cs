@@ -39,6 +39,7 @@ namespace ASI.Basecode.WebApp.Controllers
                 currentUser = _userService.GetUserByUserId(id); 
             }
 
+
             ViewBag.defaultBookingDuration = currentUser?.defaultBookingDuration ?? 1;
 
             if (userId != null)
@@ -83,6 +84,11 @@ namespace ASI.Basecode.WebApp.Controllers
                 if (!ModelState.IsValid)
                 {
                     TempData["ErrorMessage"] = "All fields are required.";
+                    return RedirectToAction("Index");
+                }
+                if (booking.date.Date < DateTime.Today)
+                {
+                    TempData["ErrorMessage"] = "You cannot book a room for a past date.";
                     return RedirectToAction("Index");
                 }
                 var rooms = _bookingService.GetRooms(); 
@@ -156,8 +162,8 @@ namespace ASI.Basecode.WebApp.Controllers
                         existingBookings = _bookingService.GetBookingsByRoomAndDate(booking.roomId, currentDate);
                         isTimeBooked = existingBookings.Any(b =>
                             (b.date == currentDate) && // Same date
-                            (b.time < bookingEndTime) && // Existing booking starts before new booking ends
-                            (booking.time < b.time.AddHours(b.duration)) // New booking starts before existing booking ends
+                            (b.time < bookingEndTime) && 
+                            (booking.time < b.time.AddHours(b.duration))
                         );
 
                         if (!isTimeBooked)
@@ -722,7 +728,6 @@ namespace ASI.Basecode.WebApp.Controllers
             return View(analyticsData);
         }
 
-        
         public IActionResult Calendar()
         {
             var rooms = _bookingService.GetRooms();
@@ -736,9 +741,21 @@ namespace ASI.Basecode.WebApp.Controllers
                 id = _bookingService.GetUserID(userId);
             }
 
-            // Get user-specific bookings
+            // Get the bookings for the user
             (bool result, IEnumerable<Booking> bookings) = _bookingService.GetBookingsByUserId(id);
 
+            // Check if any booking date is in the past and set the error message
+            foreach (var booking in bookings)
+            {
+                if (booking.date.Date < DateTime.Today)
+                {
+                    // Set the error message for the toast in ViewBag
+                    ViewBag.ErrorMessage = "You cannot book a room for a past date.";
+                    break; // We only need to set the error once
+                }
+            }
+
+            // Set the bookings in a format that FullCalendar expects
             ViewBag.Bookings = bookings.Select(b => new
             {
                 title = $"{b.Room.roomName}",
@@ -748,6 +765,7 @@ namespace ASI.Basecode.WebApp.Controllers
 
             return View();
         }
+
 
     }
 }
