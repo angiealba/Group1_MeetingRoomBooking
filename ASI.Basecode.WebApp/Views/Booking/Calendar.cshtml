@@ -6,13 +6,16 @@
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/main.min.css" rel="stylesheet" />
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 }
-
+<div id="errorMessage" class="alert alert-danger mt-3" style="display:none;"></div>
 <div class="container my-5">
-    <h1 class="fw-bold mb-3">Calendar</h1>
+    <h1 class="fw-bold mb-2">Calendar</h1>
     <div id="calendar" class="calendar border rounded p-3 shadow-sm"></div>
 </div>
 
-<!-- Add Booking Modal -->
+
+
+
+
 <div class="modal fade" id="createBookingModal" tabindex="-1" aria-labelledby="createBookingModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -103,31 +106,26 @@
                     meridiem: 'short'
                 },
                 dateClick: function (info) {
-                    // Prevent booking for past dates
+                    
                     const selectedDate = new Date(info.dateStr);
                     const today = new Date();
                     today.setHours(0, 0, 0, 0);
+        if (selectedDate < today) {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.innerHTML = "Cannot create booking for past dates.";
+            errorMessage.style.display = 'block';
+            return;
+        }
 
-                    if (selectedDate < today) {
-                        alert('Cannot book for past dates');
-                        return;
-                    }
 
-                    // Set the selected date in the modal
+                 
                     document.getElementById('date').value = info.dateStr;
 
-                    // Show the modal
+                   
                     const modal = new bootstrap.Modal(document.getElementById('createBookingModal'));
                     modal.show();
                 },
-                // eventClick: function (info) {
-                //     alert(`
-                //                 Booking Details:
-                //                 Room: ${info.event.title}
-                //                 Start: ${info.event.start.toLocaleString()}
-                //                 End: ${info.event.end.toLocaleString()}
-                //             `);
-                // }
+               
             });
             calendar.render();
 
@@ -150,9 +148,9 @@
     <script>
         function fetchRoomDetails(roomId) {
             if (roomId) {
-                // AJAX call to fetch room details
+                
                 $.ajax({
-                    url: '/Booking/GetRoomDetails', // Adjust the URL as necessary
+                    url: '/Booking/GetRoomDetails',
                     type: 'GET',
                     data: { id: roomId },
                     success: function (data) {
