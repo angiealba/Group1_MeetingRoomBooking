@@ -265,3 +265,12 @@
 		</div>
 	</div>
 }
+
+@section scripts {
+	<script>
+		var errorMessage = '@TempData["ErrorMessage"]';
+		if (errorMessage) {
+			toastr.error(errorMessage);
+		}
+	</script>
+}

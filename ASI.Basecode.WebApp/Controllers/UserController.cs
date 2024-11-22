@@ -105,12 +105,7 @@ namespace ASI.Basecode.WebApp.Controllers
             _userService.DeleteUser(id);  
             return RedirectToAction("Index");
         }
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Register()
-        {
-            return View();
-        }
+       
 
         [HttpPost]
         [AllowAnonymous]
@@ -129,7 +124,8 @@ namespace ASI.Basecode.WebApp.Controllers
             {
                 TempData["ErrorMessage"] = Resources.Messages.Errors.ServerError;
             }
-            return View();
+            TempData["ErrorMessage"] = "Username is already registered";
+            return RedirectToAction("Index");
         }
         public ActionResult Notification()
         {
