@@ -1,5 +1,4 @@
-﻿
-using ASI.Basecode.Data.Interfaces;
+﻿using ASI.Basecode.Data.Interfaces;
 using ASI.Basecode.Data.Models;
 using ASI.Basecode.Services.Interfaces;
 using System;
@@ -8,60 +7,82 @@ using System.Linq;
 
 public class NotificationService : INotificationService
 {
-    private readonly INotificationRepository _notificationRepository;
-    private readonly IUserRepository _userRepository;
+	private readonly INotificationRepository _notificationRepository;
+	private readonly IUserRepository _userRepository;
+	private readonly IBookingRepository _bookingRepository; // Assuming you have this repository for booking-related database operations
 
-    public NotificationService(INotificationRepository notificationRepository, IUserRepository userRepository)
-    {
-        _notificationRepository = notificationRepository;
-        _userRepository = userRepository;
-    }
+	public NotificationService(INotificationRepository notificationRepository, IUserRepository userRepository, IBookingRepository bookingRepository)
+	{
+		_notificationRepository = notificationRepository;
+		_userRepository = userRepository;
+		_bookingRepository = bookingRepository;
+	}
 
-    public void AddNotification(int id, string type, string message)
-    {
-        if (id == 0 || string.IsNullOrEmpty(message))
-        {
-            throw new ArgumentException("Invalid notification parameters.");
-        }
+	// Method to create a booking and send a notification
+	public void CreateBooking(int userId, DateTime bookingTime)
+	{
+		// Create the booking
+		var booking = new Booking
+		{
+			time = bookingTime,
+			// Set other booking details like roomId, userId, etc.
+		};
 
-        // Check if notifications are enabled for the user
-        var user = _userRepository.GetUsers().FirstOrDefault(u => u.ID == id);
-        if (user == null || !user.enableNotifications)
-        {
-            return; // Do not add notification if user is not found or notifications are disabled
-        }
+		// Save the booking to the database (you need to make sure the booking is saved)
+		_bookingRepository.AddBooking(booking);  // Assuming you have an AddBooking method
 
-        var notification = new Notification
-        {
-            userId = id,
-            Type = type,
-            Message = message,
-            Date = DateTime.Now,
-            IsRead = false
-        };
+		// After creating the booking, send a notification with the booking's time
+		var message = $"Your booking is scheduled for {bookingTime.ToString("f")}.";
+		AddNotification(userId, "Booking", message, booking.time);  // Pass the time field directly as bookingTime
+	}
 
-        _notificationRepository.AddNotification(notification);
-    }
+	// Method to create a notification
+	public void AddNotification(int userId, string type, string message, DateTime? bookingDate)
+	{
+		if (userId == 0 || string.IsNullOrEmpty(message))
+		{
+			throw new ArgumentException("Invalid notification parameters.");
+		}
 
-    public List<Notification> GetNotifications()
-    {
-        return _notificationRepository.GetNotifications();  // Ensure this returns List<Notification>
-    }
+		// Check if notifications are enabled for the user
+		var user = _userRepository.GetUsers().FirstOrDefault(u => u.ID == userId);
+		if (user == null || !user.enableNotifications)
+		{
+			return; // Do not add notification if user is not found or notifications are disabled
+		}
 
-    public int GetUserID(string userId)
-    {
-        return _notificationRepository.GetUserID(userId);
-    }
+		var notification = new Notification
+		{
+			userId = userId,
+			Type = type,
+			Message = message,
+			Date = DateTime.Now,
+			BookingDate = bookingDate,  // Set the booking date to the passed nullable DateTime
+			IsRead = false
+		};
 
-    public void MarkAsRead(int id)
-    {
-        _notificationRepository.MarkAsRead(id);
-    }
+		_notificationRepository.AddNotification(notification);  // Save the notification
+	}
 
-    public void DeleteNotification(int id)
-    {
-        _notificationRepository.DeleteNotification(id);
+	// Get all notifications
+	public List<Notification> GetNotifications()
+	{
+		return _notificationRepository.GetNotifications();  // Ensure this returns List<Notification>
+	}
 
-    }
-    
+	// Mark notification as read
+	public void MarkAsRead(int id)
+	{
+		_notificationRepository.MarkAsRead(id);
+	}
+
+	public int GetUserID(string userId)
+	{
+		return _notificationRepository.GetUserID(userId);
+	}
+	// Delete notification
+	public void DeleteNotification(int id)
+	{
+		_notificationRepository.DeleteNotification(id);
+	}
 }
