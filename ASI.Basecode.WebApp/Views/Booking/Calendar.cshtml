@@ -2,19 +2,11 @@
     ViewData["Title"] = "Calendar";
 }
 
-@section Styles {
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/main.min.css" rel="stylesheet" />
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-}
 <div id="errorMessage" class="alert alert-danger mt-3" style="display:none;"></div>
 <div class="container my-5">
     <h1 class="fw-bold mb-2">Calendar</h1>
     <div id="calendar" class="calendar border rounded p-3 shadow-sm"></div>
 </div>
-
-
-
-
 
 <div class="modal fade" id="createBookingModal" tabindex="-1" aria-labelledby="createBookingModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -27,7 +19,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="roomId" class="form-label">Select Room</label>
-                        <select class="form-select form-control" id="roomId" name="roomId" required  onchange="fetchRoomDetails(this.value)">
+                        <select class="form-select form-control" id="roomId" name="roomId" required onchange="fetchRoomDetails(this.value)">
                             <option value="">Choose a room...</option>
                             @foreach (var room in ViewBag.Rooms)
                             {
@@ -35,7 +27,6 @@
                             }
                         </select>
                     </div>
-                    <!--Should display room details-->
                     <div id="roomDetails" style="display: none;">
                         <p>Location: <span id="roomLocation"></span></p>
                         <p>Capacity: <span id="roomCapacity"></span></p>
@@ -56,9 +47,7 @@
                     <div class="mb-3">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="isRecurring" name="isRecurring" value="true">
-                            <label class="form-check-label" for="isRecurring">
-                                Recurring Booking
-                            </label>
+                            <label class="form-check-label" for="isRecurring">Recurring Booking</label>
                         </div>
                     </div>
                     <div id="recurringOptions" style="display: none;">
@@ -86,10 +75,6 @@
 </div>
 
 @section Scripts {
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const calendarEl = document.getElementById('calendar');
@@ -106,30 +91,29 @@
                     meridiem: 'short'
                 },
                 dateClick: function (info) {
-                    
                     const selectedDate = new Date(info.dateStr);
                     const today = new Date();
                     today.setHours(0, 0, 0, 0);
-        if (selectedDate < today) {
-            const errorMessage = document.getElementById('errorMessage');
-            errorMessage.innerHTML = "Cannot create booking for past dates.";
-            errorMessage.style.display = 'block';
-            return;
-        }
+                    if (selectedDate < today) {
+                        const errorMessage = document.getElementById('errorMessage');
+                        errorMessage.innerHTML = "Cannot create booking for past dates.";
+                        errorMessage.style.display = 'block';
 
+                        setTimeout(function () {
+                        errorMessage.style.display = 'none';
+                        }, 2000); 
 
-                 
+                        return;
+                    }
+
                     document.getElementById('date').value = info.dateStr;
 
-                   
                     const modal = new bootstrap.Modal(document.getElementById('createBookingModal'));
                     modal.show();
                 },
-               
             });
             calendar.render();
 
-            // Toggle recurring options
             document.getElementById('isRecurring').addEventListener('change', function () {
                 document.getElementById('recurringOptions').style.display = this.checked ? 'block' : 'none';
             });
@@ -140,15 +124,12 @@
                 $('#roomDetails').hide();
             });
 
-            // Set minimum date for booking
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('recurrenceEndDate').min = today;
         });
-    </script>
-    <script>
+
         function fetchRoomDetails(roomId) {
             if (roomId) {
-                
                 $.ajax({
                     url: '/Booking/GetRoomDetails',
                     type: 'GET',

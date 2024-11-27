@@ -167,7 +167,7 @@ header {
     background-color: #1e272e;
     position: absolute;
     top: 0px;
-    left: 00;
+    left: 0;
     box-shadow: 1px 1px 10px rgba(198, 189, 248, 0.825);
     display: flex;
     justify-content: space-between;
@@ -374,7 +374,7 @@ h2 {
 
 /* Style FullCalendar buttons to match Bootstrap */
 .fc-button {
-    background-color: #fffff !important; /* Matches red color of the theme */
+    background-color: #fff !important; /* Matches red color of the theme */
     color: #fff !important;
     border: none !important;
     font-weight: bold;
@@ -401,6 +401,10 @@ h2 {
     background-color: #007bff !important;
     border: none !important;
     color: #fff !important;
+    height: auto !important;
+    white-space: normal;
+    word-wrap: break-word;
+    font-size: 11px !important;
 }
 
 .pagination-container {
@@ -485,7 +489,7 @@ h2 {
         color: #bb2d3b;
     }
 
-.toast-container {
+/*.toast-container {
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -504,13 +508,13 @@ h2 {
 }
 
 .toast-body {
-    background-color: #f8f9fa;
+    background-color: green !important;
 }
 
 .toast-error {
     background-color: #ff4d4d !important;
     color: #fff !important;
-}
+}*/
 
 .custom-select-style {
     border: 1px solid #ced4da;
@@ -520,3 +524,4 @@ h2 {
     color: #495057;
     background-color: #fff;
 }
+
