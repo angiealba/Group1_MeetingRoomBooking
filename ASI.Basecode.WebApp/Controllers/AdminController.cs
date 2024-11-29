@@ -23,11 +23,17 @@ namespace ASI.Basecode.WebApp.Controllers
 		{
 			var users = _userService.GetUsers();
 
+            
+
 			if (!string.IsNullOrEmpty(search))
 			{
 				users = users.Where(u => u.name.Contains(search, StringComparison.OrdinalIgnoreCase) ||
 										 u.email.Contains(search, StringComparison.OrdinalIgnoreCase));
-			}
+            }
+            else
+            {
+
+            }
 
             var totalUsers = users.Count();
             var totalPages = (int)Math.Ceiling((double)totalUsers / pageSize);
@@ -88,6 +94,7 @@ namespace ASI.Basecode.WebApp.Controllers
                     }
 
                     _userService.UpdateUser(existingUser);
+                    TempData["SuccessMessage"] = "Admin successfully updated";
                     return RedirectToAction("Index");
                 }
                 ModelState.AddModelError("", "User not found.");
@@ -100,8 +107,10 @@ namespace ASI.Basecode.WebApp.Controllers
         [HttpPost]
         public IActionResult DeleteUser(int id)
         {
-            _userService.DeleteUser(id);  // Permanently delete the user
+            _userService.DeleteUser(id);
+            TempData["SuccessMessage"] = "Admin has been deleted";
             return RedirectToAction("Index");
+            
         }
         [HttpGet]
         [AllowAnonymous]
@@ -117,6 +126,7 @@ namespace ASI.Basecode.WebApp.Controllers
             try
             {
                 _userService.AddUser(model);
+                TempData["SuccessMessage"] = "Admin successfully added";
                 return RedirectToAction("Index", "Admin");
             }
             catch (InvalidDataException ex)
@@ -130,17 +140,6 @@ namespace ASI.Basecode.WebApp.Controllers
             TempData["ErrorMessage"] = "Username is already registered";
             return RedirectToAction("Index");
         }
-        //public ActionResult SuperAdminUsers(string search)
-        //{
-        //    var users = _userService.GetUsers();
-
-        //    if (!string.IsNullOrEmpty(search))
-        //    {
-        //        users = users.Where(u => u.Name.Contains(search, StringComparison.OrdinalIgnoreCase) ||
-        //                                 u.Email.Contains(search, StringComparison.OrdinalIgnoreCase));
-        //    }
-
-        //    return View(users.ToList());
-        //}
+        
     }
 }

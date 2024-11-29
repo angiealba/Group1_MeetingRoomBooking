@@ -59,7 +59,7 @@ namespace ASI.Basecode.WebApp.Controllers
 
             if (!string.IsNullOrEmpty(search))
             {
-                bookings = bookings.Where(b => b.Room.roomName.Contains(search, StringComparison.OrdinalIgnoreCase)
+                bookings = bookings.OrderByDescending(b=>bookings).Where(b => b.Room.roomName.Contains(search, StringComparison.OrdinalIgnoreCase)
                                             || b.date.ToString("MM-dd-yyyy").Contains(search)
                                             || b.time.ToString("HH:mm").Contains(search)
                                             || b.bookingRefId.Contains(search, StringComparison.OrdinalIgnoreCase));

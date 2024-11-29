@@ -12,19 +12,11 @@
 <h1 class="fw-bold mb-3">Meeting Rooms</h1>
 <div class="d-flex justify-content-between align-items-center mb-3">
 	<button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#createRoomModal">Add Room</button>
-	<form class="d-flex" method="GET">
+	<form class="d-flex" method="POST">
 		<input class="form-control me-2" type="search" placeholder="Search rooms" aria-label="Search" name="search" value="@searchQuery">
 		<button class="btn btn-outline-dark" type="submit">Search</button>
 	</form>
 </div>
-
-@if (TempData["SuccessMessage"] != null)
-{
-	<div class="alert alert-success">
-		@TempData["SuccessMessage"]
-	</div>
-}
-
 <div class="table-responsive">
 	<table class="table table-striped mt-3 align-middle">
 		<thead>
@@ -37,6 +29,8 @@
 			</tr>
 		</thead>
 		<tbody>
+			@if (Model.Where(r=>r.roomName == r.roomName).Any())
+			{
 			@foreach (var room in Model)
 			{
 				<tr>
@@ -53,7 +47,12 @@
 						</button>
 					</td>
 				</tr>
-			}
+				}}else
+				{
+					<tr>
+						<td colspan="5" class="text-center">No rooms found</td>
+					</tr>
+				}
 		</tbody>
 	</table>
 </div>
@@ -195,3 +194,17 @@
 	</div>
 }
 
+@section scripts {
+	<script>
+		var errorMessage = '@TempData["ErrorMessage"]';
+		if (errorMessage) {
+			toastr.error(errorMessage);
+		}
+
+		var successMessage = '@TempData["SuccessMessage"]';
+		if (successMessage) {
+			toastr.success(successMessage);
+		}
+	</script>
+
+}

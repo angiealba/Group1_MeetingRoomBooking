@@ -90,6 +90,7 @@ namespace ASI.Basecode.WebApp.Controllers
                     }
 
                     _userService.UpdateUser(existingUser);
+                    TempData["SuccessMessage"] = "User successfully updated";
                     return RedirectToAction("Index");
                 }
                 ModelState.AddModelError("", "User not found.");
@@ -102,7 +103,8 @@ namespace ASI.Basecode.WebApp.Controllers
         [HttpPost]
         public IActionResult DeleteUser(int id)
         {
-            _userService.DeleteUser(id);  
+            _userService.DeleteUser(id);
+            TempData["SuccessMessage"] = "User successfully deleted";
             return RedirectToAction("Index");
         }
        
@@ -114,6 +116,7 @@ namespace ASI.Basecode.WebApp.Controllers
             try
             {
                 _userService.AddUser(model);
+                TempData["SuccessMessage"] = "User successfully added";
                 return RedirectToAction("Index", "User");
             }
             catch (InvalidDataException ex)
