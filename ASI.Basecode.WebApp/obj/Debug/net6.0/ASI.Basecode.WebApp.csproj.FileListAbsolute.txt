@@ -6502,3 +6502,5 @@ C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Sagnoy\Group1_MeetingRoomBooking
 C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Sagnoy\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\obj\Debug\net6.0\ref\ASI.Basecode.WebApp.dll
 C:\elasi\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\bin\Debug\net6.0\Glimpse.Core.dll
 C:\elasi\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\bin\Debug\net6.0\Glimpse.AspNet.dll
+C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\PROJECT\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\bin\Debug\net6.0\Glimpse.Core.dll
+C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\PROJECT\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\bin\Debug\net6.0\Glimpse.AspNet.dll
