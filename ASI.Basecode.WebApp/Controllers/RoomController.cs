@@ -18,30 +18,34 @@ namespace ASI.Basecode.WebApp.Controllers
         }
 
 		public IActionResult Index(string search, int page = 1, int pageSize = 8)
-		{
-			(bool result, IEnumerable<Room> rooms) = _roomService.GetRooms();
+{
+    // If no search, use default list
+    (bool result, IEnumerable<Room> rooms) = _roomService.GetRooms();
 
-			if (!result)
-			{
-				return View(null);
-			}
+    if (!result)
+    {
+        return View(null);
+    }
 
-			if (!string.IsNullOrEmpty(search))
-			{
-				rooms = rooms.Where(r => r.roomName.Contains(search, StringComparison.OrdinalIgnoreCase) ||
-										  r.roomLocation.Contains(search, StringComparison.OrdinalIgnoreCase));
-			}
+    // If search is provided, filter the results
+    if (!string.IsNullOrEmpty(search))
+    {
+        rooms = rooms.Where(r => r.roomName.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                                  r.roomLocation.Contains(search, StringComparison.OrdinalIgnoreCase));
+    }
 
-			var totalRooms = rooms.Count();
-			var totalPages = (int)Math.Ceiling((double)totalRooms / pageSize);
-			var paginatedRooms = rooms.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+    // Calculate pagination
+    var totalRooms = rooms.Count();
+    var totalPages = (int)Math.Ceiling((double)totalRooms / pageSize);
+    var paginatedRooms = rooms.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
-			ViewBag.CurrentPage = page;
-			ViewBag.TotalPages = totalPages;
-			ViewBag.SearchQuery = search;
+    // Store pagination info in ViewBag for rendering
+    ViewBag.CurrentPage = page;
+    ViewBag.TotalPages = totalPages;
+    ViewBag.SearchQuery = search;
 
-			return View(paginatedRooms);
-		}
+    return View(paginatedRooms);
+}
 
 
 		public IActionResult CreateRoom()

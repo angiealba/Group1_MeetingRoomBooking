@@ -38,6 +38,7 @@
           "ASI.Basecode.Services": "1.0.0",
           "AutoMapper": "11.0.1",
           "BCrypt.Net-Next": "4.0.3",
+          "Glimpse.AspNet": "1.9.2",
           "LinqKit": "1.2.2",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.6",
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "6.0.6",
@@ -464,6 +465,31 @@
         },
         "compile": {
           "lib/netstandard2.0/EntityFrameworkCore.SqlServer.HierarchyId.Abstractions.dll": {}
+        }
+      },
+      "Glimpse/1.8.6": {
+        "runtime": {
+          "lib/net45/Glimpse.Core.dll": {
+            "assemblyVersion": "1.8.6.0",
+            "fileVersion": "1.8.6.0"
+          }
+        },
+        "compile": {
+          "lib/net45/Glimpse.Core.dll": {}
+        }
+      },
+      "Glimpse.AspNet/1.9.2": {
+        "dependencies": {
+          "Glimpse": "1.8.6"
+        },
+        "runtime": {
+          "lib/net45/Glimpse.AspNet.dll": {
+            "assemblyVersion": "1.9.2.0",
+            "fileVersion": "1.9.2.0"
+          }
+        },
+        "compile": {
+          "lib/net45/Glimpse.AspNet.dll": {}
         }
       },
       "Hangfire.Core/1.7.30": {
@@ -3581,7 +3607,10 @@
           "ZXing.Net": "0.16.8"
         },
         "runtime": {
-          "ASI.Basecode.Data.dll": {}
+          "ASI.Basecode.Data.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "ASI.Basecode.Data.dll": {}
@@ -3589,7 +3618,10 @@
       },
       "ASI.Basecode.Resources/1.0.0": {
         "runtime": {
-          "ASI.Basecode.Resources.dll": {}
+          "ASI.Basecode.Resources.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "ASI.Basecode.Resources.dll": {}
@@ -3609,7 +3641,10 @@
           "Microsoft.Extensions.Http": "6.0.0"
         },
         "runtime": {
-          "ASI.Basecode.Services.dll": {}
+          "ASI.Basecode.Services.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "ASI.Basecode.Services.dll": {}
@@ -5388,6 +5423,20 @@
       "sha512": "sha512-x0Y3QtTLd1oyQMHTpXmUnuXabAs44kZBlP0suVQjlreF76e55x2D9YDiXRwUekvtI+X+b0NLkYfsnAqf9W/58w==",
       "path": "entityframeworkcore.sqlserver.hierarchyid.abstractions/3.0.1",
       "hashPath": "entityframeworkcore.sqlserver.hierarchyid.abstractions.3.0.1.nupkg.sha512"
+    },
+    "Glimpse/1.8.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jubTSNDTgjCcCLibXAB28hnC2MPRjjG5PIrx4Wc5ZILsx8qt3bdEGGIS2LRMQk8mcGHWhEFFPLWFaJQJyWtS9Q==",
+      "path": "glimpse/1.8.6",
+      "hashPath": "glimpse.1.8.6.nupkg.sha512"
+    },
+    "Glimpse.AspNet/1.9.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-nqELu3G99CWZIEpdi7Hp7SdBU+8Dl0Y9+CluVRa4HEIGziWmFQ1lJ5Hlyk/U9IRmJ5nolVbJngeWxO4Jz2jqpQ==",
+      "path": "glimpse.aspnet/1.9.2",
+      "hashPath": "glimpse.aspnet.1.9.2.nupkg.sha512"
     },
     "Hangfire.Core/1.7.30": {
       "type": "package",

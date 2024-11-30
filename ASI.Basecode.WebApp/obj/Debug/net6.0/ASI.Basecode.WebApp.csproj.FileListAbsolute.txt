@@ -6500,3 +6500,5 @@ C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Sagnoy\Group1_MeetingRoomBooking
 C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Sagnoy\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\obj\Debug\net6.0\ASI.Basecode.WebApp.pdb
 C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Sagnoy\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\obj\Debug\net6.0\ASI.Basecode.WebApp.genruntimeconfig.cache
 C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Sagnoy\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\obj\Debug\net6.0\ref\ASI.Basecode.WebApp.dll
+C:\elasi\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\bin\Debug\net6.0\Glimpse.Core.dll
+C:\elasi\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\bin\Debug\net6.0\Glimpse.AspNet.dll

@@ -8,19 +8,24 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Rey Aaron Buaya\\.nuget\\packages\\": {}
+    "C:\\Users\\Rico Gabunada\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Sagnoy\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj",
+      "projectUniqueName": "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj",
       "projectName": "ASI.Basecode.Resources",
-      "projectPath": "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Sagnoy\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj",
-      "packagesPath": "C:\\Users\\Rey Aaron Buaya\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Rey Aaron Buaya\\Desktop\\Monik\\Alliance\\Sagnoy\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\obj\\",
+      "projectPath": "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj",
+      "packagesPath": "C:\\Users\\Rico Gabunada\\.nuget\\packages\\",
+      "outputPath": "C:\\elasi\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Rey Aaron Buaya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Rico Gabunada\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -40,7 +45,13 @@
         "warnAsError": [
           "NU1605"
         ]
-      }
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "all"
+      },
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net6.0": {
@@ -61,7 +72,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

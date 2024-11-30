@@ -43,7 +43,9 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var user in Model.Where(u => u.role == "User"))
+			@if (Model.Where(u => u.role == "User").Any())
+			{
+				@foreach (var user in Model.Where(u => u.role == "User").OrderByDescending(u => u.createdTime))
 			{
 				<tr>
 					<td>@user.userID</td>
@@ -58,6 +60,12 @@
 							Delete
 						</button>
 					</td>
+				</tr>
+				}}
+			else
+			{
+				<tr>
+					<td colspan="5" class="text-center">No user found</td>
 				</tr>
 			}
 		</tbody>
@@ -278,6 +286,11 @@
 		var errorMessage = '@TempData["ErrorMessage"]';
 		if (errorMessage) {
 			toastr.error(errorMessage);
+		}
+
+		var successMessage = '@TempData["SuccessMessage"]';
+		if (successMessage) {
+			toastr.success(successMessage);
 		}
 	</script>
 }
