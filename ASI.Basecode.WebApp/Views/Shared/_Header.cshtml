@@ -2,15 +2,15 @@
 @inject IHttpContextAccessor HttpContextAccessor
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 shadow">
-    <div class="container-fluid container">
-        <a class="navbar-brand me-5" href="@Url.Action("", "Home")">
+    <div class="container">
+        <a class="navbar-brand mr-5" href="@Url.Action("", "Home")">
             <img src="https://alliance.com.ph/images/asi-logo.svg" alt="logo" width="180">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarScroll">
-            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link text-light" href="@Url.Action("Index", "User")">USERS</a>
                 </li>
@@ -23,9 +23,6 @@
                 <li class="nav-item">
                     <a class="nav-link text-light" href="@Url.Action("Analytics", "Booking")">REPORTING & ANALYTICS</a>
                 </li>
-                @* <li class="nav-item">
-                <a class="nav-link text-light" href="@Url.Action("Index", "Notification")">NOTIFICATIONS</a>
-                </li *@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -45,8 +42,6 @@
 @section Scripts {
     <script>
         function logout() {
-            // Perform logout action (e.g., destroy session, clear cookies)
-            // Then redirect to the login page
             window.location.href = '@Url.Action("Logout", "Account")';
         }
     </script>
