@@ -1,66 +1,67 @@
 ﻿@model IEnumerable<ASI.Basecode.Data.Models.Room>
 
 @{
-	ViewData["Title"] = "Room Management";
-	var searchQuery = ViewBag.SearchQuery;
-	var currentPage = ViewBag.CurrentPage;
-	var totalPages = ViewBag.TotalPages;
+    ViewData["Title"] = "Room Management";
+    var searchQuery = ViewBag.SearchQuery;
+    var currentPage = ViewBag.CurrentPage;
+    var totalPages = ViewBag.TotalPages;
 }
 
 <br />
 
-<h1 class="fw-bold mb-3">Meeting Rooms</h1>
+<h1 class="font-weight-bold mb-3">Meeting Rooms</h1>
 <div class="d-flex justify-content-between align-items-center mb-3">
-	<button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#createRoomModal">Add Room</button>
-	<form class="d-flex" method="POST">
-		<input class="form-control me-2" type="search" placeholder="Search rooms" aria-label="Search" name="search" value="@searchQuery">
-		<button class="btn btn-outline-dark" type="submit">Search</button>
-	</form>
+    <button class="btn btn-dark" data-toggle="modal" data-target="#createRoomModal">Add Room</button>
+    <form class="form-inline" method="POST">
+        <input class="form-control mr-2" type="search" placeholder="Search rooms" aria-label="Search" name="search" value="@searchQuery">
+        <button class="btn btn-outline-dark" type="submit">Search</button>
+    </form>
 </div>
 <div class="table-responsive">
-	<table class="table table-striped mt-3 align-middle">
-		<thead>
-			<tr>
-				<th>Room Name</th>
-				<th>Location</th>
-				<th>Capacity</th>
-				<th>Facilities</th>
-				<th class="action-column">Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			@if (Model.Where(r=>r.roomName == r.roomName).Any())
-			{
-			@foreach (var room in Model)
-			{
-				<tr>
-					<td>@room.roomName</td>
-					<td>@room.roomLocation</td>
-					<td>@room.roomCapacity</td>
-					<td>@room.availableFacilities</td>
-					<td>
-						<button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#editRoomModal-@room.roomId">
-							Edit
-						</button>
-						<button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteRoomModal-@room.roomId">
-							Delete
-						</button>
-					</td>
-				</tr>
-				}}else
-				{
-					<tr>
-						<td colspan="5" class="text-center">No rooms found</td>
-					</tr>
-				}
-		</tbody>
-	</table>
+    <table class="table table-striped mt-3 align-middle">
+        <thead>
+            <tr>
+                <th>Room Name</th>
+                <th>Location</th>
+                <th>Capacity</th>
+                <th>Facilities</th>
+                <th class="action-column">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Any())
+            {
+                @foreach (var room in Model)
+                {
+                    <tr>
+                        <td>@room.roomName</td>
+                        <td>@room.roomLocation</td>
+                        <td>@room.roomCapacity</td>
+                        <td>@room.availableFacilities</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-outline-dark" data-toggle="modal" data-target="#editRoomModal-@room.roomId">
+                                Edit
+                            </button>
+                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteRoomModal-@room.roomId">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="text-center">No rooms found</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
 @* Pagination *@
 <nav aria-label="Page navigation">
     <ul class="pagination justify-content-center">
-        <!-- "First Page" button -->
         @if (currentPage > 1)
         {
             <li class="page-item">
@@ -69,14 +70,12 @@
                 </a>
             </li>
         }
-        <!-- Page numbers -->
         @for (int i = 1; i <= totalPages; i++)
         {
             <li class="page-item @(i == currentPage ? "active" : "")">
                 <a class="page-link" href="?page=@i&search=@searchQuery">@i</a>
             </li>
         }
-        <!-- "Last Page" button -->
         @if (currentPage < totalPages)
         {
             <li class="page-item">
@@ -89,38 +88,38 @@
 </nav>
 
 <div class="modal fade" id="createRoomModal" tabindex="-1" aria-labelledby="createRoomModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="createRoomModalLabel">Add New Room</h5>
-				<button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
-			</div>
-			<form asp-action="CreateRoom" method="post">
-				<div class="modal-body">
-					<div class="mb-3">
-						<label for="roomName" class="form-label">Room Name</label>
-						<input type="text" class="form-control" id="roomName" name="roomName" required>
-					</div>
-					<div class="mb-3">
-						<label for="roomLocation" class="form-label">Location</label>
-						<input type="text" class="form-control" id="roomLocation" name="roomLocation" required>
-					</div>
-					<div class="mb-3">
-						<label for="roomCapacity" class="form-label">Capacity</label>
-						<input type="number" class="form-control" id="roomCapacity" name="roomCapacity" required>
-					</div>
-					<div class="mb-3">
-						<label for="availableFacilities" class="form-label">Facilities</label>
-						<textarea class="form-control" id="availableFacilities" name="availableFacilities" rows="3" required></textarea>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="reset" class="btn btn-secondary" id="cancelBtn" data-bs-dismiss="modal">Cancel</button>
-					<button type="submit" class="btn btn-success">Add Room</button>
-				</div>
-			</form>
-		</div>
-	</div>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createRoomModalLabel">Add New Room</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form asp-action="CreateRoom" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="roomName">Room Name</label>
+                        <input type="text" class="form-control" id="roomName" name="roomName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="roomLocation">Location</label>
+                        <input type="text" class="form-control" id="roomLocation" name="roomLocation" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="roomCapacity">Capacity</label>
+                        <input type="number" class="form-control" id="roomCapacity" name="roomCapacity" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="availableFacilities">Facilities</label>
+                        <textarea class="form-control" id="availableFacilities" name="availableFacilities" rows="3" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Add Room</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 
@@ -131,8 +130,8 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="editRoomModalLabel-@room.roomId">Edit Room</h5>
-					<button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
-				</div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
 				<form asp-action="Update" method="post">
 					<div class="modal-body">
 						<input type="hidden" name="roomId" value="@room.roomId" />
@@ -170,8 +169,8 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="deleteRoomModalLabel-@room.roomId">Delete Room</h5>
-					<button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
-				</div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
 				<form asp-action="Delete" method="post">
 				<div class="modal-body">
 						<input type="hidden" name="roomId" value="@room.roomId" />
