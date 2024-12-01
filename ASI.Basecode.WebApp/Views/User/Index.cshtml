@@ -2,180 +2,158 @@
 @using Microsoft.AspNetCore.Mvc.ModelBinding
 
 @{
-	ViewData["Title"] = "User Management";
-	var searchQuery = ViewBag.SearchQuery;
-	var currentPage = ViewBag.CurrentPage;
-	var totalPages = ViewBag.TotalPages;
+    ViewData["Title"] = "User Management";
+    var searchQuery = ViewBag.SearchQuery;
+    var currentPage = ViewBag.CurrentPage;
+    var totalPages = ViewBag.TotalPages;
 }
 
 <br />
 
-<h1 class="fw-bold mb-3">User Management</h1>
+<h1 class="font-weight-bold mb-3">User Management</h1>
 <div class="d-flex justify-content-between align-items-center mb-3">
-	<button class="btn btn-dark" data-toggle="modal" data-target="#createUserModal">Add New User</button>
-	<form class="d-flex" method="GET">
-		<input class="form-control mr-2" type="search" placeholder="Search users" aria-label="Search" name="search" value="@searchQuery">
-		<button class="btn btn-outline-dark" type="submit">Search</button>
-	</form>
+    <button class="btn btn-dark" data-toggle="modal" data-target="#createUserModal">Add New User</button>
+    <form class="form-inline" method="GET">
+        <input class="form-control mr-2" type="search" placeholder="Search users" aria-label="Search" name="search" value="@searchQuery">
+        <button class="btn btn-outline-dark" type="submit">Search</button>
+    </form>
 </div>
 
 @if (!ViewData.ModelState.IsValid)
 {
-	<div class="alert alert-danger">
-		<ul>
-			@foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-			{
-				<li>@error.ErrorMessage</li>
-			}
-		</ul>
-	</div>
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
 }
 
 <div class="table-responsive">
-	<table class="table table-striped mt-3 align-middle">
-		<thead>
-			<tr>
-				<th>Username</th>
-				<th>Name</th>
-				<th>Email</th>
-				<th>Created Time</th>
-				<th class="action-column">Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			@if (Model.Where(u => u.role == "User").Any())
-			{
-				@foreach (var user in Model.Where(u => u.role == "User").OrderByDescending(u => u.createdTime))
-				{
-					<tr>
-						<td>@user.userID</td>
-						<td>@user.name</td>
-						<td>@user.email</td>
-						<td>@user.createdTime</td>
-						<td>
-							<button type="button" class="btn btn-sm btn-outline-dark" data-toggle="modal" data-target="#editUserModal-@user.ID">
-								Edit
-							</button>
-							<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteUserModal-@user.ID">
-								Delete
-							</button>
-						</td>
-					</tr>
-				}
-			}
-			else
-			{
-				<tr>
-					<td colspan="5" class="text-center">No user found</td>
-				</tr>
-			}
-		</tbody>
-	</table>
+    <table class="table table-striped mt-3 align-middle">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Created Time</th>
+                <th class="action-column">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Where(u => u.role == "User").Any())
+            {
+                @foreach (var user in Model.Where(u => u.role == "User").OrderByDescending(u => u.createdTime))
+                {
+                    <tr>
+                        <td>@user.userID</td>
+                        <td>@user.name</td>
+                        <td>@user.email</td>
+                        <td>@user.createdTime</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-outline-dark" data-toggle="modal" data-target="#editUserModal-@user.ID">
+                                Edit
+                            </button>
+                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteUserModal-@user.ID">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="text-center">No user found</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
 @* Pagination *@
 <nav aria-label="Page navigation">
-	<ul class="pagination justify-content-center">
-		<!-- "First Page" button -->
-		@if (currentPage > 1)
-		{
-			<li class="page-item">
-				<a class="page-link" href="?page=1&search=@searchQuery" aria-label="First">
-					<span aria-hidden="true">&laquo;</span>
-				</a>
-			</li>
-		}
-		<!-- Page numbers -->
-		@for (int i = 1; i <= totalPages; i++)
-		{
-			<li class="page-item @(i == currentPage ? "active" : "")">
-				<a class="page-link" href="?page=@i&search=@searchQuery">@i</a>
-			</li>
-		}
-		<!-- "Last Page" button -->
-		@if (currentPage < totalPages)
-		{
-			<li class="page-item">
-				<a class="page-link" href="?page=@totalPages&search=@searchQuery" aria-label="Last">
-					<span aria-hidden="true">&raquo;</span>
-				</a>
-			</li>
-		}
-	</ul>
+    <ul class="pagination justify-content-center">
+        @if (currentPage > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" href="?page=1&search=@searchQuery" aria-label="First">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        }
+        @for (int i = 1; i <= totalPages; i++)
+        {
+            <li class="page-item @(i == currentPage ? "active" : "")">
+                <a class="page-link" href="?page=@i&search=@searchQuery">@i</a>
+            </li>
+        }
+        @if (currentPage < totalPages)
+        {
+            <li class="page-item">
+                <a class="page-link" href="?page=@totalPages&search=@searchQuery" aria-label="Last">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        }
+    </ul>
 </nav>
 
+<!-- Create User Modal -->
 <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="createUserModalLabel">Add New User</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			</div>
-			<form id="createUserForm" asp-action="Register" method="post">
-				<div class="modal-body">
-					@Html.AntiForgeryToken()
-					@if (!ViewData.ModelState.IsValid)
-					{
-						<div class="alert alert-danger">
-							<ul>
-								@foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-								{
-									<li>@error.ErrorMessage</li>
-								}
-							</ul>
-						</div>
-					}
-
-					<div class="mb-3">
-						<label for="userIDCreate" class="form-label">Username</label>
-						<input type="text" class="form-control" id="userID" name="userID" value="@ViewBag.UserViewModel?.userID" required>
-					</div>
-
-					<div class="mb-3">
-						<label for="NameCreate" class="form-label">Name</label>
-						<input type="text" class="form-control" id="name" name="name" value="@ViewBag.UserViewModel?.name" required>
-					</div>
-
-					<div class="mb-3">
-						<label for="EmailCreate" class="form-label">Email</label>
-						<input type="email" class="form-control" id="email" name="email" value="@ViewBag.UserViewModel?.email" required>
-					</div>
-
-					<div class="mb-3">
-						<label for="PasswordCreate" class="form-label">Password</label>
-						<input type="password" class="form-control" id="password" name="password" required>
-					</div>
-
-					<div class="mb-3">
-						<label for="ConfirmPasswordCreate" class="form-label">Confirm Password</label>
-						<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
-						<div id="passwordMismatchError" class="text-danger" style="display: none;">Passwords do not match!</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="reset" class="btn btn-secondary" id="cancelBtn" data-dismiss="modal">Cancel</button>
-					<button type="submit" class="btn btn-success">Add User</button>
-				</div>
-			</form>
-		</div>
-	</div>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createUserModalLabel">Add New User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form id="createUserForm" asp-action="Register" method="post">
+                <div class="modal-body">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label for="userIDCreate">Username</label>
+                        <input type="text" class="form-control" id="userIDCreate" name="userID" value="@ViewBag.UserViewModel?.userID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="NameCreate">Name</label>
+                        <input type="text" class="form-control" id="NameCreate" name="name" value="@ViewBag.UserViewModel?.name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="EmailCreate">Email</label>
+                        <input type="email" class="form-control" id="EmailCreate" name="email" value="@ViewBag.UserViewModel?.email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="PasswordCreate">Password</label>
+                        <input type="password" class="form-control" id="PasswordCreate" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ConfirmPasswordCreate">Confirm Password</label>
+                        <input type="password" class="form-control" id="ConfirmPasswordCreate" name="confirmPassword" required>
+                        <div id="passwordMismatchError" class="text-danger" style="display: none;">Passwords do not match!</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Add User</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <script>
-	document.getElementById("createUserForm").addEventListener("submit", function (event) {
-		var password = document.getElementById("password").value;
-		var confirmPassword = document.getElementById("confirmPassword").value;
-
-		// Check if the passwords match
-		if (password !== confirmPassword) {
-
-			event.preventDefault();
-
-			document.getElementById("passwordMismatchError").style.display = "block";
-		} else {
-			document.getElementById("passwordMismatchError").style.display = "none";
-		}
-	});
+    document.getElementById("createUserForm").addEventListener("submit", function (event) {
+        var password = document.getElementById("PasswordCreate").value;
+        var confirmPassword = document.getElementById("ConfirmPasswordCreate").value;
+        if (password !== confirmPassword) {
+            event.preventDefault();
+            document.getElementById("passwordMismatchError").style.display = "block";
+        } else {
+            document.getElementById("passwordMismatchError").style.display = "none";
+        }
+    });
 </script>
 
 <!-- Edit User Modal -->
@@ -186,8 +164,8 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="editUserModalLabel-@user.ID">Edit User</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				</div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
 				<form id="editUserForm-@user.ID" asp-action="EditUser" method="post">
 					<div class="modal-body">
 						@Html.AntiForgeryToken()
