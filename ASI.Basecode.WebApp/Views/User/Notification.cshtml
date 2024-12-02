@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<ASI.Basecode.Data.Models.Notification>
 
 <div class="container mt-5">
-    <h1 class="fw-bold mb-3">@ViewData["Title"]</h1>
-    <h1 class="fw-bold mb-3">Notifications</h1>
+    <h1 class="font-weight-bold mb-3">@ViewData["Title"]</h1>
+    <h1 class="font-weight-bold mb-3">Notifications</h1>
 
     <div id="notificationsContainer">
         @if (Model != null && Model.Any())
@@ -10,7 +10,7 @@
             foreach (var notification in Model)
             {
                 <div class="notification-item @(notification.IsRead ? "" : "unread")" data-notification-id="@notification.Id">
-                    <div class="notification-content" data-bs-toggle="modal" data-bs-target="#viewNotificationModal"
+                    <div class="notification-content" data-toggle="modal" data-target="#viewNotificationModal"
                          data-notification-id="@notification.Id"
                          data-notification-message="@notification.Message"
                          data-notification-date="@notification.Date.ToString("F")">
@@ -61,7 +61,6 @@
 
     <script>
         function showToast(notificationMessage, timeLeftMessage) {
-          
             const toastContainer = document.querySelector('.toast-container');
             const toastElement = document.createElement('div');
             toastElement.classList.add('toast');
@@ -71,9 +70,11 @@
 
             toastElement.innerHTML = `
                         <div class="toast-header">
-                            <strong class="me-auto">Booking Reminder</strong>
+                            <strong class="mr-auto">Booking Reminder</strong>
                             <small>Just now</small>
-                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            <button type="button" class="close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                         <div class="toast-body">
                             ${notificationMessage}<br><strong>${timeLeftMessage}</strong>
@@ -82,24 +83,23 @@
 
             toastContainer.appendChild(toastElement);
 
-            const toast = new bootstrap.Toast(toastElement, {
+            // Bootstrap 4 toast initialization with jQuery
+            $(toastElement).toast({
                 autohide: true,
                 delay: 4000
             });
 
-            toast.show();
+            $(toastElement).toast('show');
 
-            toastElement.addEventListener('hidden.bs.toast', () => {
-                toastElement.remove();
+            $(toastElement).on('hidden.bs.toast', function () {
+                $(this).remove();
             });
         }
 
         function simulateNotification() {
-
             const notifications = @Html.Raw(Json.Serialize(Model));
 
             notifications.forEach(notification => {
-          
                 const message = notification.message; // Directly get the message
                 const bookingDate = notification.bookingDate; // Assuming the bookingDate field is passed
 
@@ -113,7 +113,6 @@
                     const minutes = Math.floor(seconds / 60);
                     const hours = Math.floor(minutes / 60);
                     const days = Math.floor(hours / 24);
-                    
 
                     if (days > 0) {
                         timeLeftMessage = `${days} day${days > 1 ? 's' : ''} left`;
@@ -128,12 +127,10 @@
                     timeLeftMessage = 'Booking time has passed';
                 }
 
-               
                 showToast(message, timeLeftMessage);
             });
         }
 
-     
         setInterval(simulateNotification, 5000);
     </script>
 }

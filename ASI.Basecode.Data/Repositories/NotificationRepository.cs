@@ -23,6 +23,7 @@ public class NotificationRepository : INotificationRepository
     {
         return _dbContext.Notifications
                        .OrderByDescending(n => n.Date)
+                       .Take(5)
                        .ToList();
     }
 
