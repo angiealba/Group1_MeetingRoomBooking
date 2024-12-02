@@ -198,3 +198,23 @@ C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Sagnoy\Group1_MeetingRoomBooking
 C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Sagnoy\Group1_MeetingRoomBooking\ASI.Basecode.Resources\obj\Debug\net6.0\refint\ASI.Basecode.Resources.dll
 C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Sagnoy\Group1_MeetingRoomBooking\ASI.Basecode.Resources\obj\Debug\net6.0\ASI.Basecode.Resources.pdb
 C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Sagnoy\Group1_MeetingRoomBooking\ASI.Basecode.Resources\obj\Debug\net6.0\ref\ASI.Basecode.Resources.dll
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Resources\bin\Debug\net6.0\ASI.Basecode.Resources.deps.json
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Resources\bin\Debug\net6.0\ASI.Basecode.Resources.dll
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Resources\bin\Debug\net6.0\ASI.Basecode.Resources.pdb
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Resources\obj\Debug\net6.0\ASI.Basecode.Resources.Messages.Common.resources
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Resources\obj\Debug\net6.0\ASI.Basecode.Resources.Messages.Errors.resources
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Resources\obj\Debug\net6.0\ASI.Basecode.Resources.Views.Account.resources
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Resources\obj\Debug\net6.0\ASI.Basecode.Resources.Views.Button.resources
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Resources\obj\Debug\net6.0\ASI.Basecode.Resources.Views.Screen.resources
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Resources\obj\Debug\net6.0\ASI.Basecode.Resources.Views.Table.resources
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Resources\obj\Debug\net6.0\ASI.Basecode.Resources.Views.TitleText.resources
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Resources\obj\Debug\net6.0\ASI.Basecode.Resources.csproj.GenerateResource.cache
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Resources\obj\Debug\net6.0\ASI.Basecode.Resources.GeneratedMSBuildEditorConfig.editorconfig
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Resources\obj\Debug\net6.0\ASI.Basecode.Resources.AssemblyInfoInputs.cache
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Resources\obj\Debug\net6.0\ASI.Basecode.Resources.AssemblyInfo.cs
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Resources\obj\Debug\net6.0\ASI.Basecode.Resources.csproj.CoreCompileInputs.cache
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Resources\obj\Debug\net6.0\ASI.Basecode.Resources.sourcelink.json
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Resources\obj\Debug\net6.0\ASI.Basecode.Resources.dll
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Resources\obj\Debug\net6.0\refint\ASI.Basecode.Resources.dll
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Resources\obj\Debug\net6.0\ASI.Basecode.Resources.pdb
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Resources\obj\Debug\net6.0\ref\ASI.Basecode.Resources.dll
