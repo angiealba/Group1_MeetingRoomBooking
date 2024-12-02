@@ -193,3 +193,21 @@ C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Sagnoy\Group1_MeetingRoomBooking
 C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Sagnoy\Group1_MeetingRoomBooking\ASI.Basecode.Services\obj\Debug\net6.0\refint\ASI.Basecode.Services.dll
 C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Sagnoy\Group1_MeetingRoomBooking\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.pdb
 C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\Sagnoy\Group1_MeetingRoomBooking\ASI.Basecode.Services\obj\Debug\net6.0\ref\ASI.Basecode.Services.dll
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Services.deps.json
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Services.dll
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Services.pdb
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Data.dll
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Resources.dll
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Data.pdb
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Services\bin\Debug\net6.0\ASI.Basecode.Resources.pdb
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.csproj.AssemblyReference.cache
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.GeneratedMSBuildEditorConfig.editorconfig
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.AssemblyInfoInputs.cache
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.AssemblyInfo.cs
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.csproj.CoreCompileInputs.cache
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.sourcelink.json
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Base.22E0E64E.Up2Date
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.dll
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Services\obj\Debug\net6.0\refint\ASI.Basecode.Services.dll
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Services\obj\Debug\net6.0\ASI.Basecode.Services.pdb
+D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.Services\obj\Debug\net6.0\ref\ASI.Basecode.Services.dll

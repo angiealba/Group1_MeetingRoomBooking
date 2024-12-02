@@ -19,33 +19,30 @@ namespace ASI.Basecode.WebApp.Controllers
             _userService = userService;
         }
 
-		public ActionResult Index(string search, int page = 1, int pageSize = 20)
+		public ActionResult Index(string search, int page = 1, int pageSize = 12)
 		{
-			var users = _userService.GetUsers();
+			var users = _userService.GetUsers(); // Get all users
 
-            
-
+			// search query
 			if (!string.IsNullOrEmpty(search))
 			{
-				users = users.Where(u => u.name.Contains(search, StringComparison.OrdinalIgnoreCase) ||
-										 u.email.Contains(search, StringComparison.OrdinalIgnoreCase));
-            }
-            else
-            {
+				users = users.Where(u => (u.name != null && u.name.Contains(search, StringComparison.OrdinalIgnoreCase)) ||
+										 (u.email != null && u.email.Contains(search, StringComparison.OrdinalIgnoreCase)));
+			}
 
-            }
 
-            var totalUsers = users.Count();
-            var totalPages = (int)Math.Ceiling((double)totalUsers / pageSize);
-            var paginatedUsers = users.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+			// Pagination logic
+			var totalUsers = users.Count();
+			var totalPages = (int)Math.Ceiling((double)totalUsers / pageSize);
+			var paginatedUsers = users.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
-            ViewBag.CurrentPage = page;
-            ViewBag.TotalPages = totalPages;
-            ViewBag.SearchQuery = search;
+			// display
+			ViewBag.CurrentPage = page;
+			ViewBag.TotalPages = totalPages;
+			ViewBag.SearchQuery = search;
 
-            return View(paginatedUsers);
-        }
-
+			return View(paginatedUsers);
+		}
 
 
 		[HttpPost]
