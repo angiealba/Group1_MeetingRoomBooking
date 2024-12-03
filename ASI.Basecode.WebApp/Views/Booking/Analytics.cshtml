@@ -2,7 +2,7 @@
 
 <br />
 <div class="container">
-    <h1 class="fw-bold mb-3">Reporting & Analytics</h1>
+    <h1 class="font-weight-bold mb-3">Reporting & Analytics</h1>
     <div class="card mb-3">
         <div class="card-body">
             <form method="GET" action="@Url.Action("Analytics")">
@@ -13,53 +13,56 @@
                     <div class="card-body">
                         <p>Generates reports on room usage, including total bookings, peak usage times, and user activity.</p>
 
-                        <div class="row g-3">
+                        <div class="form-row">
                             <!-- Room Filter -->
-                            <div class="col-md-12 col-lg-4">
-                                <label for="room" class="form-label">Room</label>
+                            <div class="form-group col-md-4">
+                                <label for="room">Room</label>
                                 <div class="input-group">
                                     <select id="room" name="room" class="form-control" style="height: 38px;">
                                         <option value="">All Rooms</option>
-                                    @foreach (var room in ViewBag.Rooms)
-                                    {
-                                        if (ViewBag.SelectedRoom == room.Value)
+                                        @foreach (var room in ViewBag.Rooms)
                                         {
-                                            <option value="@room.Value" selected>@room.Text</option>
+                                            if (ViewBag.SelectedRoom == room.Value)
+                                            {
+                                                <option value="@room.Value" selected>@room.Text</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@room.Value">@room.Text</option>
+                                            }
                                         }
-                                        else
-                                        {
-                                            <option value="@room.Value">@room.Text</option>
-                                        }
-                                    }
                                     </select>
                                 </div>
                             </div>
 
                             <!-- Date Range Filter -->
-                            <div class="col-md-12 col-lg-4">
-                                <label for="usageDateRange" class="form-label">Date Range</label>
-                                <div class="input-daterange input-group" id="datepicker" style="width: 100%;">
-                                    <input type="date" class="form-control" name="start" value="@ViewBag.SelectedStartDate?.ToString("yyyy-MM-dd")" placeholder="Start Date" style="height: 38px;" />
-                                    <span class="input-group-text">to</span>
-                                    <input type="date" class="form-control" name="end" value="@ViewBag.SelectedEndDate?.ToString("yyyy-MM-dd")" placeholder="End Date" style="height: 38px;" />
+                            <div class="form-group col-md-4">
+                                <label for="usageDateRange">Date Range</label>
+                                <div class="input-daterange input-group" id="datepicker">
+                                    <input type="date" class="form-control" name="start" value="@ViewBag.SelectedStartDate?.ToString("yyyy-MM-dd")" placeholder="Start Date" />
+                                    <div class="input-group-append input-group-prepend">
+                                        <span class="input-group-text">to</span>
+                                    </div>
+                                    <input type="date" class="form-control" name="end" value="@ViewBag.SelectedEndDate?.ToString("yyyy-MM-dd")" placeholder="End Date" />
                                 </div>
                             </div>
 
                             <!-- Buttons -->
-                            <div class="col-md-12 col-lg-4">
-                                <label class="form-label">&nbsp;</label>
-                                <div class="d-grid gap-2 d-md-flex">
+                            <div class="form-group col-md-4">
+                                <label>&nbsp;</label>
+                                <div class="d-flex justify-content-start">
                                     <button type="submit" class="btn btn-success">Generate Report</button>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
 
                 <div class="row mt-5">
-                  
                     <div class="col-md-6">
                         <canvas id="bookingsChart"></canvas>
                     </div>
-  
+
                     <div class="col-md-6">
                         <canvas id="userActivityChart"></canvas>
                     </div>
@@ -204,7 +207,7 @@
 
 
     <div class="table-responsive">
-        <table class="table">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Date</th>
@@ -236,12 +239,16 @@
         </table>
     </div>
 </div>
-@section scripts {
 
+@section scripts {
     <script>
         var errorMessage = '@TempData["ErrorMessage"]';
         if (errorMessage) {
             toastr.error(errorMessage);
+        }
+        var successMessage = '@TempData["SuccessMessage"]';
+        if (successMessage) {
+            toastr.success(successMessage);
         }
     </script>
 }

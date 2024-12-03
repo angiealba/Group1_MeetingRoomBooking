@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<ASI.Basecode.Data.Models.Booking>
 <br />
 
-<h1 class="fw-bold mb-3">Bookings</h1>
+<h1 class="font-weight-bold mb-3">Bookings</h1>
 <div class="card mb-3">
     <div class="card-body">
         <h5 class="card-title mb-3">Filter Bookings</h5>
         <form method="GET" action="@Url.Action("BookingSummary")">
-            <div class="row g-3 align-items-end">
+            <div class="form-row align-items-end">
                 <!-- Room Filter -->
-                <div class="col-md-3">
-                    <label for="room" class="form-label">Room</label>
+                <div class="form-group col-md-3">
+                    <label for="room">Room</label>
                     <select id="room" name="room" class="form-control">
                         <option value="">All Rooms</option>
                         @foreach (var room in ViewBag.Rooms)
@@ -27,24 +27,24 @@
                 </div>
 
                 <!-- Date Filter -->
-                <div class="col-md-3">
-                    <label for="date" class="form-label">Date</label>
+                <div class="form-group col-md-3">
+                    <label for="date">Date</label>
                     <input type="date" id="date" name="date" class="form-control"
                            value="@ViewBag.SelectedDate?.ToString("yyyy-MM-dd")">
                 </div>
 
                 <!-- User Filter -->
-                <div class="col-md-3">
-                    <label for="userName" class="form-label">User</label>
+                <div class="form-group col-md-3">
+                    <label for="userName">User</label>
                     <input type="text" id="userName" name="userName" class="form-control"
                            placeholder="Enter user name" value="@ViewBag.SelectedUser">
                 </div>
 
                 <!-- Buttons -->
-                <div class="col-md-3 d-flex justify-content-start align-items-center">
-                    <button type="submit" class="btn btn-success me-4">
+                <div class="form-group col-md-3 d-flex">
+                    <button type="submit" class="btn btn-success mr-2">
                         Apply Filters
-                    </button><span>&nbsp;</span>
+                    </button>
                     <a href="@Url.Action("BookingSummary")" class="btn btn-secondary">
                         Reset
                     </a>
