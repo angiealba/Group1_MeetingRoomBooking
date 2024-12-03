@@ -7097,3 +7097,5 @@ D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\obj\Debug\net6.0\refint\
 D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\obj\Debug\net6.0\ASI.Basecode.WebApp.pdb
 D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\obj\Debug\net6.0\ASI.Basecode.WebApp.genruntimeconfig.cache
 D:\revise\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\obj\Debug\net6.0\ref\ASI.Basecode.WebApp.dll
+C:\Users\Melvin\Desktop\ALAYANS\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\bin\Debug\net6.0\Glimpse.Core.dll
+C:\Users\Melvin\Desktop\ALAYANS\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\bin\Debug\net6.0\Glimpse.AspNet.dll
