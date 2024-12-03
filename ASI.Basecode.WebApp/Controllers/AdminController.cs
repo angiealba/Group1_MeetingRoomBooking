@@ -19,7 +19,7 @@ namespace ASI.Basecode.WebApp.Controllers
             _userService = userService;
         }
 
-		public ActionResult Index(string search, int page = 1, int pageSize = 12)
+		public ActionResult Index(string search, int page = 1, int pageSize = 22)
 		{
 			var users = _userService.GetUsers(); // Get all users
 
