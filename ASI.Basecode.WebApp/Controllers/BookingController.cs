@@ -36,7 +36,7 @@ namespace ASI.Basecode.WebApp.Controllers
             if (userId != null)
             {
                 id = _bookingService.GetUserID(userId);
-                currentUser = _userService.GetUserByUserId(id); 
+                currentUser = _userService.GetUserByUserId(id);
             }
 
 
@@ -44,10 +44,13 @@ namespace ASI.Basecode.WebApp.Controllers
 
             if (userId != null)
             {
-                id = _bookingService.GetUserID(userId);
+                id = _bookingService.GetUserID(userId); 
             }
 
+            // get user bookings
             (bool result, IEnumerable<Booking> bookings) = _bookingService.GetBookingsByUserId(id);
+
+            // get rooms
             var rooms = _bookingService.GetRooms();
             ViewBag.Rooms = new SelectList(rooms, "roomId", "roomName");
 
@@ -56,15 +59,16 @@ namespace ASI.Basecode.WebApp.Controllers
                 return View(null);
             }
 
-
+            // if search is not null or empty
             if (!string.IsNullOrEmpty(search))
             {
                 bookings = bookings.OrderByDescending(b=>bookings).Where(b => b.Room.roomName.Contains(search, StringComparison.OrdinalIgnoreCase)
-                                            || b.date.ToString("MM-dd-yyyy").Contains(search)
-                                            || b.time.ToString("HH:mm").Contains(search)
+                                            || b.date.ToString("yyyy-MM-dd").Contains(search)
+                                            || b.time.ToString("hh:mm tt").Contains(search)
                                             || b.bookingRefId.Contains(search, StringComparison.OrdinalIgnoreCase));
             }
 
+            // paginate
             var totalBookings = bookings.Count();
             var totalPages = (int)Math.Ceiling((double)totalBookings / pageSize);
             var paginatedBookings = bookings.Skip((page - 1) * pageSize).Take(pageSize).ToList();
@@ -81,21 +85,33 @@ namespace ASI.Basecode.WebApp.Controllers
         {
             try
             {
+                // check model state
                 if (!ModelState.IsValid)
                 {
                     TempData["ErrorMessage"] = "All fields are required.";
                     return RedirectToAction("Index");
                 }
+
+                // check date
                 if (booking.date.Date < DateTime.Today)
                 {
                     TempData["ErrorMessage"] = "You cannot book a room for a past date.";
                     return RedirectToAction("Index");
                 }
-                var rooms = _bookingService.GetRooms(); 
 
+                // check if date is more than one year in advance
+                if (booking.date.Date > DateTime.Today.AddYears(1))
+                {
+					TempData["ErrorMessage"] = "You cannot book a room for more than one year in advance.";
+					return RedirectToAction("Index");
+				}
+
+                // get roomname
+                var rooms = _bookingService.GetRooms();
                 var room = rooms.FirstOrDefault(r => r.roomId == booking.roomId);
                 string roomName = room != null ? room.roomName : "Unknown Room";
 
+                // get user ID
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 if (userId != null)
                 {
@@ -105,44 +121,64 @@ namespace ASI.Basecode.WebApp.Controllers
 
                 if (booking.isRecurring)
                 {
-                    int numBookings = 0; // number of bookings created
-
-                    if (string.IsNullOrEmpty(booking.recurrenceFrequency) || booking.recurrenceEndDate == null)
+					// recurrenceFrequency & recurrenceEndDate validation
+					if (string.IsNullOrEmpty(booking.recurrenceFrequency) || booking.recurrenceEndDate == null)
                     {
                         TempData["ErrorMessage"] = "Please specify a recurrence frequency and end date.";
                         return RedirectToAction("Index");
                     }
 
-                    if (booking.recurrenceEndDate <= booking.date)
+					// recurrenceEndDate validation
+					if (booking.recurrenceEndDate <= booking.date)
                     {
                         TempData["ErrorMessage"] = "'Until' date must be after the initial booking date.";
                         return RedirectToAction("Index");
                     }
 
-                    // Check for existing bookings
-                    var existingBookings = _bookingService.GetBookingsByRoomAndDate(booking.roomId, booking.date);
-
                     // Calculate the end time of the new booking
                     var bookingEndTime = booking.time.AddHours(booking.duration);
 
-                    // Check for time conflicts
-                    bool isTimeBooked = existingBookings.Any(b =>
-                        (b.date == booking.date) && // Same date
-                        (b.time < bookingEndTime) && // Existing booking starts before new booking ends
-                        (booking.time < b.time.AddHours(b.duration)) // New booking starts before existing booking ends
-                    );
-
-                    int recurringSeriesId = _bookingService.GetRecurringIdTracker();
-
-                    booking.recurringBookingId = recurringSeriesId;
-
-                    if (!isTimeBooked)
+                    // Check for time conflicts for all recurring bookings
+                    DateTime currentDate = booking.date;
+                    while (currentDate < booking.recurrenceEndDate)
                     {
-                        _bookingService.AddBooking(booking);
-                        numBookings++;
+                        // Get existing bookings for the current date
+                        var existingBookings = _bookingService.GetBookingsByRoomAndDate(booking.roomId, currentDate);
+
+                        // Check for time conflicts for the current date
+                        bool isTimeBookedForDate = existingBookings.Any(b =>
+                            (b.date == currentDate) && // Same date
+                            (b.time < bookingEndTime) && // Existing booking starts before new booking ends
+                            (booking.time < b.time.AddHours(b.duration)) // New booking starts before existing booking ends
+                        );
+
+                        // check if there is a conflict
+                        if (isTimeBookedForDate)
+                        {
+                            TempData["ErrorMessage"] = $"The room '{roomName}' is already booked at {currentDate.ToString("MM-dd-yyyy")} {booking.time.ToString("hh:mm tt")}.";
+                            return RedirectToAction("Index");
+                        }
+
+                        // Move to the next date based on recurrence frequency
+                        switch (booking.recurrenceFrequency)
+                        {
+                            case "daily":
+                                currentDate = currentDate.AddDays(1);
+                                break;
+                            case "weekly":
+                                currentDate = currentDate.AddDays(7);
+                                break;
+                            case "monthly":
+                                currentDate = currentDate.AddMonths(1);
+                                break;
+                        }
                     }
 
-                    DateTime currentDate = booking.date;
+                    // if no conflict, add the recurring bookings
+                    int recurringSeriesId = _bookingService.GetRecurringIdTracker(); // for unique recurring id
+                    booking.recurringBookingId = recurringSeriesId;
+                    _bookingService.AddBooking(booking);
+                    currentDate = booking.date;
                     while (currentDate < booking.recurrenceEndDate)
                     {
                         switch (booking.recurrenceFrequency)
@@ -158,43 +194,24 @@ namespace ASI.Basecode.WebApp.Controllers
                                 break;
                         }
 
-                        // Check for existing bookings for recurring dates
-                        existingBookings = _bookingService.GetBookingsByRoomAndDate(booking.roomId, currentDate);
-                        isTimeBooked = existingBookings.Any(b =>
-                            (b.date == currentDate) && // Same date
-                            (b.time < bookingEndTime) && 
-                            (booking.time < b.time.AddHours(b.duration))
-                        );
-
-                        if (!isTimeBooked)
+                        var newBooking = new Booking
                         {
-                            var newBooking = new Booking
-                            {
-                                ID = booking.ID,
-                                roomId = booking.roomId,
-                                date = currentDate,
-                                time = booking.time,
-                                duration = booking.duration,
-                                isRecurring = true,
-                                recurrenceFrequency = booking.recurrenceFrequency,
-                                recurrenceEndDate = booking.recurrenceEndDate,
-                                recurringBookingId = booking.recurringBookingId
-                            };
+                            ID = booking.ID,
+                            roomId = booking.roomId,
+                            date = currentDate,
+                            time = booking.time,
+                            duration = booking.duration,
+                            isRecurring = true,
+                            recurrenceFrequency = booking.recurrenceFrequency,
+                            recurrenceEndDate = booking.recurrenceEndDate,
+                            recurringBookingId = booking.recurringBookingId
+                        };
 
-                            _bookingService.AddBooking(newBooking);
-                            numBookings++;
-                        }
-                    }
-
-                    if(numBookings == 0)
-                    {
-                        TempData["ErrorMessage"] = $"The room '{roomName}' is already booked at this time.";
-                        return RedirectToAction("Index");
+                        _bookingService.AddBooking(newBooking);
                     }
                 }
                 else
                 {
-
                     // Check for existing bookings
                     var existingBookings = _bookingService.GetBookingsByRoomAndDate(booking.roomId, booking.date);
 
@@ -224,7 +241,7 @@ namespace ASI.Basecode.WebApp.Controllers
                 _notificationService.AddNotification(
                     booking.ID,
                     "Booking Confirmation",
-                    $"Your booking for {roomName} on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm")} has been created.",
+                    $"Your booking for {roomName} on {booking.date.ToString("MM-dd-yyyy")} at {booking.time.ToString("HH:mm tt")} has been created.",
 					 booking.time
 				);
 
@@ -267,7 +284,8 @@ namespace ASI.Basecode.WebApp.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
+				// check model state
+				if (!ModelState.IsValid)
                 {
                     TempData["ErrorMessage"] = "All fields are required.";
                     return RedirectToAction("Index");
@@ -277,6 +295,7 @@ namespace ASI.Basecode.WebApp.Controllers
                 var newRoom = rooms.FirstOrDefault(r => r.roomId == booking.roomId);
                 string newRoomName = newRoom != null ? newRoom.roomName : "Unknown Room";
 
+                // get booking
                 var existingBooking = _bookingService.GetBookingById(booking.bookingId);
 
                 if (existingBooking == null)
@@ -285,6 +304,7 @@ namespace ASI.Basecode.WebApp.Controllers
                     return RedirectToAction("Index");
                 }
 
+                // get user ID
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 if (userId != null)
                 {
@@ -292,7 +312,7 @@ namespace ASI.Basecode.WebApp.Controllers
                     booking.ID = id;
                 }
 
-                var oldRoom = rooms.FirstOrDefault(r => r.roomId == existingBooking.roomId);
+                var oldRoom = rooms.FirstOrDefault(r => r.roomId == existingBooking.roomId); // for notification
                 string oldRoomName = oldRoom != null ? oldRoom.roomName : "Unknown Room";
 
                 bool isRoomChanged = existingBooking.roomId != booking.roomId;
@@ -303,7 +323,26 @@ namespace ASI.Basecode.WebApp.Controllers
 
                 if (!existingBooking.isRecurring)
                 {
-                    _bookingService.UpdateBooking(booking);
+					// Check for existing bookings
+					var existingBookings = _bookingService.GetBookingsByRoomAndDate(booking.roomId, booking.date).Where(b => b.bookingId != booking.bookingId);
+
+					// Calculate the end time of the booking
+					var bookingEndTime = booking.time.AddHours(booking.duration);
+
+					// Check for time conflicts
+					bool isTimeBooked = existingBookings.Any(b =>
+						(b.date == booking.date) && // Same date
+						(b.time < bookingEndTime) && // Existing booking starts before new booking ends
+						(booking.time < b.time.AddHours(b.duration)) // New booking starts before existing booking ends
+					);
+
+					if (isTimeBooked)
+					{
+						TempData["ErrorMessage"] = $"Error Updating. The room '{newRoomName}' is already booked at this time.";
+						return RedirectToAction("Index");
+					}
+
+					_bookingService.UpdateBooking(booking);
 
                     if (isRoomChanged)
                     {
@@ -360,7 +399,26 @@ namespace ASI.Basecode.WebApp.Controllers
                     switch (editRecurringUpdate)
                     {
                         case "this":
-                            _bookingService.UpdateBooking(booking);
+							// Check for existing bookings
+							var existingBookings = _bookingService.GetBookingsByRoomAndDate(booking.roomId, booking.date).Where(b => b.bookingId != booking.bookingId);
+
+							// Calculate the end time of the booking
+							var bookingEndTime = booking.time.AddHours(booking.duration);
+
+							// Check for time conflicts
+							bool isTimeBooked = existingBookings.Any(b =>
+								(b.date == booking.date) && // Same date
+								(b.time < bookingEndTime) && // Existing booking starts before new booking ends
+								(booking.time < b.time.AddHours(b.duration)) // New booking starts before existing booking ends
+							);
+
+							if (isTimeBooked)
+							{
+								TempData["ErrorMessage"] = $"Error Updating. The room '{newRoomName}' is already booked at this time.";
+								return RedirectToAction("Index");
+							}
+
+							_bookingService.UpdateBooking(booking);
 
                             if (isRoomChanged)
                             {
@@ -406,10 +464,37 @@ namespace ASI.Basecode.WebApp.Controllers
                             break;
 
                         case "following":
+                            // get recurring bookings
                             var recurringBookings = _bookingService.GetRecurringBookings(existingBooking.recurringBookingId);
                             var currentBookingDate = existingBooking.date;
 
-                            _bookingService.UpdateBooking(booking);
+							// check for time conflict
+							foreach (var recurringBooking in recurringBookings)
+							{
+								// Get existing bookings for the current date
+								existingBookings = _bookingService.GetBookingsByRoomAndDate(booking.roomId, recurringBooking.date).Where(b => b.bookingId != recurringBooking.bookingId);
+
+								// Calculate the end time of the booking
+								bookingEndTime = booking.time.AddHours(booking.duration);
+
+								// Check for time conflicts for the current date
+								bool isTimeBookedForDate = existingBookings.Any(b =>
+									(b.date == recurringBooking.date) && // Same date
+									(b.time < bookingEndTime) && // Existing booking starts before new booking ends
+									(booking.time < b.time.AddHours(b.duration)) // New booking starts before existing booking ends
+								);
+
+								if (isTimeBookedForDate)
+								{
+									TempData["ErrorMessage"] = $"Error Updating. The room '{newRoomName}' is already booked at this time.";
+									return RedirectToAction("Index");
+								}
+							}
+
+                            existingBooking.roomId = booking.roomId;
+                            existingBooking.time = booking.time;
+                            existingBooking.duration = booking.duration;
+							_bookingService.UpdateBooking(existingBooking);
 
                             if (isRoomChanged)
                             {
@@ -441,7 +526,30 @@ namespace ASI.Basecode.WebApp.Controllers
 								);
                             }
 
-                            foreach (var followingBooking in recurringBookings.Where(rb => rb.date > currentBookingDate))
+                            // check for time conflict
+							foreach (var followingBooking in recurringBookings.Where(rb => rb.date > currentBookingDate))
+							{
+                                // Get existing bookings for the current date
+                                existingBookings = _bookingService.GetBookingsByRoomAndDate(booking.roomId, followingBooking.date).Where(b => b.bookingId != followingBooking.bookingId);
+
+								// Calculate the end time of the booking
+								bookingEndTime = booking.time.AddHours(booking.duration);
+
+								// Check for time conflicts for the current date
+								bool isTimeBookedForDate = existingBookings.Any(b =>
+									(b.date == followingBooking.date) && // Same date
+									(b.time < bookingEndTime) && // Existing booking starts before new booking ends
+									(booking.time < b.time.AddHours(b.duration)) // New booking starts before existing booking ends
+								);
+
+								if (isTimeBookedForDate)
+								{
+									TempData["ErrorMessage"] = $"Error Updating. The room '{newRoomName}' is already booked at this time.";
+									return RedirectToAction("Index");
+								}
+							}
+
+							foreach (var followingBooking in recurringBookings.Where(rb => rb.date > currentBookingDate))
                             {
                                 followingBooking.roomId = booking.roomId;
                                 followingBooking.time = booking.time;
@@ -464,7 +572,31 @@ namespace ASI.Basecode.WebApp.Controllers
 
                         case "all":
                             var allRecurringBookings = _bookingService.GetRecurringBookings(existingBooking.recurringBookingId);
-                            foreach (var recurringBooking in allRecurringBookings)
+
+							// check for time conflict
+							foreach (var recurringBooking in allRecurringBookings)
+							{
+								// Get existing bookings for the current date
+								existingBookings = _bookingService.GetBookingsByRoomAndDate(booking.roomId, recurringBooking.date).Where(b => b.bookingId != recurringBooking.bookingId);
+
+								// Calculate the end time of the booking
+								bookingEndTime = booking.time.AddHours(booking.duration);
+
+								// Check for time conflicts for the current date
+								bool isTimeBookedForDate = existingBookings.Any(b =>
+									(b.date == recurringBooking.date) && // Same date
+									(b.time < bookingEndTime) && // Existing booking starts before new booking ends
+									(booking.time < b.time.AddHours(b.duration)) // New booking starts before existing booking ends
+								);
+
+								if (isTimeBookedForDate)
+								{
+									TempData["ErrorMessage"] = $"Error Updating. The room '{newRoomName}' is already booked at this time.";
+									return RedirectToAction("Index");
+								}
+							}
+
+							foreach (var recurringBooking in allRecurringBookings)
                             {
                                 recurringBooking.roomId = booking.roomId;
                                 recurringBooking.time = booking.time;
@@ -560,7 +692,7 @@ namespace ASI.Basecode.WebApp.Controllers
         [HttpPost]
         public IActionResult DeleteBooking(int bookingId, string cancelRecurring)
         {
-            
+                // get booking
                 var booking = _bookingService.GetBookingById(bookingId);
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 if (userId != null)
@@ -608,7 +740,7 @@ namespace ASI.Basecode.WebApp.Controllers
                             break;
 
                         case "following":
-                           
+                            // get recurring bookings
                             var recurringBookings = _bookingService.GetRecurringBookings(booking.recurringBookingId);
                             var currentBookingDate = booking.date;
 
