@@ -40,14 +40,10 @@
 
 <div class="toast-container"></div>
 
-<!-- Include Toastr CSS -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
-<!-- Include Toastr JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 @section scripts {
     <script>
-        // Check for error message and display Toastr notification
+        
         var errorMessage = '@TempData["ErrorMessage"]';
         if (errorMessage) {
             toastr.error(errorMessage);
@@ -60,11 +56,11 @@
     </script>
 
     <script>
-        // Show toast for the most recent notification message
+        
         function showToast(notificationMessage, timeLeftMessage) {
             const toastContainer = document.querySelector('.toast-container') || createToastContainer();
 
-            // Remove any existing toast before displaying a new one
+            
             const existingToast = toastContainer.querySelector('.toast');
             if (existingToast) {
                 $(existingToast).fadeOut(function () {
@@ -93,17 +89,17 @@
 
             toastContainer.appendChild(toastElement);
 
-            // Show the toast element and automatically remove it after 5 seconds
+            
             $(toastElement).fadeIn();
 
-            // Set a timer to remove the toast after 5 seconds
+            
             setTimeout(() => {
                 $(toastElement).fadeOut(function () {
                     $(this).remove();
                 });
-            }, 5000); // 5000ms = 5 seconds
+            }, 5000); 
 
-            // Add functionality to close button
+            // closebtn
             const closeButton = toastElement.querySelector('.close');
             closeButton.addEventListener('click', () => {
                 $(toastElement).fadeOut(function () {
@@ -112,7 +108,7 @@
             });
         }
 
-        // Function to create a container for toastr if it doesn't exist
+        // create container for toastr if it doesn't exist
         function createToastContainer() {
             const toastContainer = document.createElement('div');
             toastContainer.classList.add('toast-container');
@@ -120,13 +116,13 @@
             return toastContainer;
         }
 
-        // Simulate notification (fetch only the newest notification)
+        // fetch new notifs
         function simulateNotification() {
             const notification = @Html.Raw(Json.Serialize(Model.OrderByDescending(n => n.Date).FirstOrDefault())); // Fetch the latest notification
 
             if (notification) {
                 const message = notification.message; // Notification message
-                const bookingDate = notification.bookingDate; // Assuming 'bookingDate' field is passed
+                const bookingDate = notification.bookingDate; 
 
                 // Calculate the time difference between the current time and booking date
                 const now = new Date();
@@ -152,11 +148,11 @@
                     timeLeftMessage = 'Booking time has passed';
                 }
 
-                showToast(message, timeLeftMessage); // Show the toast notification
+                showToast(message, timeLeftMessage); 
             }
         }
 
-        // Simulate showing the latest notification every 5 seconds
+        
         setInterval(simulateNotification, 5000);
     </script>
 }
