@@ -12728,19 +12728,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Melvin\\.nuget\\packages\\": {}
+    "C:\\Users\\Farlight 84\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.WebApp\\ASI.Basecode.WebApp.csproj",
+      "projectUniqueName": "G:\\revise\\Group1_MeetingRoomBooking\\ASI.Basecode.WebApp\\ASI.Basecode.WebApp.csproj",
       "projectName": "ASI.Basecode.WebApp",
-      "projectPath": "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.WebApp\\ASI.Basecode.WebApp.csproj",
-      "packagesPath": "C:\\Users\\Melvin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.WebApp\\obj\\",
+      "projectPath": "G:\\revise\\Group1_MeetingRoomBooking\\ASI.Basecode.WebApp\\ASI.Basecode.WebApp.csproj",
+      "packagesPath": "C:\\Users\\Farlight 84\\.nuget\\packages\\",
+      "outputPath": "G:\\revise\\Group1_MeetingRoomBooking\\ASI.Basecode.WebApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Melvin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Farlight 84\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -12755,11 +12755,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj": {
-              "projectPath": "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj"
+            "G:\\revise\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj": {
+              "projectPath": "G:\\revise\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj"
             },
-            "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\ASI.Basecode.Services.csproj": {
-              "projectPath": "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\ASI.Basecode.Services.csproj"
+            "G:\\revise\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\ASI.Basecode.Services.csproj": {
+              "projectPath": "G:\\revise\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\ASI.Basecode.Services.csproj"
             }
           }
         }
@@ -12861,7 +12861,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   },

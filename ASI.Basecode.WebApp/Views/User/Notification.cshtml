@@ -24,7 +24,7 @@
                     <form asp-action="DeleteNotification" method="post" style="display:inline;">
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="id" value="@notification.Id" />
-                        <button type="submit" class="delete-notification btn btn-link" title="Delete Notification">X</button>
+                        <button type="submit" class="delete-notification btn btn-link" title="Delete Notification" style="color: red;">X</button>
                     </form>
                 </div>
             }
@@ -60,8 +60,18 @@
     </script>
 
     <script>
+        // Show toast for the most recent notification message
         function showToast(notificationMessage, timeLeftMessage) {
-            const toastContainer = document.querySelector('.toast-container');
+            const toastContainer = document.querySelector('.toast-container') || createToastContainer();
+
+            // Remove any existing toast before displaying a new one
+            const existingToast = toastContainer.querySelector('.toast');
+            if (existingToast) {
+                $(existingToast).fadeOut(function () {
+                    $(this).remove();
+                });
+            }
+
             const toastElement = document.createElement('div');
             toastElement.classList.add('toast');
             toastElement.setAttribute('role', 'alert');
@@ -69,41 +79,56 @@
             toastElement.setAttribute('aria-atomic', 'true');
 
             toastElement.innerHTML = `
-                        <div class="toast-header">
-                            <strong class="mr-auto">Booking Reminder</strong>
-                            <small>Just now</small>
-                            <button type="button" class="close" data-dismiss="toast" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="toast-body">
-                            ${notificationMessage}<br><strong>${timeLeftMessage}</strong>
-                        </div>
-                    `;
+                    <div class="toast-header">
+                        <strong class="mr-auto">Booking Reminder</strong>
+                        <small>Just now</small>
+                        <button type="button" class="close" data-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="toast-body">
+                        ${notificationMessage}<br><strong>${timeLeftMessage}</strong>
+                    </div>
+                `;
 
             toastContainer.appendChild(toastElement);
 
-            // Bootstrap 4 toast initialization with jQuery
-            $(toastElement).toast({
-                autohide: true,
-                delay: 4000
-            });
+            // Show the toast element and automatically remove it after 5 seconds
+            $(toastElement).fadeIn();
 
-            $(toastElement).toast('show');
+            // Set a timer to remove the toast after 5 seconds
+            setTimeout(() => {
+                $(toastElement).fadeOut(function () {
+                    $(this).remove();
+                });
+            }, 5000); // 5000ms = 5 seconds
 
-            $(toastElement).on('hidden.bs.toast', function () {
-                $(this).remove();
+            // Add functionality to close button
+            const closeButton = toastElement.querySelector('.close');
+            closeButton.addEventListener('click', () => {
+                $(toastElement).fadeOut(function () {
+                    $(this).remove();
+                });
             });
         }
 
+        // Function to create a container for toastr if it doesn't exist
+        function createToastContainer() {
+            const toastContainer = document.createElement('div');
+            toastContainer.classList.add('toast-container');
+            document.body.appendChild(toastContainer);
+            return toastContainer;
+        }
+
+        // Simulate notification (fetch only the newest notification)
         function simulateNotification() {
-            const notifications = @Html.Raw(Json.Serialize(Model));
+            const notification = @Html.Raw(Json.Serialize(Model.OrderByDescending(n => n.Date).FirstOrDefault())); // Fetch the latest notification
 
-            notifications.forEach(notification => {
-                const message = notification.message; // Directly get the message
-                const bookingDate = notification.bookingDate; // Assuming the bookingDate field is passed
+            if (notification) {
+                const message = notification.message; // Notification message
+                const bookingDate = notification.bookingDate; // Assuming 'bookingDate' field is passed
 
-                // Calculate the time difference
+                // Calculate the time difference between the current time and booking date
                 const now = new Date();
                 const timeDifference = new Date(bookingDate) - now;
 
@@ -127,10 +152,11 @@
                     timeLeftMessage = 'Booking time has passed';
                 }
 
-                showToast(message, timeLeftMessage);
-            });
+                showToast(message, timeLeftMessage); // Show the toast notification
+            }
         }
 
+        // Simulate showing the latest notification every 5 seconds
         setInterval(simulateNotification, 5000);
     </script>
 }
