@@ -956,12 +956,18 @@
           "ZXing.Net": "0.16.8"
         },
         "runtime": {
-          "ASI.Basecode.Data.dll": {}
+          "ASI.Basecode.Data.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "ASI.Basecode.Resources/1.0.0": {
         "runtime": {
-          "ASI.Basecode.Resources.dll": {}
+          "ASI.Basecode.Resources.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
