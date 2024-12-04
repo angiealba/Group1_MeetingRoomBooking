@@ -56,7 +56,7 @@ namespace ASI.Basecode.Services.Services
 			}
 		}
 
-		public IEnumerable<User> GetUsers() => _repository.GetUsers().ToList();
+		public IEnumerable<User> GetUsers() => _repository.GetUsers().Where(u => u.role == "User").OrderByDescending(u => u).ToList();
 
 		public void UpdateUser(User user)
 		{
