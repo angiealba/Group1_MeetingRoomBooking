@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\ASI.Basecode.Services.csproj": {}
+    "C:\\Users\\PC\\Documents\\alayans\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\ASI.Basecode.Services.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj": {
+    "C:\\Users\\PC\\Documents\\alayans\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Documents\\alayans\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj",
         "projectName": "ASI.Basecode.Data",
-        "projectPath": "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj",
-        "packagesPath": "C:\\Users\\Melvin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\obj\\",
+        "projectPath": "C:\\Users\\PC\\Documents\\alayans\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj",
+        "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PC\\Documents\\alayans\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Melvin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -109,17 +109,17 @@
         }
       }
     },
-    "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj": {
+    "C:\\Users\\PC\\Documents\\alayans\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Documents\\alayans\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj",
         "projectName": "ASI.Basecode.Resources",
-        "projectPath": "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj",
-        "packagesPath": "C:\\Users\\Melvin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\obj\\",
+        "projectPath": "C:\\Users\\PC\\Documents\\alayans\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj",
+        "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PC\\Documents\\alayans\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Melvin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -170,17 +170,17 @@
         }
       }
     },
-    "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\ASI.Basecode.Services.csproj": {
+    "C:\\Users\\PC\\Documents\\alayans\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\ASI.Basecode.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\ASI.Basecode.Services.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Documents\\alayans\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\ASI.Basecode.Services.csproj",
         "projectName": "ASI.Basecode.Services",
-        "projectPath": "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\ASI.Basecode.Services.csproj",
-        "packagesPath": "C:\\Users\\Melvin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\obj\\",
+        "projectPath": "C:\\Users\\PC\\Documents\\alayans\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\ASI.Basecode.Services.csproj",
+        "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PC\\Documents\\alayans\\Group1_MeetingRoomBooking\\ASI.Basecode.Services\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Melvin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -195,11 +195,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj": {
-                "projectPath": "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj"
+              "C:\\Users\\PC\\Documents\\alayans\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj": {
+                "projectPath": "C:\\Users\\PC\\Documents\\alayans\\Group1_MeetingRoomBooking\\ASI.Basecode.Data\\ASI.Basecode.Data.csproj"
               },
-              "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj": {
-                "projectPath": "C:\\Users\\Melvin\\Desktop\\ELASI\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj"
+              "C:\\Users\\PC\\Documents\\alayans\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj": {
+                "projectPath": "C:\\Users\\PC\\Documents\\alayans\\Group1_MeetingRoomBooking\\ASI.Basecode.Resources\\ASI.Basecode.Resources.csproj"
               }
             }
           }

@@ -182,7 +182,9 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="editBookingModalLabel-@booking.bookingRefId">Edit Booking Reference: @booking.bookingRefId</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
 				<form asp-action="EditBooking" method="post">
 					<div class="modal-body">
@@ -205,8 +207,8 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="date">Date</label>
-							<input type="date" id="date" name="date" class="form-control" value="@booking.date.ToString("yyyy-MM-dd")" />
+							<label for="editDate-@booking.bookingId">Date</label>
+							<input type="date" id="editDate-@booking.bookingId" name="date" class="form-control" value="@booking.date.ToString("yyyy-MM-dd")" />
 						</div>
 						<div class="form-group">
 							<label for="time">Time</label>
@@ -249,20 +251,20 @@
 							<div class="mb-3">
 								<label class="form-label">Update:</label>
 								<div class="form-check">
-									<input class="form-check-input" type="radio" name="editRecurringUpdate" id="editRecurringUpdateThis" value="this" checked>
-									<label class="form-check-label" for="editRecurringUpdateThis">
+									<input class="form-check-input" type="radio" name="editRecurringUpdate" id="editRecurringUpdateThis-@booking.bookingId" value="this" checked>
+									<label class="form-check-label" for="editRecurringUpdateThis-@booking.bookingId">
 										This occurrence only
 									</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="radio" name="editRecurringUpdate" id="editRecurringUpdateFollowing" value="following">
-									<label class="form-check-label" for="editRecurringUpdateFollowing">
+									<input class="form-check-input" type="radio" name="editRecurringUpdate" id="editRecurringUpdateFollowing-@booking.bookingId" value="following">
+									<label class="form-check-label" for="editRecurringUpdateFollowing-@booking.bookingId">
 										This and following occurrences
 									</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="radio" name="editRecurringUpdate" id="editRecurringUpdateAll" value="all">
-									<label class="form-check-label" for="editRecurringUpdateAll">
+									<input class="form-check-input" type="radio" name="editRecurringUpdate" id="editRecurringUpdateAll-@booking.bookingId" value="all">
+									<label class="form-check-label" for="editRecurringUpdateAll-@booking.bookingId">
 										All occurrences
 									</label>
 								</div>
@@ -322,20 +324,20 @@
 								<div class="mb-3">
 									<label class="form-label">Cancel:</label>
 									<div class="form-check">
-										<input class="form-check-input" type="radio" name="cancelRecurring" id="cancelRecurringThis" value="this" checked>
-										<label class="form-check-label" for="cancelRecurringThis">
+										<input class="form-check-input" type="radio" name="cancelRecurring" id="cancelRecurringThis-@booking.bookingId" value="this" checked>
+										<label class="form-check-label" for="cancelRecurringThis-@booking.bookingId">
 											This occurrence only
 										</label>
 									</div>
 									<div class="form-check">
-										<input class="form-check-input" type="radio" name="cancelRecurring" id="cancelRecurringFollowing" value="following">
-										<label class="form-check-label" for="cancelRecurringFollowing">
+										<input class="form-check-input" type="radio" name="cancelRecurring" id="cancelRecurringFollowing-@booking.bookingId" value="following">
+										<label class="form-check-label" for="cancelRecurringFollowing-@booking.bookingId">
 											This and following occurrences
 										</label>
 									</div>
 									<div class="form-check">
-										<input class="form-check-input" type="radio" name="cancelRecurring" id="cancelRecurringAll" value="all">
-										<label class="form-check-label" for="cancelRecurringAll">
+										<input class="form-check-input" type="radio" name="cancelRecurring" id="cancelRecurringAll-@booking.bookingId" value="all">
+										<label class="form-check-label" for="cancelRecurringAll-@booking.bookingId">
 											All occurrences
 										</label>
 									</div>
@@ -402,6 +404,19 @@
 			}
 		}
 	</script>
+	<script>
+		document.querySelectorAll('input[name^="editRecurringUpdate"]').forEach(function (radio) {
+			radio.addEventListener('change', function () {
+				var modalId = this.id.split('-')[1]; // Get the booking ID from the radio button ID
+				var dateInput = document.getElementById('editDate-' + modalId); // Select the corresponding date input
 
+				if (this.value === 'following' || this.value === 'all') {
+					dateInput.readOnly = true; // Make the date input read-only
+				} else {
+					dateInput.readOnly = false; // Make the date input editable
+				}
+			});
+		});
+	</script>
 }
 

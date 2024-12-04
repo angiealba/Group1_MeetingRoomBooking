@@ -7692,3 +7692,5 @@ C:\Users\Melvin\Desktop\ELASI\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\obj\
 C:\Users\Melvin\Desktop\ELASI\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\obj\Debug\net6.0\ASI.Basecode.WebApp.pdb
 C:\Users\Melvin\Desktop\ELASI\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\obj\Debug\net6.0\ASI.Basecode.WebApp.genruntimeconfig.cache
 C:\Users\Melvin\Desktop\ELASI\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\obj\Debug\net6.0\ref\ASI.Basecode.WebApp.dll
+C:\Users\PC\Documents\alayans\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\bin\Debug\net6.0\Glimpse.Core.dll
+C:\Users\PC\Documents\alayans\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\bin\Debug\net6.0\Glimpse.AspNet.dll
