@@ -17,18 +17,19 @@ namespace ASI.Basecode.Services.Services
             this._roomRepository = roomRepository;
         }
 
-        public (bool, IEnumerable<Room>) GetRooms()
-        {
+		public (bool, IEnumerable<Room>) GetRooms()
+		{
+			var rooms = _roomRepository.ViewRooms();
+			if (rooms != null)
+			{
+				var sortedRooms = rooms.OrderByDescending(r => r.roomId);
+				return (true, sortedRooms);
+			}
+			return (false, null);
+		}
 
-            var rooms = _roomRepository.ViewRooms();
-            if (rooms != null)
-            {
-                return (true, rooms);
-            }
-            return (false, null);
-        }
 
-        public void AddRoom(Room room)
+		public void AddRoom(Room room)
         {
             if (room == null)
             {

@@ -17,7 +17,7 @@ namespace ASI.Basecode.WebApp.Controllers
             _roomService = roomService;
         }
 
-		public IActionResult Index(string search, int page = 1, int pageSize = 22)
+		public IActionResult Index(string search, int page = 1, int pageSize = 10)
         {
         // If no search, use default list
         (bool result, IEnumerable<Room> rooms) = _roomService.GetRooms();
