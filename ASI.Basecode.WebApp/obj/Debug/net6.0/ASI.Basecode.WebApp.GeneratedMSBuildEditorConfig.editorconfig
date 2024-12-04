@@ -9,107 +9,107 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ASI.Basecode.WebApp
 build_property.RootNamespace = ASI.Basecode.WebApp
-build_property.ProjectDir = C:\Users\Melvin\Desktop\ELASI\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\
+build_property.ProjectDir = C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\PROJECT\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = true
-build_property.MSBuildProjectDirectory = C:\Users\Melvin\Desktop\ELASI\Group1_MeetingRoomBooking\ASI.Basecode.WebApp
+build_property.MSBuildProjectDirectory = C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\PROJECT\Group1_MeetingRoomBooking\ASI.Basecode.WebApp
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Account/Login.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Account/Register.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Admin/Index.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Booking/Analytics.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Booking/Analytics.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va2luZ1xBbmFseXRpY3MuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Booking/BookingSummary.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Booking/BookingSummary.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va2luZ1xCb29raW5nU3VtbWFyeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Booking/Calendar.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Booking/Calendar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va2luZ1xDYWxlbmRhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Booking/Index.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Booking/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va2luZ1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Booking/Sample.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Booking/Sample.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va2luZ1xTYW1wbGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Home/Index.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Room/CreateRoom.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Room/CreateRoom.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9vbVxDcmVhdGVSb29tLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Room/DeleteRoom.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Room/DeleteRoom.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9vbVxEZWxldGVSb29tLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Room/Index.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Room/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9vbVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Room/UpdateRoom.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Room/UpdateRoom.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9vbVxVcGRhdGVSb29tLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Shared/Error.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Shared/_Header.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Shared/_Header.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9IZWFkZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Shared/_Layout.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Shared/_SuperAdminHeader.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Shared/_SuperAdminHeader.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TdXBlckFkbWluSGVhZGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Shared/_UserHeader.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Shared/_UserHeader.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Vc2VySGVhZGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/User/Index.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/User/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/User/Notification.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/User/Notification.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxOb3RpZmljYXRpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/User/Setting.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/User/Setting.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxTZXR0aW5nLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/_ViewImports.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Melvin/Desktop/ELASI/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/_ViewStart.cshtml]
+[C:/Users/Rey Aaron Buaya/Desktop/Monik/Alliance/PROJECT/Group1_MeetingRoomBooking/ASI.Basecode.WebApp/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

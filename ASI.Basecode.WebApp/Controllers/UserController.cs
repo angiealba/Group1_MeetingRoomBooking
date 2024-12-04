@@ -22,7 +22,7 @@ namespace ASI.Basecode.WebApp.Controllers
             _notificationService = notificationService;
         }
 
-        public ActionResult Index(string search, int page = 1, int pageSize = 22)
+        public ActionResult Index(string search, int page = 1, int pageSize = 10)
         {
             var users = _userService.GetUsers();
 
