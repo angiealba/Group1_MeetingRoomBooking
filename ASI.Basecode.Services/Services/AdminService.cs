@@ -35,17 +35,17 @@ namespace ASI.Basecode.Services.Services
             return user != null ? LoginResult.Success : LoginResult.Failed;
         }
 
-
+        // functions and methods operations for storing data to database
 
         public void AddUser(UserViewModel model)
         {
-            if (!_repository.UserExists(model.userID))
+            if (!_repository.UserExists(model.userID))// if user does not exist proceed to add if exxist throw data exception
             {
                 var user = _mapper.Map<User>(model);
                 user.password = PasswordManager.EncryptPassword(model.password);
                 user.createdTime = DateTime.Now;
                 user.updatedTime = DateTime.Now;
-                user.createdBy = Environment.UserName;
+                user.createdBy = Environment.UserName;// know who updated or created 
                 user.updatedBy = Environment.UserName;
                 user.role = "Admin";
 
@@ -57,23 +57,23 @@ namespace ASI.Basecode.Services.Services
             }
         }
 
-		public IEnumerable<User> GetUsers() => _repository.GetUsers().Where(u => u.role == "Admin").OrderByDescending(u => u).ToList();
+        public IEnumerable<User> GetUsers() => _repository.GetUsers().Where(u => u.role == "Admin").OrderByDescending(u => u).ToList(); // sorting and list pagination
 
-		public void UpdateUser(User user)
+        public void UpdateUser(User user)
         {
-            var existingUser = _repository.GetUsers().FirstOrDefault(u => u.userID == user.userID);
+            var existingUser = _repository.GetUsers().FirstOrDefault(u => u.userID == user.userID);// retrieve users then finds the ifrst user then match the userId
 
-            if (existingUser != null)
+            if (existingUser != null)// checks if an user is found
             {
 
-                existingUser.name = user.name;
+                existingUser.name = user.name;// proceed to update
                 existingUser.email = user.email;
                 existingUser.role = "Admin";
 
 
-                if (!string.IsNullOrEmpty(user.password) && user.password != existingUser.password)
+                if (!string.IsNullOrEmpty(user.password) && user.password != existingUser.password) // compares the new pass to exis user pass
                 {
-                    existingUser.password = PasswordManager.EncryptPassword(user.password);
+                    existingUser.password = PasswordManager.EncryptPassword(user.password);//proceeds to encrypt
                 }
 
                 _repository.UpdateUser(existingUser);

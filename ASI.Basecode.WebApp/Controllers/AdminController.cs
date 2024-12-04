@@ -19,56 +19,57 @@ namespace ASI.Basecode.WebApp.Controllers
             _userService = userService;
         }
 
-		public ActionResult Index(string search, int page = 1, int pageSize = 10)
-		{
-			var users = _userService.GetUsers(); // Get all users
+        public ActionResult Index(string search, int page = 1, int pageSize = 10)
+        {
+            var users = _userService.GetUsers(); // Get all users
 
-			// search query
-			if (!string.IsNullOrEmpty(search))
-			{
-				users = users.Where(u => (u.name != null && u.name.Contains(search, StringComparison.OrdinalIgnoreCase)) ||
-										 (u.email != null && u.email.Contains(search, StringComparison.OrdinalIgnoreCase)));
-			}
-
-
-			// Pagination logic
-			var totalUsers = users.Count();
-			var totalPages = (int)Math.Ceiling((double)totalUsers / pageSize);
-			var paginatedUsers = users.Skip((page - 1) * pageSize).Take(pageSize).ToList();
-
-			// display
-			ViewBag.CurrentPage = page;
-			ViewBag.TotalPages = totalPages;
-			ViewBag.SearchQuery = search;
-
-			return View(paginatedUsers);
-		}
+            // search query
+            if (!string.IsNullOrEmpty(search))// if search is provided filter by name and email
+            {
+                users = users.Where(u => (u.name != null && u.name.Contains(search, StringComparison.OrdinalIgnoreCase)) ||
+                                         (u.email != null && u.email.Contains(search, StringComparison.OrdinalIgnoreCase)));
+            }
 
 
-		[HttpPost]
+            // Pagination logic
+            var totalUsers = users.Count(); // get total users af filtering
+            var totalPages = (int)Math.Ceiling((double)totalUsers / pageSize); // cal total page
+            var paginatedUsers = users.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            // display
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.SearchQuery = search;
+
+            return View(paginatedUsers);
+        }
+
+        // functions and methods operations to handle UI operations
+
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult CreateUser(UserViewModel userViewModel)
         {
-            if (_userService.UserExists(userViewModel.userID))
+            if (_userService.UserExists(userViewModel.userID))// checks user duplicates
             {
-                ModelState.AddModelError("UserId", "A user with this User ID already exists.");
+                ModelState.AddModelError("UserId", "A user with this User ID already exists."); // if dup prompt error
             }
 
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid)//  checks if the model has no errors
             {
-                var users = _userService.GetUsers().ToList();
-                ViewBag.UserViewModel = userViewModel;
-                return View("Index", users);
+                var users = _userService.GetUsers().ToList();// retrieves current list of users
+                ViewBag.UserViewModel = userViewModel; // passes users from controlelr to view
+                return View("Index", users); // reutnr to view
             }
 
             try
             {
-                _userService.AddUser(userViewModel);
+                _userService.AddUser(userViewModel); // adding users
                 return RedirectToAction("Index");
             }
             catch (Exception)
             {
-                TempData["ErrorMessage"] = "An error occurred while creating the user.";
+                TempData["ErrorMessage"] = "An error occurred while creating the user."; // db issue prompt error
                 return RedirectToAction("Index");
             }
         }
@@ -77,20 +78,20 @@ namespace ASI.Basecode.WebApp.Controllers
         public IActionResult EditUser(User user)
         {
             if (ModelState.IsValid)
-            {
-                var existingUser = _userService.GetUsers().FirstOrDefault(u => u.ID == user.ID);
-                if (existingUser != null)
+            {                      // retrieves list of users then match users
+                var existingUser = _userService.GetUsers().FirstOrDefault(u => u.ID == user.ID); // if not match existuser is null
+                if (existingUser != null) // checks if users exist, iff exists proceed to update user
                 {
-                    existingUser.name = user.name;
+                    existingUser.name = user.name; // update details
                     existingUser.email = user.email;
                     existingUser.role = user.role;
 
-                    if (!string.IsNullOrEmpty(user.password))
+                    if (!string.IsNullOrEmpty(user.password))// if not empty encrypts
                     {
                         existingUser.password = PasswordManager.EncryptPassword(user.password);
                     }
 
-                    _userService.UpdateUser(existingUser);
+                    _userService.UpdateUser(existingUser); // saves updated details to db
                     TempData["SuccessMessage"] = "Admin successfully updated";
                     return RedirectToAction("Index");
                 }
@@ -107,7 +108,7 @@ namespace ASI.Basecode.WebApp.Controllers
             _userService.DeleteUser(id);
             TempData["SuccessMessage"] = "Admin has been deleted";
             return RedirectToAction("Index");
-            
+
         }
         [HttpGet]
         [AllowAnonymous]
@@ -122,11 +123,11 @@ namespace ASI.Basecode.WebApp.Controllers
         {
             try
             {
-                _userService.AddUser(model);
+                _userService.AddUser(model);// calls method AddUser to add user to db
                 TempData["SuccessMessage"] = "Admin successfully added";
                 return RedirectToAction("Index", "Admin");
             }
-            catch (InvalidDataException ex)
+            catch (InvalidDataException ex) // error if user alreaady exist
             {
                 TempData["ErrorMessage"] = ex.Message;
             }
@@ -137,6 +138,6 @@ namespace ASI.Basecode.WebApp.Controllers
             TempData["ErrorMessage"] = "Username is already registered";
             return RedirectToAction("Index");
         }
-        
+
     }
 }
