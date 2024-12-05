@@ -4,6 +4,8 @@ using ASI.Basecode.Services.Manager;
 using ASI.Basecode.Services.ServiceModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using NuGet.Protocol;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,10 +18,12 @@ namespace ASI.Basecode.WebApp.Controllers
     {
         private readonly IUserService _userService;
         private readonly INotificationService _notificationService;
-        public UserController(IUserService userService, INotificationService notificationService)
+        private readonly IBookingService _bookingService;
+        public UserController(IUserService userService, INotificationService notificationService, IBookingService bookingService)
         {
             _userService = userService;
             _notificationService = notificationService;
+            _bookingService = bookingService;
         }
 
         public ActionResult Index(string search, int page = 1, int pageSize = 10)
@@ -149,6 +153,8 @@ namespace ASI.Basecode.WebApp.Controllers
                 .OrderByDescending(n => n.Date)
                 .ToList();
 
+            var bookings = _bookingService.GetBookingsByUserId(id);
+            ViewBag.Bookings = JsonConvert.SerializeObject(bookings);
             return View(notifications);
         }
         [HttpPost]
