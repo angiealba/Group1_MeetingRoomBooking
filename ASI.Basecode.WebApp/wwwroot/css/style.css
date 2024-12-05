@@ -380,7 +380,7 @@ h2 {
 
 /* Style FullCalendar buttons to match Bootstrap */
 .fc-button {
-    background-color: #fffff !important;
+    background-color: #fff !important; 
     color: #fff !important;
     border: none !important;
     font-weight: bold;
@@ -391,7 +391,6 @@ h2 {
         color: #fff !important;
     }
 
-/* Title and other calendar elements */
 .fc-toolbar-title {
     font-weight: 600;
     color: #333;
@@ -402,7 +401,7 @@ h2 {
     color: #495057;
 }
 
-/* Event styling */
+
 .fc-event {
     background-color: #007bff !important;
     border: none !important;
@@ -413,32 +412,32 @@ h2 {
 
 
 .fc-event-title {
-    white-space: normal !important;
-    word-wrap: break-word !important;
+    white-space: normal;
+    word-wrap: break-word;
 }
 
 .pagination .page-item.active .page-link {
-    color: #fff; 
+    color: #fff;
     background-color: #dc3545;
-    border-color: #dc3545; 
+    border-color: #dc3545;
 }
 
 .pagination .page-item.disabled .page-link {
-    color: #6c757d; 
-    background-color: #fff; 
-    border-color: #dee2e6; 
+    color: #6c757d;
+    background-color: #fff;
+    border-color: #dee2e6;
 }
 
 .pagination .page-link {
-    color: #dc3545; 
+    color: #dc3545;
     background-color: #fff;
-    border: 1px solid #dee2e6; 
+    border: 1px solid #dee2e6;
 }
 
     .pagination .page-link:hover {
-        color: #fff; 
-        background-color: #dc3545; 
-        border-color: #dc3545; 
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
     }
 
 /* Toastr positioning */
@@ -484,10 +483,7 @@ h2 {
 
     .toast .btn-close:hover {
         color: #ffcccc;
-        /
     }
-
-
 
 /* Notifications Container */
 .notifications-container {
@@ -523,7 +519,7 @@ h2 {
         bottom: 0;
         width: 5px;
         background-color: dodgerblue;
-        / border-radius: 5px 0 0 5px;
+        border-radius: 5px 0 0 5px;
     }
 
 .notification-text {
@@ -549,4 +545,3 @@ h2 {
     .notification-delete:hover {
         color: darkred;
     }
-
