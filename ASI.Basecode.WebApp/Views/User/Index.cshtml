@@ -150,12 +150,10 @@
                         const password = document.getElementById("Password").value;
                         const confirmPassword = document.getElementById("ConfirmPassword").value;
 
-                        // Strong password regex
                         const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!#$%^&*])[A-Za-z\d!#$%^&*]{8,}$/;
 
                         let isValid = true;
 
-                        // Validate password strength
                         if (!strongPasswordRegex.test(password)) {
                             document.getElementById("passwordError").style.display = "block";
                             isValid = false;
@@ -163,7 +161,6 @@
                             document.getElementById("passwordError").style.display = "none";
                         }
 
-                        // Validate password confirmation
                         if (password !== confirmPassword) {
                             document.getElementById("confirmPasswordError").style.display = "block";
                             isValid = false;
@@ -172,7 +169,7 @@
                         }
 
                         if (!isValid) {
-                            e.preventDefault(); // Prevent form submission
+                            e.preventDefault(); 
                         }
                     });
                 </script>
@@ -206,7 +203,7 @@
 						</div>
 						<div class="mb-3">
 							<label for="EmailEdit-@user.ID" class="form-label">Email</label>
-							<input type="email" class="form-control" id="EmailEdit-@user.ID" name="email" value="@user.email" readonly>
+							<input type="email" class="form-control" id="EmailEdit-@user.ID" name="email" value="@user.email">
 						</div>
 						<div class="mb-3">
                             <label for="PasswordEdit-@user.ID" class="form-label">Password</label>
@@ -252,7 +249,6 @@
                     document.getElementById("passwordMismatchError-@user.ID").style.display = "none";
                 }
 
-                // Prevent form submission if there are validation errors
                 if (!isValid) {
                     event.preventDefault();
                 }

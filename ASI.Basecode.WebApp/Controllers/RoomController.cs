@@ -19,7 +19,6 @@ namespace ASI.Basecode.WebApp.Controllers
 
 		public IActionResult Index(string search, int page = 1, int pageSize = 10)
         {
-        // If no search, use default list
         (bool result, IEnumerable<Room> rooms) = _roomService.GetRooms();
 
         if (!result)
@@ -27,19 +26,16 @@ namespace ASI.Basecode.WebApp.Controllers
             return View(null);
         }
 
-        // If search is provided, filter the results
         if (!string.IsNullOrEmpty(search))
         {
             rooms = rooms.Where(r => r.roomName.Contains(search, StringComparison.OrdinalIgnoreCase) ||
                                       r.roomLocation.Contains(search, StringComparison.OrdinalIgnoreCase));
         }
 
-        // Calculate pagination
         var totalRooms = rooms.Count();
         var totalPages = (int)Math.Ceiling((double)totalRooms / pageSize);
         var paginatedRooms = rooms.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
-        // Store pagination info in ViewBag for rendering
         ViewBag.CurrentPage = page;
         ViewBag.TotalPages = totalPages;
         ViewBag.SearchQuery = search;

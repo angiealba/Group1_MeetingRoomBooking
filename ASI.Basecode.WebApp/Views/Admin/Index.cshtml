@@ -242,38 +242,34 @@
                         <button type="submit" class="btn btn-success">Update Admin</button>
                     </div>
 					 <script>
-        document.getElementById("editUserForm-@user.ID").addEventListener("submit", function (event) {
-            var password = document.getElementById("PasswordEdit-@user.ID").value;
-            var confirmPassword = document.getElementById("ConfirmPasswordEdit-@user.ID").value;
+						document.getElementById("editUserForm-@user.ID").addEventListener("submit", function (event) {
+							var password = document.getElementById("PasswordEdit-@user.ID").value;
+							var confirmPassword = document.getElementById("ConfirmPasswordEdit-@user.ID").value;
 
-            // Strong password regex
-            const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!#$%^&*])[A-Za-z\d!#$%^&*]{8,}$/;
+							const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!#$%^&*])[A-Za-z\d!#$%^&*]{8,}$/;
 
-            let isValid = true;
+							let isValid = true;
 
-            // Validate password strength
-            if (password && !strongPasswordRegex.test(password)) {
-                document.getElementById("passwordError-@user.ID").style.display = "block";
-                isValid = false;
-            } else {
-                document.getElementById("passwordError-@user.ID").style.display = "none";
-            }
+							if (password && !strongPasswordRegex.test(password)) {
+								document.getElementById("passwordError-@user.ID").style.display = "block";
+								isValid = false;
+							} else {
+								document.getElementById("passwordError-@user.ID").style.display = "none";
+							}
 
-            // Check if passwords match, show error if not
-            if (password !== confirmPassword && password !== "" && confirmPassword !== "") {
-                event.preventDefault();
-                document.getElementById("passwordMismatchError-@user.ID").style.display = "block";
-                document.getElementById("passwordMismatchError-@user.ID").innerText = "Passwords do not match!";
-            } else {
-                document.getElementById("passwordMismatchError-@user.ID").style.display = "none";
-            }
+							if (password !== confirmPassword && password !== "" && confirmPassword !== "") {
+								event.preventDefault();
+								document.getElementById("passwordMismatchError-@user.ID").style.display = "block";
+								document.getElementById("passwordMismatchError-@user.ID").innerText = "Passwords do not match!";
+							} else {
+								document.getElementById("passwordMismatchError-@user.ID").style.display = "none";
+							}
 
-            // Prevent form submission if there are validation errors
-            if (!isValid) {
-                event.preventDefault();
-            }
-        });
-    </script>
+							if (!isValid) {
+								event.preventDefault();
+							}
+						});
+					</script>
                 </form>
             </div>
         </div>

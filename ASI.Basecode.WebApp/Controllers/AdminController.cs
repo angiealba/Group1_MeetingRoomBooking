@@ -82,6 +82,13 @@ namespace ASI.Basecode.WebApp.Controllers
                 var existingUser = _userService.GetUsers().FirstOrDefault(u => u.ID == user.ID);
                 if (existingUser != null) 
                 {
+                    var emailExists = _userService.GetUsers().Any(u => u.email == user.email);
+                    if (emailExists)
+                    {
+                        TempData["ErrorMessage"] = "Email is already registered.";
+                        return RedirectToAction("Index");
+                    }
+
                     existingUser.name = user.name;
                     existingUser.email = user.email;
                     existingUser.role = user.role;
@@ -123,9 +130,16 @@ namespace ASI.Basecode.WebApp.Controllers
         {
             try
             {
+                var emailExists = _userService.GetUsers().Any(u => u.email == model.email);
+                if (emailExists)
+                {
+                    TempData["ErrorMessage"] = "Email is already registered.";
+                    return RedirectToAction("Index");
+                }
+
                 _userService.AddUser(model);
-                TempData["SuccessMessage"] = "Admin successfully added";
-                return RedirectToAction("Index", "Admin");
+                TempData["SuccessMessage"] = "User successfully added";
+                return RedirectToAction("Index", "User");
             }
             catch (InvalidDataException ex) 
             {

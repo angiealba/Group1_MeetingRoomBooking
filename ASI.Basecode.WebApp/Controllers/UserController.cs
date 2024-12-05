@@ -84,6 +84,12 @@ namespace ASI.Basecode.WebApp.Controllers
                 var existingUser = _userService.GetUsers().FirstOrDefault(u => u.ID == user.ID);
                 if (existingUser != null)
                 {
+                    var emailExists = _userService.GetUsers().Any(u => u.email == user.email);
+                    if (emailExists)
+                    {
+                        TempData["ErrorMessage"] = "Email is already registered.";
+                        return RedirectToAction("Index");
+                    }
                     existingUser.name = user.name;
                     existingUser.email = user.email;
                     existingUser.role = user.role;
@@ -119,6 +125,12 @@ namespace ASI.Basecode.WebApp.Controllers
         {
             try
             {
+                var emailExists = _userService.GetUsers().Any(u => u.email == model.email);
+                if (emailExists)
+                {
+                    TempData["ErrorMessage"] = "Email is already registered.";
+                    return RedirectToAction("Index");
+                }
                 _userService.AddUser(model);
                 TempData["SuccessMessage"] = "User successfully added";
                 return RedirectToAction("Index", "User");
@@ -171,7 +183,6 @@ namespace ASI.Basecode.WebApp.Controllers
                 TempData["ErrorMessage"] = "Failed to delete the notification: " + ex.Message;
             }
 
-            // Redirect back to the Notifications page
             return RedirectToAction("Notification");
         }
 
@@ -209,7 +220,6 @@ namespace ASI.Basecode.WebApp.Controllers
                 return Unauthorized();
             }
 
-            // Retrieve the updated user from the database
             var user = _userService.GetUsers().FirstOrDefault(u => u.userName == userName);
 
             if (user == null)
