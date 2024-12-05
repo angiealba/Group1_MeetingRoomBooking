@@ -133,7 +133,7 @@
 
                 // Check if the booking is upcoming and not already notified
                 if (timeDifference > 0 && timeDifference <= thirtyMinutesInMillis && !notifiedBookings.has(booking.bookingRefId)) {
-                    const message = `Your booking with ID: ${booking.bookingRefId} will start in 30 minutes!`;
+                    const message = `Your booking with ID: ${booking.bookingRefId} at ${booking.Room.roomName} will start in 30 minutes!`;
                     showToast(message, 'Get ready for your booking!');
                     // Add the booking ID to the notified set
                     notifiedBookings.add(booking.bookingRefId);
