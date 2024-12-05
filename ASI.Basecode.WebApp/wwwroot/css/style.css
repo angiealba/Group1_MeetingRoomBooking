@@ -380,7 +380,7 @@ h2 {
 
 /* Style FullCalendar buttons to match Bootstrap */
 .fc-button {
-    background-color: #fffff !important; /* Matches red color of the theme */
+    background-color: #fff !important; 
     color: #fff !important;
     border: none !important;
     font-weight: bold;
@@ -483,10 +483,7 @@ h2 {
 
     .toast .btn-close:hover {
         color: #ffcccc;
-        /
     }
-
-
 
 /* Notifications Container */
 .notifications-container {
@@ -522,7 +519,7 @@ h2 {
         bottom: 0;
         width: 5px;
         background-color: dodgerblue;
-        / border-radius: 5px 0 0 5px;
+        border-radius: 5px 0 0 5px;
     }
 
 .notification-text {
