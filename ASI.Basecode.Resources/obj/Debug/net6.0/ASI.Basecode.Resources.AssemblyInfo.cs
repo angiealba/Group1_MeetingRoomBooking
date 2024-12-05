@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ASI.Basecode.Resources")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b53cb603efaf373ace295d76d18726baa87e6118")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("ASI.Basecode.Resources")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ASI.Basecode.Resources")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
