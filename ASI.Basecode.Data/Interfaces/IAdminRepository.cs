@@ -10,7 +10,7 @@ namespace ASI.Basecode.Data.Interfaces
     public interface IAdminRepository
     {
         IQueryable<User> GetUsers();
-        bool UserExists(string userID);
+        bool UserExists(string userName);
         void AddUser(User user);
         void UpdateUser(User user);
         void DeleteUser(User user);

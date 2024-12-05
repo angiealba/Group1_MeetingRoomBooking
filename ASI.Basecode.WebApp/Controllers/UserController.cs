@@ -52,9 +52,9 @@ namespace ASI.Basecode.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreateUser(UserViewModel userViewModel)
         {
-            if (_userService.UserExists(userViewModel.userID))
+            if (_userService.UserExists(userViewModel.userName))
             {
-                ModelState.AddModelError("UserId", "A user with this User ID already exists.");
+                ModelState.AddModelError("userName", "A user with this User ID already exists.");
             }
 
             if (!ModelState.IsValid)
@@ -139,21 +139,21 @@ namespace ASI.Basecode.WebApp.Controllers
             
             int id = 0;
 
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userName = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
            
-            if (userId != null)
+            if (userName != null)
             {
-                id = _notificationService.GetUserID(userId); 
+                id = _notificationService.GetuserName(userName); 
             }
 
            
             var notifications = _notificationService.GetNotifications()
-                .Where(n => n.userId == id)
+                .Where(n => n.userName == id)
                 .OrderByDescending(n => n.Date)
                 .ToList();
 
-            var bookings = _bookingService.GetBookingsByUserId(id);
+            var bookings = _bookingService.GetBookingsByuserName(id);
             ViewBag.Bookings = JsonConvert.SerializeObject(bookings);
             return View(notifications);
         }
@@ -181,15 +181,15 @@ namespace ASI.Basecode.WebApp.Controllers
         {
             try
             {
-                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                if (userId == null)
+                var userName = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (userName == null)
                 {
                     return Unauthorized();
                 }
 
                 bool notificationsEnabled = enableNotifications ?? false;
 
-                _userService.UpdateUserSettings(userId, notificationsEnabled, defaultBookingDuration);
+                _userService.UpdateUserSettings(userName, notificationsEnabled, defaultBookingDuration);
 
                 TempData["SuccessMessage"] = "Settings updated successfully.";
                 return RedirectToAction("Setting");
@@ -203,14 +203,14 @@ namespace ASI.Basecode.WebApp.Controllers
 
         public ActionResult Setting()
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (userId == null)
+            var userName = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userName == null)
             {
                 return Unauthorized();
             }
 
             // Retrieve the updated user from the database
-            var user = _userService.GetUsers().FirstOrDefault(u => u.userID == userId);
+            var user = _userService.GetUsers().FirstOrDefault(u => u.userName == userName);
 
             if (user == null)
             {

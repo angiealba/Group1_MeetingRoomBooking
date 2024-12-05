@@ -54,9 +54,9 @@ namespace ASI.Basecode.WebApp.Mvc
         protected IMapper _mapper { get; set; }
 
         /// <summary>
-        /// Get UserId.
+        /// Get userName.
         /// </summary>
-        public string UserId
+        public string userName
         {
             get { return User.FindFirst(ClaimTypes.NameIdentifier).Value; }
         }

@@ -11,7 +11,7 @@ namespace ASI.Basecode.Services.Interfaces
     {
         (bool result, IEnumerable<Booking> bookings) GetAllBookings();
 
-        (bool result, IEnumerable<Booking> bookings) GetBookingsByUserId(int id);
+        (bool result, IEnumerable<Booking> bookings) GetBookingsByuserName(int id);
 
         void AddBooking(Booking booking);
 
@@ -23,11 +23,11 @@ namespace ASI.Basecode.Services.Interfaces
 
         Booking GetBookingById(int id);
 
-        int GetUserID(string userId);
+        int GetuserName(string userName);
 
         int GetRecurringIdTracker();
 
-        IEnumerable<Booking> GetBookingsWithinNextHour(int userId);
+        IEnumerable<Booking> GetBookingsWithinNextHour(int userName);
 
         IEnumerable<Booking> GetRecurringBookings(int? recurringBookingId);
         IEnumerable<Booking> GenerateRoomUsageReport(string room, DateTime startDate, DateTime endDate);

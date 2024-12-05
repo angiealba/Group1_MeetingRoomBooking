@@ -75,7 +75,7 @@
                     <tr>
                         <td>@booking.bookingRefId</td>
                         <td>@(booking.Room != null ? booking.Room.roomName : "Room Unavailable")</td>
-                        <td>@(booking.User != null ? booking.User.userID : "User Not Found")</td>
+                        <td>@(booking.User != null ? booking.User.userName : "User Not Found")</td>
                         <td>@booking.date.ToString("MM/dd/yyyy")</td>
                         <td>@booking.time.ToString("HH:mm")</td>
                         <td>@booking.duration hour(s)</td>

@@ -23,15 +23,15 @@ namespace ASI.Basecode.Services.Services
             _repository = repository;
         }
 
-        public LoginResult AuthenticateUser(string userID, string password, ref User user)
+        public LoginResult AuthenticateUser(string userName, string password, ref User user)
         {
-            if (userID == "superadmin")
+            if (userName == "superadmin")
             {
-                user = _repository.GetUsers().FirstOrDefault(x => x.userID == userID && x.role == "Superadmin" && x.password == password);
+                user = _repository.GetUsers().FirstOrDefault(x => x.userName == userName && x.role == "Superadmin" && x.password == password);
                 return user != null ? LoginResult.Success : LoginResult.Failed;
             }
 
-            user = _repository.GetUsers().FirstOrDefault(x => x.userID == userID && x.password == PasswordManager.EncryptPassword(password));
+            user = _repository.GetUsers().FirstOrDefault(x => x.userName == userName && x.password == PasswordManager.EncryptPassword(password));
             return user != null ? LoginResult.Success : LoginResult.Failed;
         }
 
@@ -39,7 +39,7 @@ namespace ASI.Basecode.Services.Services
 
         public void AddUser(UserViewModel model)
         {
-            if (!_repository.UserExists(model.userID))// if user does not exist proceed to add if exxist throw data exception
+            if (!_repository.UserExists(model.userName))// if user does not exist proceed to add if exxist throw data exception
             {
                 var user = _mapper.Map<User>(model);
                 user.password = PasswordManager.EncryptPassword(model.password);
@@ -61,7 +61,7 @@ namespace ASI.Basecode.Services.Services
 
         public void UpdateUser(User user)
         {
-            var existingUser = _repository.GetUsers().FirstOrDefault(u => u.userID == user.userID);// retrieve users then finds the ifrst user then match the userId
+            var existingUser = _repository.GetUsers().FirstOrDefault(u => u.userName == user.userName);// retrieve users then finds the ifrst user then match the userName
 
             if (existingUser != null)// checks if an user is found
             {
@@ -89,6 +89,6 @@ namespace ASI.Basecode.Services.Services
             }
         }
 
-        public bool UserExists(string userID) => _repository.UserExists(userID);
+        public bool UserExists(string userName) => _repository.UserExists(userName);
     }
 }

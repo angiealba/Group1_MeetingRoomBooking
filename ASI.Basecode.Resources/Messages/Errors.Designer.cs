@@ -70,7 +70,7 @@ namespace ASI.Basecode.Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to UserId already exists!.
+        ///   Looks up a localized string similar to userName already exists!.
         /// </summary>
         public static string UserExists {
             get {

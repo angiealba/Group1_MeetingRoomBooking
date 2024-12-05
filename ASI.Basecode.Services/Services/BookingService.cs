@@ -32,9 +32,9 @@ namespace ASI.Basecode.Services.Services
 
 
 
-        public (bool, IEnumerable<Booking>) GetBookingsByUserId(int id)
+        public (bool, IEnumerable<Booking>) GetBookingsByuserName(int id)
         {
-            var bookings = _bookingRepository.GetBookingsByUserId(id);
+            var bookings = _bookingRepository.GetBookingsByuserName(id);
             if (bookings != null)
             {
                 return (true, bookings);
@@ -85,9 +85,9 @@ namespace ASI.Basecode.Services.Services
             _bookingRepository.UpdateBooking(booking);
         }
 
-        public IEnumerable<Booking> GetBookingsWithinNextHour(int userId)
+        public IEnumerable<Booking> GetBookingsWithinNextHour(int userName)
         {
-            return _bookingRepository.GetBookingsWithinNextHour(userId);
+            return _bookingRepository.GetBookingsWithinNextHour(userName);
 
         }
 
@@ -101,9 +101,9 @@ namespace ASI.Basecode.Services.Services
             _bookingRepository.DeleteBooking(booking);
         }
 
-        public int GetUserID(string userId)
+        public int GetuserName(string userName)
         {
-            return _bookingRepository.GetUserID(userId);
+            return _bookingRepository.GetuserName(userName);
         }
 
         public int GetRecurringIdTracker()

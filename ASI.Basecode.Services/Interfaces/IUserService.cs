@@ -7,14 +7,14 @@ namespace ASI.Basecode.Services.Interfaces
 {
 	public interface IUserService
 	{
-		LoginResult AuthenticateUser(string userID, string password, ref User user);
+		LoginResult AuthenticateUser(string userName, string password, ref User user);
 		void AddUser(UserViewModel model);
 		IEnumerable<User> GetUsers();
 		void UpdateUser(User user);
 		void DeleteUser(int ID);
-		bool UserExists(string userID);
-		void UpdateUserSettings(string userId, bool enableNotifications, int defaultBookingDuration);
+		bool UserExists(string userName);
+		void UpdateUserSettings(string userName, bool enableNotifications, int defaultBookingDuration);
 
-		User GetUserByUserId(int id);
+		User GetUserByuserName(int id);
 	}
 }

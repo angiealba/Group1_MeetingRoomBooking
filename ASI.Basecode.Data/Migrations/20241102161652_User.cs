@@ -32,7 +32,7 @@ namespace ASI.Basecode.Data.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    userID = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
+                    userName = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
                     name = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
                     email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     password = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
@@ -50,7 +50,7 @@ namespace ASI.Basecode.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "UQ__Users__1788CC4D5F4A160F",
                 table: "Users",
-                column: "userID",
+                column: "userName",
                 unique: true);
         }
 

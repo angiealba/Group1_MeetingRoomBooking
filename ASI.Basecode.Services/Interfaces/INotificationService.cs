@@ -6,11 +6,11 @@ namespace ASI.Basecode.Services.Interfaces
 {
     public interface INotificationService
     {
-		void AddNotification(int userId, string type, string message, DateTime? bookingDate);
+		void AddNotification(int userName, string type, string message, DateTime? bookingDate);
 		List<Notification> GetNotifications();
 
         void MarkAsRead(int id);
         void DeleteNotification(int id);
-        int GetUserID(string userId);
+        int GetuserName(string userName);
     }
 }

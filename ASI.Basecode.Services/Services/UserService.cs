@@ -23,22 +23,22 @@ namespace ASI.Basecode.Services.Services
 			_repository = repository;
 		}
 
-		public LoginResult AuthenticateUser(string userID, string password, ref User user)
+		public LoginResult AuthenticateUser(string userName, string password, ref User user)
 		{
-			if (userID == "superadmin")
+			if (userName == "superadmin")
 			{
 				// Checking if the user has the 'Superadmin' role
-				user = _repository.GetUsers().FirstOrDefault(x => x.userID == userID && x.role == "Superadmin" && x.password == password);
+				user = _repository.GetUsers().FirstOrDefault(x => x.userName == userName && x.role == "Superadmin" && x.password == password);
 				return user != null ? LoginResult.Success : LoginResult.Failed;
 			}
 
-			user = _repository.GetUsers().FirstOrDefault(x => x.userID == userID && x.password == PasswordManager.EncryptPassword(password));
+			user = _repository.GetUsers().FirstOrDefault(x => x.userName == userName && x.password == PasswordManager.EncryptPassword(password));
 			return user != null ? LoginResult.Success : LoginResult.Failed;
 		}
 
 		public void AddUser(UserViewModel model)
 		{
-			if (!_repository.UserExists(model.userID))
+			if (!_repository.UserExists(model.userName))
 			{
 				var user = _mapper.Map<User>(model);
 				user.password = PasswordManager.EncryptPassword(model.password);
@@ -60,7 +60,7 @@ namespace ASI.Basecode.Services.Services
 
 		public void UpdateUser(User user)
 		{
-			var existingUser = _repository.GetUsers().FirstOrDefault(u => u.userID == user.userID);
+			var existingUser = _repository.GetUsers().FirstOrDefault(u => u.userName == user.userName);
 
 			if (existingUser != null)
 			{
@@ -86,10 +86,10 @@ namespace ASI.Basecode.Services.Services
 				_repository.DeleteUser(user);
 			}
 		}
-		public bool UserExists(string userID) => _repository.UserExists(userID);
-		public void UpdateUserSettings(string userId, bool enableNotifications, int defaultBookingDuration)
+		public bool UserExists(string userName) => _repository.UserExists(userName);
+		public void UpdateUserSettings(string userName, bool enableNotifications, int defaultBookingDuration)
 		{
-			var user = _repository.GetUsers().FirstOrDefault(u => u.userID == userId);
+			var user = _repository.GetUsers().FirstOrDefault(u => u.userName == userName);
 
 			if (user != null)
 			{
@@ -106,7 +106,7 @@ namespace ASI.Basecode.Services.Services
 
 
 
-		public User GetUserByUserId(int id)
+		public User GetUserByuserName(int id)
 		{
 			return _repository.GetUsers().FirstOrDefault(u => u.ID == id);
 		}

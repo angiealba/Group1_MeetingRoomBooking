@@ -88,7 +88,7 @@ namespace ASI.Basecode.WebApp.Controllers
             this._session.SetString("HasSession", "Exist");
             User user = null;
 
-            var loginResult = _userService.AuthenticateUser(model.userID, model.password, ref user);
+            var loginResult = _userService.AuthenticateUser(model.userName, model.password, ref user);
             if (loginResult == LoginResult.Success)
             {
                 // Create claims for the user
@@ -96,7 +96,7 @@ namespace ASI.Basecode.WebApp.Controllers
             {
                 new System.Security.Claims.Claim(ClaimTypes.Name, user.name),
                 new System.Security.Claims.Claim(ClaimTypes.Role, user.role),
-                new System.Security.Claims.Claim(ClaimTypes.NameIdentifier, user.userID)
+                new System.Security.Claims.Claim(ClaimTypes.NameIdentifier, user.userName)
             };
 
                 var claimsIdentity = new ClaimsIdentity(claims);
@@ -108,7 +108,7 @@ namespace ASI.Basecode.WebApp.Controllers
                 // Store necessary info in session
                 this._session.SetString("UserName", user.name);
                 this._session.SetString("Role", user.role);
-                this._session.SetString("UserId", user.userID);
+                this._session.SetString("userName", user.userName);
 
                 if (user.role == "Superadmin")
                 {

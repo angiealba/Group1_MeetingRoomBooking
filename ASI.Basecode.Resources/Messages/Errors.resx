@@ -121,6 +121,6 @@
     <value>Server error occured!</value>
   </data>
   <data name="UserExists" xml:space="preserve">
-    <value>UserId already exists!</value>
+    <value>userName already exists!</value>
   </data>
 </root>

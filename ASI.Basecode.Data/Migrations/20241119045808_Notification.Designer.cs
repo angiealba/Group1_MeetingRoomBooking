@@ -184,7 +184,7 @@ namespace ASI.Basecode.Data.Migrations
                     b.Property<DateTime>("updatedTime")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("userID")
+                    b.Property<string>("userName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
@@ -192,7 +192,7 @@ namespace ASI.Basecode.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex(new[] { "userID" }, "UQ__Users__1788CC4D5F4A160F")
+                    b.HasIndex(new[] { "userName" }, "UQ__Users__1788CC4D5F4A160F")
                         .IsUnique();
 
                     b.ToTable("Users");

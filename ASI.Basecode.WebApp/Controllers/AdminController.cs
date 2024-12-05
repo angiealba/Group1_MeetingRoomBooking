@@ -50,9 +50,9 @@ namespace ASI.Basecode.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreateUser(UserViewModel userViewModel)
         {
-            if (_userService.UserExists(userViewModel.userID))// checks user duplicates
+            if (_userService.UserExists(userViewModel.userName))// checks user duplicates
             {
-                ModelState.AddModelError("UserId", "A user with this User ID already exists."); // if dup prompt error
+                ModelState.AddModelError("userName", "A user with this User ID already exists."); // if dup prompt error
             }
 
             if (!ModelState.IsValid)//  checks if the model has no errors

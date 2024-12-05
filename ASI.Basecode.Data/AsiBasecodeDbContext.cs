@@ -27,7 +27,7 @@ namespace ASI.Basecode.Data
         {
             modelBuilder.Entity<User>(entity =>
             {
-                entity.HasIndex(e => e.userID, "UQ__Users__1788CC4D5F4A160F")
+                entity.HasIndex(e => e.userName, "UQ__Users__1788CC4D5F4A160F")
                     .IsUnique();
 
                 entity.Property(e => e.createdBy)
@@ -54,7 +54,7 @@ namespace ASI.Basecode.Data
 
                 entity.Property(e => e.updatedTime).HasColumnType("datetime");
 
-                entity.Property(e => e.userID)
+                entity.Property(e => e.userName)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);

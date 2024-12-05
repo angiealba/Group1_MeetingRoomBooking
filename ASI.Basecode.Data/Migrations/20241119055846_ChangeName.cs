@@ -11,13 +11,13 @@ namespace ASI.Basecode.Data.Migrations
             migrationBuilder.RenameColumn(
                 name: "BookingId",
                 table: "Notifications",
-                newName: "userId");
+                newName: "userName");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.RenameColumn(
-                name: "userId",
+                name: "userName",
                 table: "Notifications",
                 newName: "BookingId");
         }

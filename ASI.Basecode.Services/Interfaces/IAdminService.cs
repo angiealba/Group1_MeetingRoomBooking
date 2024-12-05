@@ -7,11 +7,11 @@ namespace ASI.Basecode.Services.Interfaces
 {
     public interface IAdminService
     {
-        LoginResult AuthenticateUser(string userId, string password, ref User user);
+        LoginResult AuthenticateUser(string userName, string password, ref User user);
         void AddUser(UserViewModel model);
         IEnumerable<User> GetUsers();
         void UpdateUser(User user);
         void DeleteUser(int id);
-        bool UserExists(string userId);
+        bool UserExists(string userName);
     }
 }
