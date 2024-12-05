@@ -247,3 +247,16 @@
 		</div>
 	</div>
 }
+@section scripts {
+    <script>
+        var errorMessage = '@TempData["ErrorMessage"]';
+        if (errorMessage) {
+            toastr.error(errorMessage);
+        }
+
+        var successMessage = '@TempData["SuccessMessage"]';
+        if (successMessage) {
+            toastr.success(successMessage);
+        }
+    </script>
+}

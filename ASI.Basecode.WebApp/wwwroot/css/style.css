@@ -380,7 +380,7 @@ h2 {
 
 /* Style FullCalendar buttons to match Bootstrap */
 .fc-button {
-    background-color: #fffff !important; /* Matches red color of the theme */
+    background-color: #fffff !important;
     color: #fff !important;
     border: none !important;
     font-weight: bold;
@@ -411,15 +411,10 @@ h2 {
     font-size: 11px;
 }
 
-    /* Customize event popup tooltip */
-    .fc-event:hover {
-        cursor: pointer;
-        background-color: #0056b3 !important;
-    }
 
 .fc-event-title {
-    white-space: normal;
-    word-wrap: break-word;
+    white-space: normal !important;
+    word-wrap: break-word !important;
 }
 
 .pagination .page-item.active .page-link {
