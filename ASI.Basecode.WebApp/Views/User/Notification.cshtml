@@ -56,6 +56,8 @@
     </script>
 
     <script>
+        // Declare a set to keep track of notified booking IDs
+        const notifiedBookings = new Set();
 
         function showToast(notificationMessage, timeLeftMessage) {
             const toastContainer = document.querySelector('.toast-container') || createToastContainer();
@@ -118,38 +120,25 @@
 
         // fetch new notifs
         function simulateNotification() {
-            const notification = @Html.Raw(Json.Serialize(Model.OrderByDescending(n => n.Date).FirstOrDefault())); // Fetch the latest notification
+            const bookings = @Html.Raw(ViewBag.Bookings); // Fetch bookings from ViewBag
+            // Access the bookings array from the Item2 property
+            const bookingsArray = bookings.Item2 || []; // Default to an empty array if Item2 is not present
+            // Check for upcoming bookings
+            const now = new Date();
+            const thirtyMinutesInMillis = 30 * 60 * 1000; // 30 minutes in milliseconds
 
-            if (notification) {
-                const message = notification.message; // Notification message
-                const bookingDate = notification.bookingDate;
+            bookingsArray.forEach(booking => {
+                const bookingDate = new Date(booking.time);
+                const timeDifference = bookingDate - now;
 
-                // Calculate the time difference between the current time and booking date
-                const now = new Date();
-                const timeDifference = new Date(bookingDate) - now;
-
-                let timeLeftMessage = '';
-                if (timeDifference > 0) {
-                    const seconds = Math.floor(timeDifference / 1000);
-                    const minutes = Math.floor(seconds / 60);
-                    const hours = Math.floor(minutes / 60);
-                    const days = Math.floor(hours / 24);
-
-                    if (days > 0) {
-                        timeLeftMessage = `${days} day${days > 1 ? 's' : ''} left`;
-                    } else if (hours > 0) {
-                        timeLeftMessage = `${hours} hour${hours > 1 ? 's' : ''} left`;
-                    } else if (minutes > 0) {
-                        timeLeftMessage = `${minutes} minute${minutes > 1 ? 's' : ''} left`;
-                    } else {
-                        timeLeftMessage = 'Less than a minute left';
-                    }
-                } else {
-                    timeLeftMessage = 'Booking time has passed';
+                // Check if the booking is upcoming and not already notified
+                if (timeDifference > 0 && timeDifference <= thirtyMinutesInMillis && !notifiedBookings.has(booking.bookingRefId)) {
+                    const message = `Your booking with ID: ${booking.bookingRefId} will start in 30 minutes!`;
+                    showToast(message, 'Get ready for your booking!');
+                    // Add the booking ID to the notified set
+                    notifiedBookings.add(booking.bookingRefId);
                 }
-
-                showToast(message, timeLeftMessage);
-            }
+            });
         }
 
 
