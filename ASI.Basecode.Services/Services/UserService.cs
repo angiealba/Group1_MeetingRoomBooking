@@ -93,13 +93,11 @@ namespace ASI.Basecode.Services.Services
 
 			if (user != null)
 			{
-				// Directly assign the value without ternary operation
 				user.enableNotifications = enableNotifications;
 				user.defaultBookingDuration = defaultBookingDuration;
 				user.updatedTime = DateTime.Now;
 				user.updatedBy = Environment.UserName;
 
-				// Update the user in the repository
 				_repository.UpdateUser(user);
 			}
 		}
