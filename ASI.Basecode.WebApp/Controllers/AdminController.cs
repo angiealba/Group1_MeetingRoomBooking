@@ -59,7 +59,7 @@ namespace ASI.Basecode.WebApp.Controllers
             {
                 var users = _userService.GetUsers().ToList();// retrieves current list of users
                 ViewBag.UserViewModel = userViewModel; // passes users from controlelr to view
-                return View("Index", users); // reutnr to view
+                return View("Index", users); 
             }
 
             try
@@ -69,7 +69,7 @@ namespace ASI.Basecode.WebApp.Controllers
             }
             catch (Exception)
             {
-                TempData["ErrorMessage"] = "An error occurred while creating the user."; // db issue prompt error
+                TempData["ErrorMessage"] = "An error occurred while creating the user."; 
                 return RedirectToAction("Index");
             }
         }
@@ -78,20 +78,20 @@ namespace ASI.Basecode.WebApp.Controllers
         public IActionResult EditUser(User user)
         {
             if (ModelState.IsValid)
-            {                      // retrieves list of users then match users
-                var existingUser = _userService.GetUsers().FirstOrDefault(u => u.ID == user.ID); // if not match existuser is null
-                if (existingUser != null) // checks if users exist, iff exists proceed to update user
+            {                  
+                var existingUser = _userService.GetUsers().FirstOrDefault(u => u.ID == user.ID);
+                if (existingUser != null) 
                 {
-                    existingUser.name = user.name; // update details
+                    existingUser.name = user.name;
                     existingUser.email = user.email;
                     existingUser.role = user.role;
 
-                    if (!string.IsNullOrEmpty(user.password))// if not empty encrypts
+                    if (!string.IsNullOrEmpty(user.password))
                     {
                         existingUser.password = PasswordManager.EncryptPassword(user.password);
                     }
 
-                    _userService.UpdateUser(existingUser); // saves updated details to db
+                    _userService.UpdateUser(existingUser);
                     TempData["SuccessMessage"] = "Admin successfully updated";
                     return RedirectToAction("Index");
                 }
@@ -123,11 +123,11 @@ namespace ASI.Basecode.WebApp.Controllers
         {
             try
             {
-                _userService.AddUser(model);// calls method AddUser to add user to db
+                _userService.AddUser(model);
                 TempData["SuccessMessage"] = "Admin successfully added";
                 return RedirectToAction("Index", "Admin");
             }
-            catch (InvalidDataException ex) // error if user alreaady exist
+            catch (InvalidDataException ex) 
             {
                 TempData["ErrorMessage"] = ex.Message;
             }
