@@ -30,25 +30,25 @@ namespace ASI.Basecode.WebApp.Controllers
         public ActionResult Index(string search, int page = 1, int pageSize = 6)
         {
             int id = 0;
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userName = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             User currentUser = null;
 
-            if (userId != null)
+            if (userName != null)
             {
-                id = _bookingService.GetUserID(userId);
-                currentUser = _userService.GetUserByUserId(id);
+                id = _bookingService.GetuserName(userName);
+                currentUser = _userService.GetUserByuserName(id);
             }
 
 
             ViewBag.defaultBookingDuration = currentUser?.defaultBookingDuration ?? 1;
 
-            if (userId != null)
+            if (userName != null)
             {
-                id = _bookingService.GetUserID(userId); 
+                id = _bookingService.GetuserName(userName); 
             }
 
             // get user bookings
-            (bool result, IEnumerable<Booking> bookings) = _bookingService.GetBookingsByUserId(id);
+            (bool result, IEnumerable<Booking> bookings) = _bookingService.GetBookingsByuserName(id);
 
             // get rooms
             var rooms = _bookingService.GetRooms();
@@ -112,10 +112,10 @@ namespace ASI.Basecode.WebApp.Controllers
                 string roomName = room != null ? room.roomName : "Unknown Room";
 
                 // get user ID
-                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                if (userId != null)
+                var userName = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (userName != null)
                 {
-                    int id = _bookingService.GetUserID(userId);
+                    int id = _bookingService.GetuserName(userName);
                     booking.ID = id;
                 }
 
@@ -258,10 +258,10 @@ namespace ASI.Basecode.WebApp.Controllers
 
         public void CheckUpcomingBookings()
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (userId == null) return;
+            var userName = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userName == null) return;
 
-            int id = _bookingService.GetUserID(userId);
+            int id = _bookingService.GetuserName(userName);
 
             var upcomingBookings = _bookingService.GetBookingsWithinNextHour(id);
 
@@ -305,10 +305,10 @@ namespace ASI.Basecode.WebApp.Controllers
                 }
 
                 // get user ID
-                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                if (userId != null)
+                var userName = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (userName != null)
                 {
-                    int id = _bookingService.GetUserID(userId);
+                    int id = _bookingService.GetuserName(userName);
                     booking.ID = id;
                 }
 
@@ -681,7 +681,7 @@ namespace ASI.Basecode.WebApp.Controllers
 
             if (!string.IsNullOrEmpty(userName))
             {
-                bookings = bookings.Where(b => b.User.userID.Contains(userName, StringComparison.OrdinalIgnoreCase));
+                bookings = bookings.Where(b => b.User.userName.Contains(userName, StringComparison.OrdinalIgnoreCase));
             }
 
             return View(bookings);
@@ -694,10 +694,10 @@ namespace ASI.Basecode.WebApp.Controllers
         {
                 // get booking
                 var booking = _bookingService.GetBookingById(bookingId);
-                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                if (userId != null)
+                var userName = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (userName != null)
                 {
-                    int id = _bookingService.GetUserID(userId); 
+                    int id = _bookingService.GetuserName(userName); 
                     booking.ID = id;  
                 }
             var rooms = _bookingService.GetRooms();
@@ -859,7 +859,7 @@ namespace ASI.Basecode.WebApp.Controllers
 
             if (!string.IsNullOrEmpty(userName))
             {
-                bookings = bookings.Where(b => b.User.userID.Contains(userName, StringComparison.OrdinalIgnoreCase));
+                bookings = bookings.Where(b => b.User.userName.Contains(userName, StringComparison.OrdinalIgnoreCase));
             }
 
             var analyticsData = bookings
@@ -899,16 +899,16 @@ namespace ASI.Basecode.WebApp.Controllers
             var rooms = _bookingService.GetRooms();
             ViewBag.Rooms = new SelectList(rooms, "roomId", "roomName");
 
-            // Get the userId from claims
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            // Get the userName from claims
+            var userName = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             int id = 0;
-            if (userId != null)
+            if (userName != null)
             {
-                id = _bookingService.GetUserID(userId);
+                id = _bookingService.GetuserName(userName);
             }
 
             // Get the bookings for the user
-            (bool result, IEnumerable<Booking> bookings) = _bookingService.GetBookingsByUserId(id);
+            (bool result, IEnumerable<Booking> bookings) = _bookingService.GetBookingsByuserName(id);
 
             // Check if any booking date is in the past and set the error message
             foreach (var booking in bookings)

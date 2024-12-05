@@ -15,7 +15,7 @@ namespace ASI.Basecode.Data.Repositories
 
         public IQueryable<User> GetUsers() => GetDbSet<User>();
 
-        public bool UserExists(string userID) => GetDbSet<User>().Any(x => x.userID == userID);
+        public bool UserExists(string userName) => GetDbSet<User>().Any(x => x.userName == userName);
 
         public void AddUser(User user)
         {
@@ -25,7 +25,7 @@ namespace ASI.Basecode.Data.Repositories
 
         public void UpdateUser(User user)
         {
-            var existingUser = GetDbSet<User>().FirstOrDefault(u => u.userID == user.userID);
+            var existingUser = GetDbSet<User>().FirstOrDefault(u => u.userName == user.userName);
 
             if (existingUser != null)
             {

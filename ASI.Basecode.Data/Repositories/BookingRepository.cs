@@ -67,7 +67,7 @@ namespace ASI.Basecode.Data.Repositories
             }
         }
 
-        public IEnumerable<Booking> GetBookingsByUserId(int id)
+        public IEnumerable<Booking> GetBookingsByuserName(int id)
         {
             return _dbContext.Bookings
             .Include(b => b.Room)
@@ -82,13 +82,13 @@ namespace ASI.Basecode.Data.Repositories
             return _dbContext.Rooms.ToList();
         }
 
-        public IEnumerable<Booking> GetBookingsWithinNextHour(int userId)
+        public IEnumerable<Booking> GetBookingsWithinNextHour(int userName)
         {
             var now = DateTime.Now;
             var oneHourFromNow = now.AddHours(1);
 
             return _dbContext.Bookings
-            .Where(b => b.ID == userId &&
+            .Where(b => b.ID == userName &&
                         b.date.Date == now.Date &&
                         b.time.TimeOfDay >= now.TimeOfDay &&
                         b.time.TimeOfDay <= oneHourFromNow.TimeOfDay)
@@ -132,9 +132,9 @@ namespace ASI.Basecode.Data.Repositories
             _dbContext.SaveChanges();
         }
 
-        public int GetUserID(string userId)
+        public int GetuserName(string userName)
         {
-            var user = _dbContext.Users.FirstOrDefault(u => u.userID == userId);
+            var user = _dbContext.Users.FirstOrDefault(u => u.userName == userName);
             if (user == null)
             {
                 throw new Exception("User not found!");

@@ -36,9 +36,9 @@ public class NotificationRepository : INotificationRepository
             _dbContext.SaveChanges();
         }
     }
-    public int GetUserID(string userId)
+    public int GetuserName(string userName)
     {
-        var user = _dbContext.Users.FirstOrDefault(u => u.userID == userId);
+        var user = _dbContext.Users.FirstOrDefault(u => u.userName == userName);
         if (user == null)
         {
             throw new Exception("User not found!");

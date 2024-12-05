@@ -19,13 +19,13 @@ public class NotificationService : INotificationService
 	}
 
 	// Method to create a booking and send a notification
-	public void CreateBooking(int userId, DateTime bookingTime)
+	public void CreateBooking(int userName, DateTime bookingTime)
 	{
 		// Create the booking
 		var booking = new Booking
 		{
 			time = bookingTime,
-			// Set other booking details like roomId, userId, etc.
+			// Set other booking details like roomId, userName, etc.
 		};
 
 		// Save the booking to the database (you need to make sure the booking is saved)
@@ -33,19 +33,19 @@ public class NotificationService : INotificationService
 
 		// After creating the booking, send a notification with the booking's time
 		var message = $"Your booking is scheduled for {bookingTime.ToString("f")}.";
-		AddNotification(userId, "Booking", message, booking.time);  // Pass the time field directly as bookingTime
+		AddNotification(userName, "Booking", message, booking.time);  // Pass the time field directly as bookingTime
 	}
 
 	// Method to create a notification
-	public void AddNotification(int userId, string type, string message, DateTime? bookingDate)
+	public void AddNotification(int userName, string type, string message, DateTime? bookingDate)
 	{
-		if (userId == 0 || string.IsNullOrEmpty(message))
+		if (userName == 0 || string.IsNullOrEmpty(message))
 		{
 			throw new ArgumentException("Invalid notification parameters.");
 		}
 
 		// Check if notifications are enabled for the user
-		var user = _userRepository.GetUsers().FirstOrDefault(u => u.ID == userId);
+		var user = _userRepository.GetUsers().FirstOrDefault(u => u.ID == userName);
 		if (user == null || !user.enableNotifications)
 		{
 			return; // Do not add notification if user is not found or notifications are disabled
@@ -53,7 +53,7 @@ public class NotificationService : INotificationService
 
 		var notification = new Notification
 		{
-			userId = userId,
+			userName = userName,
 			Type = type,
 			Message = message,
 			Date = DateTime.Now,
@@ -76,9 +76,9 @@ public class NotificationService : INotificationService
 		_notificationRepository.MarkAsRead(id);
 	}
 
-	public int GetUserID(string userId)
+	public int GetuserName(string userName)
 	{
-		return _notificationRepository.GetUserID(userId);
+		return _notificationRepository.GetuserName(userName);
 	}
 	// Delete notification
 	public void DeleteNotification(int id)

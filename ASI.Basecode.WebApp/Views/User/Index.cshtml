@@ -48,7 +48,7 @@
                 @foreach (var user in Model.Where(u => u.role == "User").OrderByDescending(u => u.createdTime))
                 {
                     <tr>
-                        <td>@user.userID</td>
+                        <td>@user.userName</td>
                         <td>@user.name</td>
                         <td>@user.email</td>
                         <td>@user.createdTime</td>
@@ -113,8 +113,8 @@
                 <div class="modal-body">
                     @Html.AntiForgeryToken()
                     <div class="form-group">
-                        <label for="userIDCreate">Username</label>
-                        <input type="text" class="form-control" id="userIDCreate" name="userID" value="@ViewBag.UserViewModel?.userID" required>
+                        <label for="userNameCreate">Username</label>
+                        <input type="text" class="form-control" id="userNameCreate" name="userName" value="@ViewBag.UserViewModel?.userName" required>
                     </div>
                     <div class="form-group">
                         <label for="NameCreate">Name</label>
@@ -171,8 +171,8 @@
 						@Html.AntiForgeryToken()
 						<input type="hidden" name="Id" value="@user.ID" />
 						<div class="mb-3">
-							<label for="userIDEdit-@user.ID" class="form-label">Username</label>
-							<input type="text" class="form-control" id="userIDEdit-@user.ID" name="userID" value="@user.userID" disabled>
+							<label for="userNameEdit-@user.ID" class="form-label">Username</label>
+							<input type="text" class="form-control" id="userNameEdit-@user.ID" name="userName" value="@user.userName" disabled>
 						</div>
 						<div class="mb-3">
 							<label for="nameEdit-@user.ID" class="form-label">Name</label>
@@ -230,7 +230,7 @@
 					<p>Are you sure you want to delete this user?</p>
 					<p><strong>User Details:</strong></p>
 						<p>
-							Username: @user.userID <br />
+							Username: @user.userName <br />
 							Name: @user.name <br />
 							Email: @user.email <br />
 						</p>
