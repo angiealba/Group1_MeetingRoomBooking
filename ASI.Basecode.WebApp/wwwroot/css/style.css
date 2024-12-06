@@ -380,7 +380,7 @@ h2 {
 
 /* Style FullCalendar */
 .fc-button {
-    background-color: #fff !important; 
+    background-color: #333 !important; 
     color: #fff !important;
     border: none !important;
     font-weight: bold;
