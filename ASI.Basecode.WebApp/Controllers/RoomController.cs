@@ -91,6 +91,32 @@ namespace ASI.Basecode.WebApp.Controllers
         [HttpPost]
         public IActionResult Update(Room room)
         {
+            (bool result, IEnumerable<Room> rooms) = _roomService.GetRooms();
+
+            if (!result)
+            {
+                TempData["ErrorMessage"] = "An error occurred while retrieving rooms.";
+                return RedirectToAction("Index");
+            }
+
+            var existingRoom = rooms.FirstOrDefault(r => r.roomId == room.roomId);
+
+            if (existingRoom == null)
+            {
+                TempData["ErrorMessage"] = "Room not found.";
+                return RedirectToAction("Index");
+            }
+
+
+            if (!string.Equals(existingRoom.roomName, room.roomName, StringComparison.OrdinalIgnoreCase))
+            {
+                if (rooms.Any(r => r.roomName.Equals(room.roomName, StringComparison.OrdinalIgnoreCase)))
+                {
+                    TempData["ErrorMessage"] = $"Room name '{room.roomName}' already exists. Please choose a different name.";
+                    return RedirectToAction("Index");
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 _roomService.UpdateRoom(room);
