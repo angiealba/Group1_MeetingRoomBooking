@@ -78,15 +78,19 @@ namespace ASI.Basecode.WebApp.Controllers
         public IActionResult EditUser(User user)
         {
             if (ModelState.IsValid)
-            {                  
+            {
                 var existingUser = _userService.GetUsers().FirstOrDefault(u => u.ID == user.ID);
-                if (existingUser != null) 
+                if (existingUser != null)
                 {
-                    var emailExists = _userService.GetUsers().Any(u => u.email == user.email);
-                    if (emailExists)
+
+                    if (!string.Equals(existingUser.email, user.email, StringComparison.OrdinalIgnoreCase))
                     {
-                        TempData["ErrorMessage"] = "Email is already registered.";
-                        return RedirectToAction("Index");
+                        var emailExists = _userService.GetUsers().Any(u => u.email == user.email);
+                        if (emailExists)
+                        {
+                            TempData["ErrorMessage"] = "Email is already registered.";
+                            return RedirectToAction("Index");
+                        }
                     }
 
                     existingUser.name = user.name;
