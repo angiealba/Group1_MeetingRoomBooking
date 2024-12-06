@@ -8874,3 +8874,7 @@ C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\booc\Group1_MeetingRoomBooking\A
 C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\booc\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\obj\Debug\net6.0\ASI.Basecode.WebApp.pdb
 C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\booc\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\obj\Debug\net6.0\ASI.Basecode.WebApp.genruntimeconfig.cache
 C:\Users\Rey Aaron Buaya\Desktop\Monik\Alliance\booc\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\obj\Debug\net6.0\ref\ASI.Basecode.WebApp.dll
+C:\elasi\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\bin\Debug\net6.0\ASI.Basecode.WebApp.staticwebassets.endpoints.json
+C:\elasi\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\obj\Debug\net6.0\staticwebassets.build.endpoints.json
+C:\elasi\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\obj\Debug\net6.0\staticwebassets\msbuild.ASI.Basecode.WebApp.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\elasi\Group1_MeetingRoomBooking\ASI.Basecode.WebApp\obj\Debug\net6.0\staticwebassets.upToDateCheck.txt
