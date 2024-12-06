@@ -142,7 +142,7 @@ namespace ASI.Basecode.WebApp.Controllers
                 }
 
                 _userService.AddUser(model);
-                TempData["SuccessMessage"] = "User successfully added";
+                TempData["SuccessMessage"] = "Admin successfully added";
                 return RedirectToAction("Index", "Admin");
             }
             catch (InvalidDataException ex) 
