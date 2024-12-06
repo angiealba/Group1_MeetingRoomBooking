@@ -24,6 +24,8 @@ namespace ASI.Basecode.Data.Repositories
             return _dbContext.Rooms.ToList();
         }
 
+        public bool RoomExists(string roomName) => GetDbSet<Room>().Any(x => x.roomName == roomName);
+
         public void AddRoom(Room room)
         {
             try

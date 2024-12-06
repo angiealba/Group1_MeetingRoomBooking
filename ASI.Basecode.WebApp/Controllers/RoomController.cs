@@ -50,10 +50,18 @@ namespace ASI.Basecode.WebApp.Controllers
         }
 
         [HttpPost]
+        [HttpPost]
         public IActionResult CreateRoom(Room room)
         {
             try
             {
+                if (_roomService.RoomExists(room.roomName))
+                {
+                    
+                    TempData["ErrorMessage"] = "A room with this name already exists!";
+                    return RedirectToAction("Index");
+                }
+
                 _roomService.AddRoom(room);
                 TempData["SuccessMessage"] = "Room created successfully!";
                 return RedirectToAction("Index");
@@ -64,6 +72,7 @@ namespace ASI.Basecode.WebApp.Controllers
                 return View(room);
             }
         }
+
 
         public IActionResult Delete(int roomId)
         {
@@ -112,7 +121,7 @@ namespace ASI.Basecode.WebApp.Controllers
             {
                 if (rooms.Any(r => r.roomName.Equals(room.roomName, StringComparison.OrdinalIgnoreCase)))
                 {
-                    TempData["ErrorMessage"] = $"Room name '{room.roomName}' already exists. Please choose a different name.";
+                    TempData["ErrorMessage"] = "A room with this name already exists!";
                     return RedirectToAction("Index");
                 }
             }

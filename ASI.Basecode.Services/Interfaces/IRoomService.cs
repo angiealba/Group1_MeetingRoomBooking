@@ -10,6 +10,8 @@ namespace ASI.Basecode.Services.Interfaces
     public interface IRoomService
     {
         (bool result, IEnumerable<Room> rooms) GetRooms();
+
+        bool RoomExists(string roomName);
         void AddRoom(Room room);
         void UpdateRoom(Room room);
         void DeleteRoom(Room room);

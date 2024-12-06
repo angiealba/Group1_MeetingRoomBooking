@@ -13,7 +13,7 @@ namespace ASI.Basecode.Data.Interfaces
         void AddRoom(Room room);
 
         void DeleteRoom(Room room);
-
+        bool RoomExists(string roomName);
         void UpdateRoom(Room room);
     }
 }

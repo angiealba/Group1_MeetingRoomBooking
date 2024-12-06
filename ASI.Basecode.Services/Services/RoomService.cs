@@ -17,7 +17,9 @@ namespace ASI.Basecode.Services.Services
             this._roomRepository = roomRepository;
         }
 
-		public (bool, IEnumerable<Room>) GetRooms()
+        public bool RoomExists(string roomName) => _roomRepository.RoomExists(roomName);
+
+        public (bool, IEnumerable<Room>) GetRooms()
 		{
 			var rooms = _roomRepository.ViewRooms();
 			if (rooms != null)
